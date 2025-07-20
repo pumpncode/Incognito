@@ -58,7 +58,7 @@ function Controller:L_cursor_press(x, y)
     end
 end
 
-local nicmodpress = love.keypressed
+local nicmodpress = love.keypressed -- Keypress
 function love.keypressed(key)
     if key == "space" then
         if G and G.jokers and G.jokers.cards and not G.SETTINGS.paused then
@@ -77,5 +77,4 @@ function love.keypressed(key)
     end
     return (nicmodpress(key))
 end
-
 -- card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "71!", colour = HEX("d0d0d0")})
