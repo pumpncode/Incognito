@@ -121,7 +121,7 @@ SMODS.Joker{ -- Crazy Taxi
     rarity = 2,
     cost = 6,
     pos = {x = 4, y = 0},
-    config = { start = 0, inblind = 0, time = 50, extra = { dollars = 1 } },
+    config = { start = 0, inblind = 0, time = 30, extra = { dollars = 1 } },
 
     loc_vars = function(self, info_queue, card)
         return { 
@@ -151,7 +151,7 @@ SMODS.Joker{ -- Crazy Taxi
 
     update = function(self, card)
         card.ability.time = string.gsub(
-            string.format("%.2f", 50 - (G.TIMERS.REAL - card.ability.start) * card.ability.inblind), "%.", ":")
+            string.format("%.2f", 30 - (G.TIMERS.REAL - card.ability.start) * card.ability.inblind), "%.", ":")
     end,
 
     calc_dollar_bonus = function(self, card)
@@ -170,7 +170,7 @@ SMODS.Joker{ -- Crazy Taxi
 
         if context.individual and context.cardarea == G.play and
         context.other_card:get_id() == G.GAME.current_round.nic_crazytaxi_card.id then
-            if (G.TIMERS.REAL - card.ability.start <= 50) then
+            if (G.TIMERS.REAL - card.ability.start <= 30) then
                 card.ability.start = card.ability.start + 5
                 return {
                     message = "+5 Seconds"
@@ -184,7 +184,7 @@ SMODS.Joker{ -- Crazy Taxi
         
         if (context.end_of_round and context.main_eval and not context.repetition) or context.forcetrigger then
 			card.ability.inblind = 0
-			if (G.TIMERS.REAL - card.ability.start <= 50) or context.forcetrigger then
+			if (G.TIMERS.REAL - card.ability.start <= 30) or context.forcetrigger then
                 card.ability.extra.dollars = card.ability.extra.dollars * 2
 				return {
                     message = "THANK YOU",
