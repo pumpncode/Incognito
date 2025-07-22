@@ -38,7 +38,7 @@ return {
                 name = "Crazy Taxi",
                 text = {
                     {"When {C:attention}end of round{} is within {C:attention}time,",
-                    "Earns {C:money}$#1#{} and doubles {C:money}cash{}",
+                    "Earns {C:money}$#1#{} and increases {C:money}cash{} by {C:money}3{}",
                     "If {C:red}failed{}, {C:attention}Crazy Taxi{} gets destroyed",
                     "{s:0.8}Time resets every round"},
                     {"Each played {C:attention}#2#{} adds {C:attention}+5 Seconds",

@@ -185,7 +185,7 @@ SMODS.Joker{ -- Crazy Taxi
         if (context.end_of_round and context.main_eval and not context.repetition) or context.forcetrigger then
 			card.ability.inblind = 0
 			if (G.TIMERS.REAL - card.ability.start <= 30) or context.forcetrigger then
-                card.ability.extra.dollars = card.ability.extra.dollars * 2
+                card.ability.extra.dollars = card.ability.extra.dollars + 3
 				return {
                     message = "THANK YOU",
                     play_sound('nic_win')
