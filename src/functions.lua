@@ -50,6 +50,25 @@ function Card:redeem()
     return nic.hooks.Card_redeem(self)
 end
 
+local function reset_nic_crazytaxi_card() -- Randomize Rank
+    G.GAME.current_round.nic_crazytaxi_card = { rank = 'Ace' }
+    local valid_crazytaxi_card = {}
+    for _, playing_card in ipairs(G.playing_cards) do
+        if not SMODS.has_no_suit(playing_card) then
+            valid_crazytaxi_card[#valid_crazytaxi_card + 1] = playing_card
+        end
+    end
+    local crazytaxi_card = pseudorandom_element(valid_crazytaxi_card, 'nic_crazytaxi' .. G.GAME.round_resets.ante)
+    if crazytaxi_card then
+        G.GAME.current_round.nic_crazytaxi_card.rank = crazytaxi_card.base.value
+        G.GAME.current_round.nic_crazytaxi_card.id = crazytaxi_card.base.id
+    end
+end
+
+function SMODS.current_mod.reset_game_globals(run_start)
+    reset_nic_crazytaxi_card()
+end
+
 local lcpref = Controller.L_cursor_press -- Cryptid
 function Controller:L_cursor_press(x, y)
     lcpref(self, x, y)
