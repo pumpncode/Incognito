@@ -1,4 +1,4 @@
-# NicBullshit
+# Nic Bullshit
 
 <img width="1775" height="1900" alt="nicjokers" src="https://github.com/user-attachments/assets/07ecd030-5323-4f06-b56b-49ddf5e883b7" />
 
