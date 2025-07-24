@@ -392,7 +392,7 @@ SMODS.Joker{ -- Stalagmite
     rarity = 3,
     cost = 8,
     pos = {x = 3, y = 1},
-    config = { extra = { mult = 50, chips = 50, extra = 2 } },
+    config = { extra = { mult = 50, chips = 50 } },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
@@ -405,7 +405,7 @@ SMODS.Joker{ -- Stalagmite
                 end
             end
         end
-        return { vars = { card.ability.extra.mult, card.ability.extra.chips, card.ability.extra.mult * stone_tally, card.ability.extra.chips * stone_tally, card.ability.extra } }
+        return { vars = { card.ability.extra.mult, card.ability.extra.chips, card.ability.extra.mult * stone_tally, card.ability.extra.chips * stone_tally } }
     end,
 
     calculate = function(self, card, context)
@@ -425,21 +425,7 @@ SMODS.Joker{ -- Stalagmite
             end
         end
 
-        if context.individual and context.cardarea == "unscored" and G.GAME.current_round.hands_left == 0 then
-            local other_card = context.other_card
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    other_card:juice_up()
-                    other_card:set_ability('m_stone')
-                    play_sound("nic_dripstone")
-                    return true
-                end
-            }))
-        end
-
         if context.joker_main then
-            local eval = function(card) return G.GAME.current_round.hands_left == 1 and not card.REMOVED end
-            juice_card_until(card, eval, true)
             local stone_tally = 0
             for k, v in ipairs(G.hand.cards) do
                 if SMODS.has_enhancement(v, 'm_stone') then stone_tally = stone_tally + 1 end

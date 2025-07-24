@@ -80,8 +80,6 @@ return {
             j_nic_stalagmite = { -- Rare
                 name = "Stalagmite",
                 text = {
-                    {"{C:attention}Unscored cards{} in {C:attention}final hand{} of",
-                    "round turn into {C:attention}Stone{} cards"},
                     {"Each played {C:attention}Stone{} card",
                     "turns {C:dark_edition}Negative{} and increases",
                     "This Joker {C:mult}Mult{} and {C:chips}Chips{} by",
