@@ -5,6 +5,20 @@ SMODS.Atlas{ -- Jokers
     py = 95,
 }
 
+SMODS.Atlas{ -- Placeholder
+    key = "placeholder",
+    path = "placeholder.png",
+    px = 71,
+    py = 95,
+}
+
+SMODS.Atlas{ -- Invisible Woman
+    key = "invisiblewoman",
+    path = "invisiblewoman.png",
+    px = 71,
+    py = 95,
+}
+
 SMODS.Atlas{ -- Blinds
     key = "nicblinds",
     path = "nicblinds.png",

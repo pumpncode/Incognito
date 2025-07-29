@@ -10,7 +10,7 @@ SMODS.Joker{ -- Button
     rarity = 1,
     cost = 3,
     pos = {x = 2, y = 0 },
-    config = { extra = { xmult = 0.05, odds = 100, chance = 1} },
+    config = { extra = { xmult = 1.5, odds = 100, chance = 1} },
 
     loc_vars = function(self, info_queue, card)
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds) 
@@ -29,12 +29,6 @@ SMODS.Joker{ -- Button
                 return { play_sound("nic_click") }
             end
         end
-        if context.key_press_d then
-            card.ability.extra.odds = pseudorandom('duck', 1, 500)
-            card:juice_up(0.5, 0.5)
-            return { play_sound("nic_duck") }
-        end
-        
         if context.joker_main then
             return { 
                 xmult = card.ability.extra.xmult 
@@ -246,69 +240,6 @@ SMODS.Joker{ -- Unlucky Cat
     end
 }
 
---[[SMODS.Joker{ -- Idk yet
-    key = "phase1",
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = false,
-    atlas = 'nicjokers',
-    rarity = 2,
-    cost = 5,
-    pos = {x = 5, y = 1},
-    config = { extra = {} },
-
-    loc_vars = function(self, info_queue, center)
-		return { vars = {} }
-	end,
-    
-    calculate = function(self, card, context)
-        if context.setting_blind then
-            card:flip()
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    card:flip()
-                    play_sound('tarot2', 1.1, 0.6)
-                    card:set_ability(G.P_CENTERS.j_nic_phase2)
-                    return true
-                end
-            }))
-        end
-    end
-}
-
-
-SMODS.Joker{ -- Idk yet
-    key = "phase2",
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = false,
-    atlas = 'nicjokers',
-    rarity = 2,
-    cost = 5,
-    pos = {x = 6, y = 1},
-    config = {},
-
-    loc_vars = function(self, info_queue, center)
-		return { vars = {} }
-	end,
-    
-    calculate = function(self, card, context)
-        if context.setting_blind then
-            card:flip()
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    card:flip()
-                    play_sound('tarot2', 1.1, 0.6)
-                    card:set_ability(G.P_CENTERS.j_nic_phase1)
-                    return true
-                end
-            }))
-        end
-    end
-}]]
-
 -- Rare
 
 SMODS.Joker{ -- Technoblade
@@ -500,6 +431,142 @@ SMODS.Joker{ -- Machinedramon
 	end
 }
 
+SMODS.Joker{ -- Human Torch
+    key = "humantorch",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nicjokers',
+    rarity = 3,
+    cost = 8,
+    pos = {x = 2, y = 2},
+    config = { extra = { levels = 1, levels_gain = 1, randomizer = 1 } },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.levels, card.ability.extra.levels_gain } }
+    end,
+    
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then 
+            card.ability.extra.randomizer = pseudorandom('nic_humantorch', 1, 4)
+        end
+
+        if (context.cardarea == G.play or context.cardarea == "unscored") and not context.blueprint and context.destroy_card == context.full_hand[card.ability.extra.randomizer] and #context.full_hand == 4 then
+            if context.scoring_name == "Four of a Kind" then
+                return {
+                    remove = true
+                }
+            end
+        end
+        if context.before and context.main_eval then
+            local eval = function(card) return G.GAME.current_round.hands_left == 1 and not card.REMOVED end
+            juice_card_until(card, eval, true)
+            if context.scoring_name == "Four of a Kind" and #context.full_hand == 4 then
+                if (G.GAME.current_round.hands_left == 0 or next(SMODS.find_card("j_nic_misterfantastic"))) then 
+                    card.ability.extra.levels = card.ability.extra.levels + card.ability.extra.levels_gain
+                    return {
+                        level_up = card.ability.extra.levels, level_up_hand = "Four of a Kind", 
+                        message = "TIME TO LIGHT IT UP",
+                        colour = G.C.BLUE
+                    }
+                else
+                    return {
+                        level_up = card.ability.extra.levels, level_up_hand = "Four of a Kind", 
+                        message = "FLAME ON",
+                        colour = G.C.BLUE,
+                    }
+                end
+            end
+        end
+    end
+}
+
+SMODS.Joker{ --  Invisible Woman
+    key = "invisiblewoman",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'invisiblewoman',
+    rarity = 3,
+    cost = 8,
+    pos = {x = 0, y = 0},
+    config = { extra = { counter = 1, counter_gain = 1, randomizer = 1 } },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
+        return { vars = { card.ability.extra.counter, card.ability.extra.counter_gain} }
+    end,
+
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then 
+            card.ability.extra.randomizer = pseudorandom('nic_invisiblewoman', 1, 4)
+        end
+
+        if context.setting_blind and not context.blueprint then
+            local eval = function(card) return G.GAME.current_round.hands_played == 0 and not card.REMOVED end
+            juice_card_until(card, eval, true)
+        end
+
+        if context.before and context.main_eval then
+            local eval = function(card) return G.GAME.current_round.hands_left == 1 and not card.REMOVED end
+            juice_card_until(card, eval, true)
+            if context.scoring_name == "Four of a Kind" and #context.full_hand == 4 and #context.full_hand == 4 then
+                if G.GAME.current_round.hands_left == 0 or next(SMODS.find_card("j_nic_misterfantastic")) then 
+                    if next(SMODS.find_card("j_nic_misterfantastic")) then
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                for i = 1, card.ability.extra.counter do
+                                    local copy_card = copy_card(context.full_hand[card.ability.extra.randomizer], nil, nil, G.playing_card)
+                                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                                    G.deck.config.card_limit = G.deck.config.card_limit + 1
+                                    table.insert(G.playing_cards, copy_card)
+                                    copy_card:set_ability("m_glass", true)
+                                    copy_card:start_materialize()
+                                    G.hand:emplace(copy_card)
+                                end
+                                return true
+                            end
+                        }))
+                    end
+                    if not context.blueprint then
+                        card.ability.extra.counter = card.ability.extra.counter + card.ability.extra.counter_gain
+                        return {
+                            message = "NEVER SEE ME COMING",
+                            colour = G.C.BLUE
+                        }
+                    end
+                end
+                if G.GAME.current_round.hands_played == 0 then
+                    if not next(SMODS.find_card("j_nic_misterfantastic")) then
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                for i = 1, card.ability.extra.counter do
+                                    local copy_card = copy_card(context.full_hand[card.ability.extra.randomizer], nil, nil, G.playing_card)
+                                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                                    G.deck.config.card_limit = G.deck.config.card_limit + 1
+                                    table.insert(G.playing_cards, copy_card)
+                                    copy_card:set_ability("m_glass", true)
+                                    copy_card:start_materialize()
+                                    G.hand:emplace(copy_card)
+                                end
+                                return true
+                            end
+                        }))
+                        return {
+                            message = "DISAPPEAR",
+                            colour = G.C.BLUE
+                        }
+                    end
+                end
+            end
+        end
+    end
+
+
+}
+
 SMODS.Joker{ -- The Thing
     key = "thething",
     blueprint_compat = true,
@@ -509,11 +576,12 @@ SMODS.Joker{ -- The Thing
     atlas = 'nicjokers',
     rarity = 3,
     cost = 8,
-    pos = {x = 5, y = 1},
-    config = { extra = { counter = 1, counter_gain = 1} },
+    pos = {x = 4, y = 2},
+    config = { extra = { counter = 1, counter_gain = 1 } },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.counter } }
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
+        return { vars = { card.ability.extra.counter, card.ability.extra.counter_gain } }
     end,
 
     calculate = function(self, card, context)
@@ -529,6 +597,7 @@ SMODS.Joker{ -- The Thing
                         G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                         stone_card.playing_card = G.playing_card
                         table.insert(G.playing_cards, stone_card)
+                        
                         stone_card:start_materialize()
                         G.play:emplace(stone_card)
                         draw_card(G.play, G.deck, 90, 'up')
@@ -541,10 +610,38 @@ SMODS.Joker{ -- The Thing
                 colour = G.C.BLUE
             }
         end
-        if context.before and context.scoring_name == "Four of a Kind" and G.GAME.current_round.hands_played == 0 and not context.blueprint then
+        if context.before and context.scoring_name == "Four of a Kind" and (G.GAME.current_round.hands_played == 0 or next(SMODS.find_card("j_nic_misterfantastic"))) and #context.full_hand == 4 and not context.blueprint then
             card.ability.extra.counter = card.ability.extra.counter + card.ability.extra.counter_gain
             return {
                 message = "CLOBBERIN' TIME",
+                colour = G.C.BLUE
+            }
+        end
+    end
+}
+
+SMODS.Joker{ -- Mister Fantastic
+    key = "misterfantastic",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nicjokers',
+    rarity = 3,
+    cost = 8,
+    pos = {x = 5, y = 2},
+
+    calculate = function(self, card, context)
+        if context.scoring_name and not context.blueprint and #context.full_hand == 4 then
+            if context.evaluate_poker_hand then
+                return {
+                    replace_scoring_name = "Four of a Kind"
+                }
+            end
+        end
+        if context.before and context.main_eval and context.scoring_name == "Four of a Kind" and #context.full_hand == 4 and not context.blueprint then
+            return {
+                message = "FANTASTIC",
                 colour = G.C.BLUE
             }
         end
@@ -666,7 +763,7 @@ SMODS.Joker{ -- Dalgona Cookie
     atlas = 'nicjokers',
     rarity = 2,
     cost = 5,
-    pos = {x = 2, y = 2},
+    pos = {x = 2, y = 3},
     config = { extra = {} },
     pools = { Food = true },
 
@@ -707,7 +804,7 @@ SMODS.Joker{ -- Dalgona Circle
     atlas = 'nicjokers',
     rarity = "nic_dalgona",
     cost = 0,
-    pos = {x = 3, y = 2},
+    pos = {x = 3, y = 3},
     config = { extra = { xmult = 1.5, xmult_gain = 0.25, min = 1, max = 2, randomizer = 1, price = 1, counter = 3 } },
     pools = { Food = true },
 
@@ -820,7 +917,7 @@ SMODS.Joker{ -- Dalgona Triangle
     atlas = 'nicjokers',
     rarity = "nic_dalgona",
     cost = 0,
-    pos = {x = 4, y = 2},
+    pos = {x = 4, y = 3},
     config = { extra = { xmult = 1.5, xmult_gain = 0.25, min = 1, max = 3, randomizer = 1, price = 2, counter = 3 } },
     pools = { Food = true },
 
@@ -933,7 +1030,7 @@ SMODS.Joker{ -- Dalgona Star
     atlas = 'nicjokers',
     rarity = "nic_dalgona",
     cost = 0,
-    pos = {x = 5, y = 2},
+    pos = {x = 5, y = 3},
     config = { extra = { xmult = 1.5, xmult_gain = 0.25, min = 1, max = 5, randomizer = 1, price = 3, counter = 3 } },
     pools = { Food = true },
 
@@ -1046,7 +1143,7 @@ SMODS.Joker{ -- Dalgona Umbrella
     atlas = 'nicjokers',
     rarity = "nic_dalgona",
     cost = 0,
-    pos = {x = 6, y = 2},
+    pos = {x = 6, y = 3},
     config = { extra = { xmult = 1.5, xmult_gain = 0.25, min = 1, max = 8, randomizer = 1, price = 5, counter = 3 } },
     pools = { Food = true },
 
@@ -1161,7 +1258,7 @@ SMODS.Joker{ -- Kasane Jokto
     atlas = 'nicjokers',
     rarity = 2,
     cost = 5,
-    pos = {x = 2, y = 3},
+    pos = {x = 2, y = 4},
     config = { extra = { repetitions = 2 } },
 
     loc_vars = function(self, info_queue, card)
@@ -1194,7 +1291,7 @@ SMODS.Joker{ -- Ambassador Teto
     atlas = 'nicjokers',
     rarity = 3,
     cost = 7,
-    pos = {x = 3, y = 3},
+    pos = {x = 3, y = 4},
     config = { extra = { xmult = 1.5 } },
 
     loc_vars = function(self, info_queue, card)
@@ -1267,7 +1364,7 @@ SMODS.Joker{ -- Pear
     atlas = 'nicjokers',
     rarity = 1,
     cost = 6,
-    pos = {x = 4, y = 3},
+    pos = {x = 4, y = 4},
     config = { extra = { levels = 2, pear = 5, pear_loss = 1 } },
     pools = { Food = true },
 
@@ -1330,7 +1427,7 @@ SMODS.Joker{ -- Pearto
     atlas = 'nicjokers',
     rarity = 2,
     cost = 7,
-    pos = {x = 5, y = 3},
+    pos = {x = 5, y = 4},
     config = { extra = { levels = 3, mult = 0, chips = 0 } },
     pools = { Food = true },
 
@@ -1357,7 +1454,7 @@ SMODS.Joker{ -- Pearto
 
         if context.joker_main then
             card.ability.extra.mult = G.GAME.hands["Pair"].played * 10
-            card.ability.extra.chips = to_big(G.GAME.hands["Pair"].level) * 50
+            card.ability.extra.chips = to_number(G.GAME.hands["Pair"].level) * 50
             return {
                 mult = card.ability.extra.mult,
                 chips = card.ability.extra.chips
@@ -1375,8 +1472,8 @@ SMODS.Joker{ -- Doctor Kidori
     atlas = 'nicjokers',
     rarity = 4,
     cost = 20,
-    pos = {x = 0, y = 3},
-    soul_pos = {x = 1, y = 3},
+    pos = {x = 0, y = 4},
+    soul_pos = {x = 1, y = 4},
     config = { extra = { xmult = 2, doctorkidori_right = 1 } },
 
     loc_vars = function(self, info_queue, card)
@@ -1419,6 +1516,42 @@ SMODS.Joker{ -- Doctor Kidori
 } 
 
 -- SCRAP
+
+SMODS.Joker{ -- Transfer overscore
+    key = "test",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'placeholder',
+    rarity = 2,
+    cost = 6,
+    pos = {x = 0, y = 0},
+    config = { extra = { leftovers = 0, chips = 0 } },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.leftovers, card.ability.extra.chips } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            card.ability.extra.chips = (to_number(G.GAME.chips) - to_number(G.GAME.blind.chips))/2
+            card.ability.extra.leftovers = to_number(G.GAME.chips) - to_number(G.GAME.blind.chips)
+            return {
+                message = "Yum"
+            }
+        end
+
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+        if context.after then
+            card.ability.extra.chips = 0
+        end
+    end
+}
 
 --[[SMODS.Joker{ -- Pot of Greed
     key = "potofgreed",

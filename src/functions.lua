@@ -11,6 +11,10 @@ to_big = to_big or function(num) -- Talisman Bullshit
     return num
 end
 
+to_number = to_number or function(num)
+    return num
+end
+
 local getiduse = false
 local getidref = Card.get_id -- Cards are Considered Rank
 function Card:get_id()
@@ -96,5 +100,46 @@ function love.keypressed(key)
         end
     end
     return (nicmodpress(key))
+end
+
+local hoverref = Card.hover -- Invisible Woman
+function Card:hover()
+    hoverref(self)
+    if self.config.center.key == "j_nic_invisiblewoman" then
+        local _atlas, _pos = get_front_spriteinfo(self.config.card)
+        _pos = { x = 1, y = 0 }
+        _atlas = G.ASSET_ATLAS['nic_invisiblewoman']
+        if self.children.front then
+            self.children.front.atlas = _atlas
+            self.children.front:set_sprite_pos(_pos)
+        else
+            self.children.front = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, _atlas, _pos)
+            self.children.front.states.hover = self.states.hover
+            self.children.front.states.click = self.states.click
+            self.children.front.states.drag = self.states.drag
+            self.children.front.states.collide.can = false
+            self.children.front:set_role({major = self, role_type = 'Glued', draw_major = self})
+        end
+    end
+end
+local stop_hoverref = Card.stop_hover
+function Card:stop_hover()
+    stop_hoverref(self)
+    if self.config.center.key == "j_nic_invisiblewoman" then
+        local _atlas, _pos = get_front_spriteinfo(self.config.card)
+        _pos = { x = 0, y = 0 }
+        _atlas = G.ASSET_ATLAS['nic_invisiblewoman']
+        if self.children.front then
+            self.children.front.atlas = _atlas
+            self.children.front:set_sprite_pos(_pos)
+        else
+            self.children.front = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, _atlas, _pos)
+            self.children.front.states.hover = self.states.hover
+            self.children.front.states.click = self.states.click
+            self.children.front.states.drag = self.states.drag
+            self.children.front.states.collide.can = false
+            self.children.front:set_role({major = self, role_type = 'Glued', draw_major = self})
+        end
+    end
 end
 -- card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "71!", colour = HEX("d0d0d0")})

@@ -9,14 +9,7 @@ return {
                 }
             }
         },
-        Edition={
-            e_nic_test = {
-                name = "Test",
-                text = {
-                    "Test",
-                }
-            }
-        },
+        Edition={},
         Enhanced={},
         Joker = {
             j_nic_button = { -- Common
@@ -28,6 +21,16 @@ return {
                     {"When {C:attention}Clicked or Space{} is Pressed,",
                     "{C:attention}Button{} has a {C:green}#1# in #2#{} chance",
                     "to delete itself :3"},
+                }
+            },
+            j_nic_test = {
+                name = "AGHHH",
+                text = {
+                    "Leftover {C:chips}chips{} from the {C:attention}score", 
+                    "{C:attention}requirement{} are {C:attention}halved{} and used as",
+                    "current {C:chips}chips{} for the {C:attention}first hand",
+                    "{C:inactive}(Leftover chips last round: {C:attention}#1#{C:inactive})",
+                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
                 }
             },
             j_nic_slycooper = { -- Uncommon
@@ -102,14 +105,45 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"},
                 }
             },
+            j_nic_humantorch = { -- Rare
+                name = "Human Torch",
+                text = {
+                    {"All played {C:attention}Four of a Kind{} with exactly",
+                    "{C:attention}4{} cards, Upgrades {C:attention}Four of a Kind{} by {C:attention}#1#",
+                    "{C:attention}levels{} and destroy a {C:attention}random played card"},
+                    {"If {C:attention}last played hand{} of round",
+                    "has the same conditions above,",
+                    "increase the {C:attention}level{} by {C:attention}#2#"},
+                }
+            },
+            j_nic_invisiblewoman = { -- Rare
+                name = "Invisible Woman",
+                text = {
+                    {"If {C:attention}first played{} is a {C:attention}Four of a Kind{}",
+                    "with exactly {C:attention}4{} cards, Creates {C:attention}#1# Glass",
+                    "card from {C:attention}random played card{} to {C:attention}hand"},
+                    {"If {C:attention}last played hand{} of round has",
+                    "the same conditions above, increase the",
+                    "amount of {C:attention}Glass{} cards created by {C:attention}#2#"},
+                }
+            },
             j_nic_thething = { -- Rare
                 name = "The Thing",
                 text = {
                     {"When round begins, adds {C:attention}#1# Stone{}",
                     "cards with a random {C:attention}seal{} to your deck"},
-                    {"If {C:attention}first played hand{} of round",
-                    "is a {C:attention}Four of a Kind{}, increase the",
-                    "amount of {C:attention}Stone{} cards by {C:attention}1"},
+                    {"If {C:attention}first played{} is a {C:attention}Four of a Kind{}",
+                    "with exactly {C:attention}4{} cards, increase the",
+                    "amount of {C:attention}Stone{} cards by {C:attention}#2#"},
+                }
+            },
+            j_nic_misterfantastic = { -- Rare
+                name = "Mister Fantastic",
+                text = {
+                    {"All {C:attention}played hands{} with exactly {C:attention}4",
+                    "cards are considered {C:attention}Four of a Kind{}"},
+                    {"Every {C:blue}Fantastic{} Joker {C:attention}played hands",
+                    "condition can be {C:attention}played whenever"},
                 }
             },
             j_nic_incognito = { -- Legendary
@@ -221,7 +255,7 @@ return {
                 name = "Pear",
                 text = {
                     {"If played hand is a {C:attention}Pair{},",
-                    "upgrades {C:attention}Pair{} by {C:attention}#1# level"},
+                    "upgrades {C:attention}Pair{} by {C:attention}#1# levels"},
                     {"This Joker is destroyed",
                     "after triggering {C:attention}5{} times",
                     "{C:inactive}(#2# remaining)"},
@@ -253,7 +287,14 @@ return {
                 }
             },
         },
-        Other={},
+        Other={
+            extraslot = {
+                name = "Extra Slot",
+                text = {
+                    "{C:dark_edition}+1{} Joker slot",
+                }
+            },
+        },
         Planet={},
         Spectral={},
         Stake={},
