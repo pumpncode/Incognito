@@ -32,7 +32,7 @@ SMODS.Joker{ -- Kasane Jokto
 
 SMODS.Joker{ -- Ambassador Teto
     key = "ambassadorteto",
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
     discovered = false,
@@ -40,47 +40,18 @@ SMODS.Joker{ -- Ambassador Teto
     rarity = "nic_teto",
     cost = 6,
     pos = {x = 1, y = 0},
-    config = { extra = {} },
+    config = { extra = { xmult = 1.5 } },
     pools = { ["Teto"] = true },
 
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult } }
+    end,
+
     calculate = function(self, card, context)        
-        if context.individual and context.cardarea == G.hand and not context.end_of_round and not context.blueprint then
-            if context.other_card:is_suit("Clubs") then
-                local other_card = context.other_card
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        other_card:juice_up()
-                        play_sound('tarot1')
-                        other_card:change_suit('Diamonds')
-                        return true
-                    end
-                }))
-                delay(0.5)
-            end
-            if context.other_card:is_suit("Diamonds") then
-                local other_card = context.other_card
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        other_card:juice_up()
-                        play_sound('tarot1')
-                        other_card:change_suit('Spades')
-                        return true
-                    end
-                }))
-                delay(0.5)
-            end
-            if context.other_card:is_suit("Spades") then
-                local other_card = context.other_card
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        other_card:juice_up()
-                        play_sound('tarot1')
-                        other_card:change_suit('Hearts')
-                        return true
-                    end
-                }))
-                delay(0.5)
-            end
+        if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:is_suit("Hearts") then
+            return {
+                xmult = card.ability.extra.xmult
+            }
         end
     end
 }
@@ -220,9 +191,9 @@ SMODS.Joker{ -- Doctor Kidori
     rarity = "nic_teto",
     cost = 8,
     pos = {x = 4, y = 0},
-    config = { extra = { xmult = 1.5 } },
+    config = { extra = {} },
     pools = { ["Teto"] = true },
-} 
+}
 
 SMODS.Joker{ -- Birdbrain Teto
     key = "birdbrainteto",
@@ -279,7 +250,7 @@ SMODS.Joker{ -- Tenebre Rosso Sangue Teto
     end,
 
     calculate = function(self, card, context)
-        if context.remove_playing_cards and context.removed and #context.removed > 0 then
+        if context.remove_playing_cards then
             local heart_cards = 0
             for _, removed_card in ipairs(context.removed) do
                 if removed_card:is_suit("Hearts") then
@@ -500,7 +471,7 @@ SMODS.Joker{ -- Spamteto
             end
         end
 
-        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+        if context.end_of_round and context.main_eval and not context.blueprint then
             card.ability.extra.dollars_final = card.ability.extra.dollars_final + math.floor(G.GAME.dollars * (card.ability.extra.dollars/100))
             card.ability.extra.uses = 0
             return {
@@ -579,7 +550,7 @@ SMODS.Joker{ -- Minimum Rage Teto
     end, 
 
     calculate = function(self, card, context)
-        if (context.buying_card or context.nic_buying_booster) and not context.blueprint and not context.retrigger_joker then
+        if (context.buying_card or context.nic_buying_booster) and not context.blueprint and context.card.cost > 0 then
             card.ability.extra.mult = card.ability.extra.mult + context.card.cost
             return { message = ("SMILE +" .. context.card.cost), colour = HEX("e15d73") }
         end
@@ -592,6 +563,100 @@ SMODS.Joker{ -- Minimum Rage Teto
         if context.joker_main then
             return {
                 mult = card.ability.extra.mult
+            }
+        end
+    end
+}
+
+SMODS.Joker{ -- Teto Territory
+    key = "tetoterritory",
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nictetojokers',
+    rarity = "nic_teto",
+    cost = 5,
+    pos = {x = 3, y = 2},
+    config = { extra = {} },
+    pools = { ["Teto"] = true },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { colours = { HEX('e15d73') } } }
+    end, 
+
+    calculate = function(self, card, context)
+        if context.setting_blind and not context.blueprint and context.blind.boss then
+            local teto_jokers = {}
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] ~= card and not G.jokers.cards[i].getting_sliced and G.jokers.cards[i].config.center.rarity ~= "nic_teto" and not G.jokers.cards[i].ability.nic_tetosticker then
+                    teto_jokers[#teto_jokers + 1] = G.jokers.cards[i]
+                end
+            end
+            local joker_to_teto = pseudorandom_element(teto_jokers, 'nic_tetoterritory')
+
+            if joker_to_teto then
+                if (joker_to_teto.config.center.pools or {}).Food then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            joker_to_teto:juice_up(0.5, 0.5)
+                            play_sound('tarot2', 1.1, 0.6)
+                            joker_to_teto:set_ability(G.P_CENTERS.j_nic_pear)
+                            return true
+                        end
+                    }))
+                else
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            joker_to_teto:juice_up(0.5, 0.5)
+                            play_sound('tarot2', 1.1, 0.6)
+                            joker_to_teto:set_ability(pseudorandom_element(G.P_CENTER_POOLS.Teto, 'teto').key)
+                            return true
+                        end
+                    }))
+                end
+                return { message = "TERRITORY", colour = HEX("e15d73") }
+            end
+        end
+    end
+}
+
+SMODS.Joker{ -- Contradictions Teto
+    key = "contradictionsteto",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nictetojokers',
+    rarity = "nic_teto",
+    cost = 5,
+    pos = {x = 4, y = 2},
+    config = { extra = {} },
+    pools = { ["Teto"] = true },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end, 
+
+    calculate = function(self, card, context)
+        if context.after then
+            for i = 1, #G.playing_cards do
+                local other_card = G.playing_cards[i]
+                if next(SMODS.get_enhancements(other_card)) and (other_card:is_suit("Hearts") or other_card.base.suit == "Hearts") then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            other_card:juice_up()
+                            play_sound('tarot1')
+                            other_card:set_ability(SMODS.poll_enhancement { guaranteed = true }, nil, true)
+                            return true
+                        end
+                    }))
+                    delay(0.1)
+                end
+            end
+            return {
+                message = "CONTRADICTIONS",
+                colour = HEX("e15d73")
             }
         end
     end

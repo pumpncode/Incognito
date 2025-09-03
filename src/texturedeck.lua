@@ -25,17 +25,27 @@ if atlas_path_hc then
     }
 end
 
-for _, suit in ipairs(suits) do
-    SMODS.DeckSkin{
-        key = suit.."_skin",
-        suit = suit:gsub("^%l", string.upper),
-        ranks = ranks,
-		display_ranks = {"Jack", "Queen", "King"},
-        lc_atlas = atlas_key..'_lc',
-        hc_atlas = (atlas_path_hc and atlas_key..'_hc') or atlas_key..'_lc',
-        loc_txt = {
-            ['en-us'] = description
+SMODS.DeckSkin {
+    key = "incognito_suits",
+    suit = "Spades",
+    palettes = {
+        {
+            key = 'lc',
+            ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'},
+            display_ranks = {"King","Queen","Jack"},
+            atlas = atlas_key..'_lc',
+            pos_style = "deck",
         },
-        posStyle = 'deck'
-    }
-end
+        {
+            key = 'hc',
+            ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'},
+            display_ranks = {"King","Queen","Jack"},
+            atlas = (atlas_path_hc and atlas_key..'_hc') or atlas_key..'_lc',
+            pos_style = "deck",
+            colour = HEX("d0d0d0"),
+        }
+    },
+    loc_txt = {
+        ['en-us'] = description
+    },
+}

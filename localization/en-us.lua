@@ -76,21 +76,22 @@ return {
             j_nic_stalagmite = { -- Rare
                 name = "Stalagmite",
                 text = {
-                    {"Each played {C:attention}Stone{} card",
-                    "turns {C:dark_edition}Negative{} and increases",
-                    "This Joker {C:mult}Mult{} and {C:chips}Chips{} by",
-                    "{C:mult}+25{} Mult and {C:chips}+25{} Chips"},
-                    {"{C:mult}+#1#{} Mult and {C:chips}+#2#{} Chips",
-                    "for each {C:attention}Stone{} card held in hand",
-                    "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)",
-                    "{C:inactive}(Currently {C:chips}+#4#{C:inactive} Chips)"},
+                    {"Played {C:attention}Stone{} card turns {C:dark_edition}Negative",
+                    "while {C:dark_edition}Negative {C:attention}Stone{} card gets",
+                    "destroyed and increases {C:chips}Chips{} by {C:chips}#2#"},
+                    {"{C:chips}+#1#{} Chips for each",
+                    "{C:attention}Stone{} card held in hand",
+                    "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"},
                 }
             },
             j_nic_machinedramon = { -- Rare
-                name = "Machinedramon",
+                name = {
+                    "Machinedramon",
+                    "{C:black,X:white,s:0.6}MEGA{s:0.6}/{C:black,X:white,s:0.6}VIRUS{s:0.6}/{C:black,X:white,s:0.6}MACHINE"
+                },
                 text = {
-                    {"All {C:attention}cards{} held in hand turn into",
-                    "{C:attention}Steel{} cards on {C:attention}final hand{} of round"},
+                    {"At end of round, all non {C:attention}Enhanced cards{}",
+                    "held in hand turn into {C:attention}Steel{} cards"},
                     {"Played {C:attention}Steel{} cards get destroyed",
                     "and gains {C:mult}+15{} Mult and {X:mult,C:white}X0.5{} Mult",
                     "{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult and {X:mult,C:white} X#2# {C:inactive} Mult)"},
@@ -104,9 +105,7 @@ return {
                     "{C:inactive,s:0.8}This also includes Enternals",
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"},
                     {"If Both Jokers get destroyed in",
-                    "{C:attention}Boss Blind{}, disable {C:attention}Boss Blind{} effects",
-                    "{C:inactive,s:0.8}This Joker cannot be destroyed (except for itself)",
-                    "{C:dark_edition}+1 Joker Slot"},
+                    "{C:attention}Boss Blind{}, disable {C:attention}Boss Blind{} effects"},
                 }
             },
             j_nic_cyan = { -- Rare
@@ -133,12 +132,9 @@ return {
             j_nic_invisiblewoman = { -- Rare
                 name = "Invisible Woman",
                 text = {
-                    {"If {C:attention}first played{} is a {C:attention}Four of a Kind{}",
-                    "with exactly {C:attention}4{} cards, Creates {C:attention}#1# Glass",
-                    "card from {C:attention}random played card{} to {C:attention}hand"},
-                    {"If {C:attention}last played hand{} of round has",
-                    "the same conditions above, increase the",
-                    "amount of {C:attention}Glass{} cards created by {C:attention}#2#"},
+                    "If {C:attention}first played{} is a {C:attention}Four of {C:attention}a kind with", 
+                    "exactly {C:attention}4{} cards, turns all cards into glass",
+                    "{C:inactive,s:0.8}Glass cards have a higher chance to break",
                 }
             },
             j_nic_thething = { -- Rare
@@ -155,7 +151,8 @@ return {
                 name = "Mister Fantastic",
                 text = {
                     {"All {C:attention}played hands{} with exactly {C:attention}4",
-                    "cards are considered {C:attention}Four of a Kind{}"},
+                    "cards are considered {C:attention}Four of a Kind",
+                    "and the {C:attention}cards{} will count in scoring"},
                     {"Every {C:blue}Fantastic{} Joker {C:attention}played hands",
                     "condition can be {C:attention}played whenever"},
                 }
@@ -163,12 +160,12 @@ return {
             j_nic_incognito = { -- Legendary
                 name = "Incognito",
                 text = {
-                    {"Each Non {C:spades}Spades{} Suits held in hand",
-                    "have a {C:green}#1# in #2#{} chance to be",
-                    "Destroyed and Gains {X:mult,C:white}X1"},
-                    {"{C:spades}Spades{} can't be debuffed"},
-                    {"Each {C:spades}Spades{} held in hand give",
-                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)"},
+                    {"This Joker gains {X:mult,C:white} X#3# {} Mult when a",
+                    "non {C:spades}Spade{} card is destroyed"},
+                    {"Each non {C:spades}Spade{} cards held in hand",
+                    "have a {C:green}#1# in #2#{} chance to be destroyed",
+                    "While each {C:spades}Spade{} cards",
+                    "held in hand gives {X:mult,C:white} X#4#{} Mult"},
                 }
             },
             
@@ -185,12 +182,9 @@ return {
             j_nic_ambassadorteto = {
                 name = "Ambassador Teto",
                 text = {
-                    "All cards held in hand",
-                    "change {C:attention}suits{} in this order",
-                    "{C:clubs}Clubs{} > {C:diamonds}Diamonds{} >",
-                    "{C:spades}Spades{} > {C:hearts}Hearts{}",
-                    "{C:inactive}(Stops at {C:hearts}Hearts{C:inactive})",
-                    "{C:inactive,s:0.8,E:1}Credit: dada",
+                    "Each {C:hearts}Hearts{} held in hand",
+                    "gives {X:mult,C:white} X#1# {} Mult",
+                    "{C:inactive,s:0.8,E:1}Song By: dada",
                 }
             },
             j_nic_pear = {
@@ -213,7 +207,7 @@ return {
                 text = {
                     "All cards are",
                     "considered {C:attention}4{}",
-                    "{C:inactive,s:0.8,E:1}Credit: {C:inactive,f:5,s:0.8,E:1}原口沙輔",
+                    "{C:inactive,s:0.8,E:1}Song By: {C:inactive,f:5,s:0.8,E:1}原口沙輔",
                     "{C:inactive,s:0.8,E:1} Hako, Sasuke Haraguchi",
                 }
             },
@@ -223,7 +217,7 @@ return {
                     "This Joker gains {C:mult}+#2#{} Mult",
                     "per {C:attention}consecutive Pair",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
-                    "{C:inactive,s:0.8,E:1}Credit: Jamie Paige",
+                    "{C:inactive,s:0.8,E:1}Song By: Jamie Paige",
 
                 }
             }, 
@@ -232,7 +226,7 @@ return {
                 text = {
                     "This Joker gains {C:money}$#1#{} for",
                     "each {C:hearts}Heart{} card destroyed",
-                    "{C:inactive,s:0.8,E:1}Credit: Sandwich",
+                    "{C:inactive,s:0.8,E:1}Song By: Sandwich",
                 }
             },
             j_nic_spokenforteto = { 
@@ -240,7 +234,7 @@ return {
                 text = {
                     "Each {V:1}Teto{} themed {C:attention}card",
                     "gives {X:red,C:white} X#1# {} Mult ",
-                    "{C:inactive,s:0.8,E:1}Credit: FLAVOR FOLEY",
+                    "{C:inactive,s:0.8,E:1}Song By: FLAVOR FOLEY",
                 }
             },
             j_nic_tetowordoftheday = { 
@@ -258,7 +252,7 @@ return {
                 text = {
                     "Retrigger leftmost {V:1}Teto",
                     "Joker {C:attention}#1#{} additional times",
-                    "{C:inactive,s:0.8,E:1}Credit: 32ki",
+                    "{C:inactive,s:0.8,E:1}Song By: 32ki",
                 }
             },
             j_nic_spamteto = {
@@ -277,17 +271,36 @@ return {
                     "for every {C:attention}#2#{C:inactive} [#1#] {C:attention}hands{}",
                     "that contains {C:hearts}Hearts",
                     "{C:inactive}(Must have room)",
-                    "{C:inactive,s:0.8,E:1}Credit: Hiiragi Magnetit",
+                    "{C:inactive,s:0.8,E:1}Song By: Hiiragi Magnetit",
                 }
             },
             j_nic_minimumrageteto = {
-                name = "Minimum Rage Teto ",
+                name = "Minimum Rage Teto",
                 text = {
                     "Recent bought {C:attention}card cost",
                     "adds into current {C:mult}Mult{},",
                     "resets when any {C:attention}card{} is {C:attention}sold",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
-                    "{C:inactive,s:0.8,E:1}Credit: MonochroMenace",
+                    "{C:inactive,s:0.8,E:1}Song By: MonochroMenace",
+                }
+            },
+            j_nic_tetoterritory = {
+                name = "Teto Territory",
+                text = {
+                    "When {C:attention}Boss Blind{} is selected,",
+                    "a random non {V:1}Teto{} Joker", 
+                    "turns into a {V:1}Teto{} Joker",
+                    "{C:inactive,s:0.8} Food Jokers turn into Pears",
+                    "{C:inactive,s:0.8,E:1}Song By: Oxi",
+                }
+            },
+            j_nic_contradictionsteto = {
+                name = "Contradictions Teto",
+                text = {
+                    "All {C:attention}Enhanced {C:hearts}Heart{} cards ",
+                    "in your {C:attention}full deck{} changes",
+                    "{C:attention}Enhancment{} after scoring",
+                    "{C:inactive,s:0.8,E:1}Song By: darkbluecat",
                 }
             },
 
@@ -319,6 +332,32 @@ return {
                     "{C:inactive}(Currently {X:chips,C:white} X#1# {C:inactive} Chips)",
                 }
             },
+            j_nic_astromancer = {
+                name = "Astromancer",
+                text = {
+                    "Create a {C:planet}Planet{} card",
+                    "when {C:attention}Blind{} is selected",
+                    "{C:inactive}(Must have room)",
+                }
+            },
+            j_nic_cartonomer = {
+                name = "Cartonomer",
+                text = {
+                    "All {C:tarot}Tarot{} cards and",
+                    "{C:tarot}Arcana Packs{} in",
+                    "the shop are {C:attention}free",
+                },
+            },
+            j_nic_tierlist = {
+                name = "Tierlist",
+                text = {
+                    "Add rank of first played",
+                    "{C:attention}number{} card to Mult",
+                    "Minus rank of last played",
+                    "{C:attention}number{} card to Mult",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
+                }
+            },
         },
         Other={
             nic_tetosticker = {
@@ -334,6 +373,13 @@ return {
                     "When in pack, {C:spectral}Moon{} goes into", 
                     "{C:attention}Consumeables slot{} when {C:attention}used",
                     "{C:inactive}(Must have room)",
+                }
+            },
+            nic_spades_no_debuff = {
+                name = " Passive Ability ",
+                text = {
+                    "{C:spades}Spades{} can't", 
+                    "be debuffed",
                 }
             }
         },
@@ -402,8 +448,9 @@ return {
             c_nic_tetotarot = {
                 name = "Tetarot",
                 text = {
-                    "Gives leftmost Joker",
-                    "a {V:1}Teto{} Sticker"
+                    "Gives selected Joker",
+                    "a {V:1}Teto{} Sticker",
+                    "{C:inactive,s:0.8} Food Jokers turn into Pears",
                 }
             },
         },
@@ -427,7 +474,22 @@ return {
         },
         poker_hand_descriptions={},
         poker_hands={},
-        quips={},
+        quips={
+            -- Win
+
+            nic_tetowordofthedaywin1 = {
+                "Teto Word Of The Day",
+                "      Winner :D"
+            },
+            nic_peartowin1 = {"Pear"},
+
+            -- Loss
+
+            nic_tetowordofthedaylose1 = {
+                "Teto Word Of The Day",
+                "      Loser :P"
+            },
+        },
         ranks={},
         suits_plural={},
         suits_singular={},

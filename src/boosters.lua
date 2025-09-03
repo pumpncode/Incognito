@@ -19,6 +19,7 @@ SMODS.Booster{
         extra = 3,
         choose = 1
     },
+    kind = 'Teto',
     loc_vars = function(self,info_queue,center)
         return {
             vars = {

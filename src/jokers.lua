@@ -57,7 +57,7 @@ SMODS.Joker{ -- Ratio Technique
     calculate = function(self, card, context)
         if not context.blueprint then 
             if ((((#G.hand.cards - #G.hand.highlighted ) * (0.70)) * 10) % 10 ) <= 4 then 
-                card.ability.extra.ratio = math.round((#G.hand.cards - #G.hand.highlighted ) * (0.70))
+                card.ability.extra.ratio = math.floor((#G.hand.cards - #G.hand.highlighted ) * (0.70))
             else
                 card.ability.extra.ratio = math.ceil((#G.hand.cards - #G.hand.highlighted ) * (0.70))
             end
@@ -186,7 +186,7 @@ SMODS.Joker{ -- Crazy Taxi
     loc_vars = function(self, info_queue, card)
         return { 
             vars = { 
-                card.ability.extra.dollars, 
+                card.ability.extra.dollars,
                 localize((G.GAME.current_round.nic_crazytaxi_card or {}).rank or 'Ace', 'ranks')
             },
             main_end = {
@@ -210,8 +210,12 @@ SMODS.Joker{ -- Crazy Taxi
     end,
 
     update = function(self, card)
-        card.ability.time = string.gsub(
-            string.format("%.2f", 30 - (G.TIMERS.REAL - card.ability.start) * card.ability.inblind), "%.", ":")
+        local time = 30 - (G.TIMERS.REAL - card.ability.start) * card.ability.inblind
+        if time <= 0 then
+            card.ability.time = "0:00"
+        else
+            card.ability.time = string.gsub(string.format("%.2f", time), "%.", ":")
+        end
     end,
 
     calc_dollar_bonus = function(self, card)
@@ -272,6 +276,7 @@ SMODS.Joker{ -- Strawberry Cake
     cost = 5,
     pos = {x = 6, y = 0},
     config = { extra = { mult = 2 } },
+    pools = { Food = true },
     
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
@@ -299,7 +304,7 @@ SMODS.Joker{ -- Strawberry Cake
                 }
             end
         end
-        if context.individual and context.cardarea == G.play and next(context.poker_hands['Flush']) then
+        if context.individual and context.cardarea == G.play and next(context.poker_hands['Flush']) and not G.GAME.current_round.hands_played == 0 then
             context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) + card.ability.extra.mult
             return {
                 message = "+Mult <3",
@@ -372,7 +377,7 @@ SMODS.Joker{ -- Stalagmite
     rarity = 3,
     cost = 8,
     pos = {x = 3, y = 1},
-    config = { extra = { mult = 50, chips = 50 } },
+    config = { extra = { chips = 50, chips_gain = 50 } },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
@@ -384,23 +389,34 @@ SMODS.Joker{ -- Stalagmite
                 end
             end
         end
-        return { vars = { card.ability.extra.mult, card.ability.extra.chips, card.ability.extra.mult * stone_tally, card.ability.extra.chips * stone_tally } }
+        return { vars = { card.ability.extra.chips, card.ability.extra.chips_gain, card.ability.extra.chips * stone_tally } }
     end,
 
     calculate = function(self, card, context)
+        if context.destroy_card and context.destroy_card.should_destroy and not context.blueprint then
+            return { remove = true }
+        end
+
         if context.individual and context.cardarea == G.play then
             if SMODS.has_enhancement(context.other_card, 'm_stone') then
-                card.ability.extra.chips = card.ability.extra.chips + 25
-                card.ability.extra.mult = card.ability.extra.mult + 25
-                local other_card = context.other_card
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        other_card:juice_up()
-                        other_card:set_edition('e_negative', nil, true)
-                        play_sound("nic_dripstone")
-                        return true
-                    end
-                }))
+                if context.other_card.edition and context.other_card.edition.negative == true then
+                    card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
+                    context.other_card.should_destroy = true
+                    return {
+                        message = "Impaled",
+                        colour = G.C.CHIPS
+                    }
+                else
+                    local other_card = context.other_card
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            other_card:juice_up()
+                            other_card:set_edition('e_negative', nil, true)
+                            play_sound("nic_dripstone")
+                            return true
+                        end
+                    }))
+                end
             end
         end
 
@@ -410,7 +426,6 @@ SMODS.Joker{ -- Stalagmite
                 if SMODS.has_enhancement(v, 'm_stone') then stone_tally = stone_tally + 1 end
             end
             return {
-                mult = card.ability.extra.mult * stone_tally,
                 chips = card.ability.extra.chips * stone_tally
             }
         end
@@ -434,28 +449,26 @@ SMODS.Joker{ -- Machinedramon
         return { vars = { card.ability.extra.mult, card.ability.extra.xmult } }
     end,
 
-    set_badges = function(self, card, badges)
-        badges[#badges+1] = create_badge('Mega', G.C.BLACK, G.C.WHITE, 0.5)
-        badges[#badges+1] = create_badge('Virus', G.C.BLACK, G.C.WHITE, 0.5)
-        badges[#badges+1] = create_badge('Machine', G.C.BLACK, G.C.WHITE, 0.5)
-    end,
-
     calculate = function(self, card, context)
         if context.destroy_card and context.destroy_card.should_destroy and not context.blueprint then
             return { remove = true }
         end
 
-        if context.individual and context.cardarea == G.hand and not context.blueprint and G.GAME.current_round.hands_left == 0 then
+        if context.individual and context.cardarea == G.hand and not context.blueprint and context.end_of_round then
             if context.other_card then
 			    local other_card = context.other_card
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        other_card:juice_up()
-                        other_card:set_ability('m_steel')
-                        play_sound("nic_machinedramon")
-                        return true
-                    end
-                }))
+                if not next(SMODS.get_enhancements(other_card)) and not other_card.debuff then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.5,
+                        func = function()
+                            other_card:juice_up()
+                            other_card:set_ability('m_steel')
+                            play_sound("nic_machinedramon")
+                            return true
+                        end
+                    }))
+                end
             end
         end
 
@@ -469,8 +482,6 @@ SMODS.Joker{ -- Machinedramon
         end
 
         if context.joker_main then
-            local eval = function(card) return G.GAME.current_round.hands_left == 1 and not card.REMOVED end
-            juice_card_until(card, eval, true)
             return { 
                 mult = card.ability.extra.mult, 
                 xmult = card.ability.extra.xmult 
@@ -495,20 +506,7 @@ SMODS.Joker{ -- Inverted Spear of Heaven
         return { vars = { card.ability.extra.xmult } }
     end,
 
-    add_to_deck = function(self, card, from_debuff)
-		G.jokers.config.card_limit = G.jokers.config.card_limit + 1
-	end,
-	remove_from_deck = function(self, card, from_debuff)
-		G.jokers.config.card_limit = G.jokers.config.card_limit - 1
-	end,
-
     calculate = function(self, card, context)
-        if context.check_eternal and context.other_card == card then
-            return {
-                no_destroy = true
-            }
-        end
-
         if context.setting_blind and not context.blueprint then
             local my_pos = nil
             for i = 1, #G.jokers.cards do
@@ -550,14 +548,26 @@ SMODS.Joker{ -- Inverted Spear of Heaven
                 }))
             end
 
-            if G.GAME.blind.boss and my_pos and G.jokers.cards[my_pos - 1] and my_pos and G.jokers.cards[my_pos + 1] then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        G.GAME.blind:disable()
-                        return true
-                    end
-                }))
-                return { message = "FOCUS UP", colour = HEX("4a157d") }
+            if G.GAME.blind.boss then
+                if my_pos and G.jokers.cards[my_pos - 1] and my_pos and G.jokers.cards[my_pos + 1] then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.blind:disable()
+                            return true
+                        end
+                    }))
+                    return { message = "FOCUS UP", colour = HEX("4a157d") }
+                end
+            else
+                if my_pos and G.jokers.cards[my_pos - 1] or  G.jokers.cards[my_pos + 1] then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.blind:disable()
+                            return true
+                        end
+                    }))
+                    return { message = "THIS IS WAR", colour = HEX("4a157d") }
+                end
             end
         end
 
@@ -633,7 +643,7 @@ SMODS.Joker{ -- Human Torch
             card.ability.extra.randomizer = pseudorandom('nic_humantorch', 1, 4)
         end
 
-        if (context.cardarea == G.play or context.cardarea == "unscored") and not context.blueprint and context.destroy_card == context.full_hand[card.ability.extra.randomizer] and #context.full_hand == 4 then
+        if context.cardarea == G.play and not context.blueprint and context.destroy_card == context.full_hand[card.ability.extra.randomizer] and #context.full_hand == 4 then
             if context.scoring_name == "Four of a Kind" then
                 return {
                     remove = true
@@ -673,73 +683,41 @@ SMODS.Joker{ --  Invisible Woman
     rarity = 3,
     cost = 8,
     pos = {x = 3, y = 2},
-    config = { extra = { counter = 1, counter_gain = 1, randomizer = 1 } },
+    config = { extra = {} },
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
-        return { vars = { card.ability.extra.counter, card.ability.extra.counter_gain} }
+        return { vars = {} }
     end,
 
     calculate = function(self, card, context)
-        if context.before and not context.blueprint then 
-            card.ability.extra.randomizer = pseudorandom('nic_invisiblewoman', 1, 4)
-        end
-
         if context.setting_blind and not context.blueprint then
             local eval = function(card) return G.GAME.current_round.hands_played == 0 and not card.REMOVED end
             juice_card_until(card, eval, true)
         end
 
-        if context.before and context.main_eval then
-            local eval = function(card) return G.GAME.current_round.hands_left == 1 and not card.REMOVED end
-            juice_card_until(card, eval, true)
+        if context.mod_probability and not context.blueprint and context.identifier == "glass" then
+			return {
+				denominator = 2
+			}
+        end
+
+        if context.before and context.main_eval and not context.blueprint then
             if context.scoring_name == "Four of a Kind" and #context.full_hand == 4 and #context.full_hand == 4 then
-                if G.GAME.current_round.hands_left == 0 or next(SMODS.find_card("j_nic_misterfantastic")) then 
-                    if next(SMODS.find_card("j_nic_misterfantastic")) then
+                if G.GAME.current_round.hands_played == 0 or next(SMODS.find_card("j_nic_misterfantastic")) then 
+                    for _, other_card in ipairs(context.scoring_hand) do
+                        other_card:set_ability('m_glass', nil, true)
                         G.E_MANAGER:add_event(Event({
                             func = function()
-                                for i = 1, card.ability.extra.counter do
-                                    local copy_card = copy_card(context.full_hand[card.ability.extra.randomizer], nil, nil, G.playing_card)
-                                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                                    G.deck.config.card_limit = G.deck.config.card_limit + 1
-                                    table.insert(G.playing_cards, copy_card)
-                                    copy_card:set_ability("m_glass", true)
-                                    copy_card:start_materialize()
-                                    G.hand:emplace(copy_card)
-                                end
+                                other_card:juice_up()
                                 return true
                             end
                         }))
                     end
-                    if not context.blueprint then
-                        card.ability.extra.counter = card.ability.extra.counter + card.ability.extra.counter_gain
-                        return {
-                            message = "NEVER SEE ME COMING",
-                            colour = G.C.BLUE
-                        }
-                    end
-                end
-                if G.GAME.current_round.hands_played == 0 then
-                    if not next(SMODS.find_card("j_nic_misterfantastic")) then
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                for i = 1, card.ability.extra.counter do
-                                    local copy_card = copy_card(context.full_hand[card.ability.extra.randomizer], nil, nil, G.playing_card)
-                                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                                    G.deck.config.card_limit = G.deck.config.card_limit + 1
-                                    table.insert(G.playing_cards, copy_card)
-                                    copy_card:set_ability("m_glass", true)
-                                    copy_card:start_materialize()
-                                    G.hand:emplace(copy_card)
-                                end
-                                return true
-                            end
-                        }))
-                        return {
-                            message = "DISAPPEAR",
-                            colour = G.C.BLUE
-                        }
-                    end
+                    return {
+                        message = "DISAPPEAR",
+                        colour = G.C.BLUE
+                    }
                 end
             end
         end
@@ -813,6 +791,12 @@ SMODS.Joker{ -- Mister Fantastic
     pos = {x = 5, y = 2},
 
     calculate = function(self, card, context)
+        if context.modify_scoring_hand and not context.blueprint and #context.full_hand == 4 then
+            return {
+                add_to_hand = true
+            }
+        end
+
         if context.scoring_name and not context.blueprint and #context.full_hand == 4 then
             if context.evaluate_poker_hand then
                 return {
@@ -842,41 +826,51 @@ SMODS.Joker{ -- Incognito
     cost = 20,
     pos = {x = 0, y = 0},
     soul_pos = {x = 1, y = 0},
-    config = { extra = { xmult = 1, odds = 7 } },
+    config = { extra = { xmult = 1, xmult_gain = 1 , odds = 7 } },
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = { key = "nic_spades_no_debuff", set = "Other" }
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds) 
-        return {vars = {new_numerator, new_denominator, card.ability.extra.xmult}}
+        return {vars = {new_numerator, new_denominator, card.ability.extra.xmult_gain, card.ability.extra.xmult}}
     end,
     
-    calculate = function(self, card, context)            
+    calculate = function(self, card, context)
+        if context.destroy_card and context.destroy_card.should_destroy and not context.blueprint then
+            return { remove = true, colour = HEX("d0d0d0") }
+        end
+
+        if context.remove_playing_cards and not context.blueprint then
+            local spades_cards = 0
+            for _, removed_card in ipairs(context.removed) do
+                if not (removed_card.base.suit == "Spades") then
+                    spades_cards = spades_cards + 1
+                end
+            end
+            if spades_cards > 0 then
+                card.ability.extra.xmult = card.ability.extra.xmult + (spades_cards * card.ability.extra.xmult_gain)
+                return {
+                    message = "+X" .. spades_cards .. " MULT!",
+                    colour = HEX("d0d0d0"),
+                }
+            end
+        end
+
         if context.individual and context.cardarea == G.hand and not context.end_of_round and not context.blueprint then
-            if not (context.other_card:is_suit("Spades")) then
+            if not (context.other_card.base.suit == "Spades") then
                 if SMODS.pseudorandom_probability(card, ('j_nic_incognito'), 1, card.ability.extra.odds) then
                     context.other_card.should_destroy = true
-                    card.ability.extra.xmult = (card.ability.extra.xmult) + 1
                     return { message = "SWOON!", colour = HEX("d0d0d0") }
                 else
-                    return { message = "NOPE!", colour = G.C.BLACK }
+                    return { message = "NOPE!", colour = HEX("d0d0d0") }
                 end
             end
         end  
 
         if context.individual and context.cardarea == G.hand and not context.end_of_round then
             if context.other_card:is_suit("Spades") then
-                if string.find(string.lower(G.PROFILES[G.SETTINGS.profile].name), "nic") then
-                    return {
-                        message = "HAI NIC!", 
-                        colour = HEX("d0d0d0"),
-                        xmult = card.ability.extra.xmult
-                    }
-                else
-                    return {
-                        message = "71!", 
-                        colour = HEX("d0d0d0"),
-                        xmult = card.ability.extra.xmult
-                    }
-                end
+                return {
+                    xmult = card.ability.extra.xmult
+                }
             end
         end
     end
