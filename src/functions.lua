@@ -30,38 +30,6 @@ Incognito.config_tab = function()
                         n = G.UIT.C,
                         nodes = {
                             create_toggle({
-                                label = "Other Jokers Enabled",
-                                ref_table = Incognito.config,
-                                ref_value = "other_jokers",
-                                callback = should_restart,
-                            }),
-                        },
-                    },
-                },
-            },
-            {
-                n = G.UIT.R,
-                nodes = {
-                    {
-                        n = G.UIT.C,
-                        nodes = {
-                            create_toggle({
-                                label = "Teto Things Enabled",
-                                ref_table = Incognito.config,
-                                ref_value = "teto_things",
-                                callback = should_restart,
-                            }),
-                        },
-                    },
-                },
-            },
-            {
-                n = G.UIT.R,
-                nodes = {
-                    {
-                        n = G.UIT.C,
-                        nodes = {
-                            create_toggle({
                                 label = "Scrapped Concepts [Mid]",
                                 ref_table = Incognito.config,
                                 ref_value = "scrapped_things",

@@ -12,28 +12,40 @@ return {
         Edition={},
         Enhanced={},
         Joker = {
-            j_nic_button = { -- Common
+            j_nic_technoblade = {
+                name = "Technoblade",
+                text = {
+                    "Prevents Death {C:attention}#2#{C:inactive} [#1#]{} times if chips",
+                    "scored are at least {C:attention}#3#%{} of required chips ",
+                    "{C:inactive,s:0.8}Increases % by 25% every death",
+                    "{s:1.1,C:red,E:2}self destructs when [0]",
+                }
+            },
+            j_nic_machinedramon = {
+                name = {
+                    "Machinedramon",
+                    "{C:black,X:white,s:0.6}MEGA{s:0.6}/{C:black,X:white,s:0.6}VIRUS{s:0.6}/{C:black,X:white,s:0.6}MACHINE"
+                },
+                text = {
+                    {"At end of round, all non {C:attention}Enhanced cards{}",
+                    "held in hand turn into {C:attention}Steel{} cards"},
+                    {"Played {C:attention}Steel{} cards get destroyed",
+                    "and gains {C:mult}+15{} Mult and {X:mult,C:white}X0.5{} Mult",
+                    "{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult and {X:mult,C:white} X#2# {C:inactive} Mult)"},
+                }
+            },
+            j_nic_button = {
                 name = "Button",
                 text = {
-                    {"When {C:attention}Clicked or Space{} is Pressed,",
-                    "Gains {X:mult,C:white}X0.05{} Mult",
+                    {"When {C:attention}Clicked or Space{} is",
+                    "Pressed, Gains {X:mult,C:white}X0.05{} Mult",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult}"},
                     {"When {C:attention}Clicked or Space{} is Pressed,",
                     "{C:attention}Button{} has a {C:green}#1# in #2#{} chance",
                     "to delete itself :3"},
                 }
             },
-            j_nic_ratiotechnique = { -- Common
-                name = "Ratio Technique",
-                text = {
-                    "{C:green}#1# in #2#{} chance",
-                    "Card located at the {C:attention}7:3{} ratio",
-                    "mark {C:attention}in hand{} gets Destroyed",
-                    "{C:inactive,s:0.8}| - | - | - | - | - | - | - o - | - | - |",
-                    "{C:inactive}(Currently #3##4#)",
-                }
-            },
-            j_nic_slycooper = { -- Uncommon
+            j_nic_slycooper = {
                 name = "Sly Cooper",
                 text = {
                     {"When {C:attention}Blind{} is defeated, Buy",
@@ -41,36 +53,6 @@ return {
                     "{C:green}#1# in #2#{} chance you get",
                     "{C:red}Caught{} and {C:attention}Pay Double{}",
                     "{C:inactive}(Currently: #3#)"},
-                }
-            },
-            j_nic_crazytaxi = { -- Uncommon
-                name = "Crazy Taxi",
-                text = {
-                    {"When {C:attention}end of round{} is within {C:attention}time,",
-                    "Earns {C:money}$#1#{} and increases {C:money}cash{} by {C:money}3{}",
-                    "If {C:red}failed{}, This Joker gets destroyed",
-                    "{s:0.8}Time resets every round"},
-                    {"Each played {C:attention}#2#{} adds {C:attention}+5 Seconds",
-                    "{s:0.8}Rank changes every round"},
-                }
-            },
-            j_nic_strawberrycake = { -- Uncommon
-                name = "Strawberry Cake",
-                text = {
-                    {"{C:attention}First hand{} of round turns all",
-                    "{C:attention}played cards{} into {C:hearts}Hearts"},
-                    {"Each {C:attention}card{} in played {C:attention}Flush",
-                    "after {C:attention}first hand{} permanently",
-                    "gains {C:mult}+#1#{} Mult when scored"},
-                }
-            },
-            j_nic_technoblade = { -- Rare
-                name = "Technoblade",
-                text = {
-                    "Prevents Death {C:attention}#2#{C:inactive} [#1#]{} times if chips",
-                    "scored are at least {C:attention}#3#%{} of required chips ",
-                    "{C:inactive,s:0.8}Increases % by 25% every death",
-                    "{s:1.1,C:red,E:2}self destructs when [0]",
                 }
             },
             j_nic_stalagmite = { -- Rare
@@ -84,41 +66,35 @@ return {
                     "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"},
                 }
             },
-            j_nic_machinedramon = { -- Rare
-                name = {
-                    "Machinedramon",
-                    "{C:black,X:white,s:0.6}MEGA{s:0.6}/{C:black,X:white,s:0.6}VIRUS{s:0.6}/{C:black,X:white,s:0.6}MACHINE"
-                },
-                text = {
-                    {"At end of round, all non {C:attention}Enhanced cards{}",
-                    "held in hand turn into {C:attention}Steel{} cards"},
-                    {"Played {C:attention}Steel{} cards get destroyed",
-                    "and gains {C:mult}+15{} Mult and {X:mult,C:white}X0.5{} Mult",
-                    "{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult and {X:mult,C:white} X#2# {C:inactive} Mult)"},
-                }
-            },
-            j_nic_invertedspearofheaven = { -- Rare
-                name = "Inverted Spear of Heaven",
-                text = {
-                    {"When {C:attention}Blind{} is selected, destroy Adjacent",
-                    "Jokers and gain {X:mult,C:white}X0.5{} Mult for each",
-                    "{C:inactive,s:0.8}This also includes Enternals",
-                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"},
-                    {"If Both Jokers get destroyed in",
-                    "{C:attention}Boss Blind{}, disable {C:attention}Boss Blind{} effects"},
-                }
-            },
-            j_nic_cyan = { -- Rare
-                name = "Cyan",
+            j_nic_dalgonacookie = {
+                name = "Dalgona Cookie",
                 text = {
                     "When {C:attention}Blind{} is selected,",
-                    "{X:attention,C:white}X#1#{} Blind Requirement and",
-                    "create {C:attention}1 {C:spectral}Black Hole",
-                    "{C:inactive}(Must have room",
-                    "{C:inactive}or it won't activate)",
+                    "it becomes {C:attention}1{} of the 4",
+                    "{C:attention}Opened Dalgona Cookies",
                 }
             },
-            j_nic_humantorch = { -- Rare
+            j_nic_dalgonacircle = {
+                name = "Dalgona Circle",
+                text = {
+                }
+            },
+            j_nic_dalgonatriangle = {
+                name = "Dalgona Triangle",
+                text = {
+                }
+            },
+            j_nic_dalgonastar = {
+                name = "Dalgona Star",
+                text = {
+                }
+            },
+            j_nic_dalgonaumbrella = {
+                name = "Dalgona Umbrella",
+                text = {
+                }
+            },
+            j_nic_humantorch = {
                 name = "Human Torch",
                 text = {
                     {"All played {C:attention}Four of a Kind{} with exactly",
@@ -129,7 +105,7 @@ return {
                     "increase the {C:attention}level{} by {C:attention}#2#"},
                 }
             },
-            j_nic_invisiblewoman = { -- Rare
+            j_nic_invisiblewoman = {
                 name = "Invisible Woman",
                 text = {
                     "If {C:attention}first played{} is a {C:attention}Four of {C:attention}a kind with", 
@@ -137,7 +113,7 @@ return {
                     "{C:inactive,s:0.8}Glass cards have a higher chance to break",
                 }
             },
-            j_nic_thething = { -- Rare
+            j_nic_thething = {
                 name = "The Thing",
                 text = {
                     {"When round begins, adds {C:attention}#1# Stone{}",
@@ -147,7 +123,7 @@ return {
                     "amount of {C:attention}Stone{} cards by {C:attention}#2#"},
                 }
             },
-            j_nic_misterfantastic = { -- Rare
+            j_nic_misterfantastic = {
                 name = "Mister Fantastic",
                 text = {
                     {"All {C:attention}played hands{} with exactly {C:attention}4",
@@ -157,15 +133,127 @@ return {
                     "condition can be {C:attention}played whenever"},
                 }
             },
-            j_nic_incognito = { -- Legendary
+            j_nic_incognito = {
                 name = "Incognito",
                 text = {
                     {"This Joker gains {X:mult,C:white} X#3# {} Mult when a",
                     "non {C:spades}Spade{} card is destroyed"},
                     {"Each non {C:spades}Spade{} cards held in hand",
                     "have a {C:green}#1# in #2#{} chance to be destroyed",
-                    "While each {C:spades}Spade{} cards",
-                    "held in hand gives {X:mult,C:white} X#4#{} Mult"},
+                    "{C:spades}Spade{} cards held in hand gives {X:mult,C:white} X#4#{} Mult"},
+                }
+            },
+            j_nic_crazytaxi = {
+                name = "Crazy Taxi",
+                text = {
+                    {"When {C:attention}end of round{} is within {C:attention}time,",
+                    "Earns {C:money}$#1#{} and increases {C:money}cash{} by {C:money}3{}",
+                    "If {C:red}failed{}, This Joker gets destroyed",
+                    "{s:0.8}Time resets every round"},
+                    {"Each played {C:attention}#2#{} adds {C:attention}+5 Seconds",
+                    "{s:0.8}Rank changes every round"},
+                }
+            },
+            j_nic_strawberrycake = {
+                name = "Strawberry Cake",
+                text = {
+                    {"{C:attention}First hand{} of round turns all",
+                    "{C:attention}played cards{} into {C:hearts}Hearts"},
+                    {"Each {C:attention}card{} in played {C:attention}Flush",
+                    "after {C:attention}first hand{} permanently",
+                    "gains {C:mult}+#1#{} Mult when scored"},
+                }
+            },
+            j_nic_ratiotechnique = {
+                name = "Ratio Technique",
+                text = {
+                    "Card located at the {C:attention}7:3{} ratio",
+                    "mark {C:attention}in hand{} gets destroyed",
+                    "when the {C:attention}first hand played",
+                    "{C:inactive,s:0.8}| - | - | - | - | - | - | - o - | - | - |",
+                    "{C:inactive}(Currently #1##2#)",
+                }
+            },
+            j_nic_invertedspearofheaven = {
+                name = "Inverted Spear of Heaven",
+                text = {
+                    {"When {C:attention}Blind{} is selected, destroy Adjacent",
+                    "Jokers and gain {X:mult,C:white}X0.5{} Mult for each",
+                    "{C:inactive,s:0.8}This also includes Enternals",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"},
+                    {"If Both Jokers get destroyed in",
+                    "{C:attention}Boss Blind{}, disable {C:attention}Boss Blind{} effects"},
+                }
+            },
+            j_nic_cyan = {
+                name = "Cyan",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "{X:attention,C:white}X#1#{} Blind Requirement and",
+                    "create {C:attention}1 {C:spectral}Black Hole",
+                    "{C:inactive}(Must have room",
+                    "{C:inactive}or it won't activate)",
+                }
+            },
+            j_nic_inc = {
+                name = "Inc",
+                text = {
+                }
+            },
+            j_nic_invert = {
+                name = "Invert",
+                text = {
+                }
+            },
+            j_nic_astromancer = {
+                name = "Astromancer",
+                text = {
+                    "Create a {C:planet}Planet{} card",
+                    "when {C:attention}Blind{} is selected",
+                    "{C:inactive}(Must have room)",
+                }
+            },
+            j_nic_cartonomer = {
+                name = "Cartonomer",
+                text = {
+                    "All {C:tarot}Tarot{} cards and",
+                    "{C:tarot}Arcana Packs{} in",
+                    "the shop are {C:attention}free",
+                },
+            },
+            j_nic_tierlist = {
+                name = "Tierlist",
+                text = {
+                    "Add rank of first played",
+                    "{C:attention}number{} card to Mult",
+                    "Minus rank of last played",
+                    "{C:attention}number{} card to Mult",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
+                }
+            },
+            j_nic_scenario = {
+                name = "Scenario",
+                text = {
+                }
+            },
+            j_nic_mending = {
+                name = "Mending",
+                text = {
+                }
+            },
+            j_nic_calligramjoker = {
+                name = "Calligram Joker",
+                text = {
+                }
+            },
+            j_nic_cloverpit = {
+                name = "Clover Pit",
+                text = {
+                }
+            },
+            j_nic_cuphead = {
+                name = "Cuphead",
+                text = {
                 }
             },
             
@@ -182,9 +270,12 @@ return {
             j_nic_ambassadorteto = {
                 name = "Ambassador Teto",
                 text = {
-                    "Each {C:hearts}Hearts{} held in hand",
-                    "gives {X:mult,C:white} X#1# {} Mult",
-                    "{C:inactive,s:0.8,E:1}Song By: dada",
+                    "All cards held in hand",
+                    "change {C:attention}suits{} in this order",
+                    "{C:clubs}Clubs{} > {C:diamonds}Diamonds{} >",
+                    "{C:spades}Spades{} > {C:hearts}Hearts{}",
+                    "{C:inactive}(Stops at {C:hearts}Hearts{C:inactive})",
+                    "{C:inactive,s:0.8,E:1} Song By: dada",
                 }
             },
             j_nic_pear = {
@@ -330,32 +421,6 @@ return {
                     "by the {C:attention}Fibonacci Sequence",
                     "{C:inactive} 1, 2, 3, 5, 8, 13, 21, 34, 55... etc",
                     "{C:inactive}(Currently {X:chips,C:white} X#1# {C:inactive} Chips)",
-                }
-            },
-            j_nic_astromancer = {
-                name = "Astromancer",
-                text = {
-                    "Create a {C:planet}Planet{} card",
-                    "when {C:attention}Blind{} is selected",
-                    "{C:inactive}(Must have room)",
-                }
-            },
-            j_nic_cartonomer = {
-                name = "Cartonomer",
-                text = {
-                    "All {C:tarot}Tarot{} cards and",
-                    "{C:tarot}Arcana Packs{} in",
-                    "the shop are {C:attention}free",
-                },
-            },
-            j_nic_tierlist = {
-                name = "Tierlist",
-                text = {
-                    "Add rank of first played",
-                    "{C:attention}number{} card to Mult",
-                    "Minus rank of last played",
-                    "{C:attention}number{} card to Mult",
-                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
                 }
             },
         },
