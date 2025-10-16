@@ -1495,5 +1495,10 @@ SMODS.Joker { -- Clover Pit
                 colour = G.C.RED
             }
         end
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
     end
 }
