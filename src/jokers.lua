@@ -940,7 +940,7 @@ SMODS.Joker{ -- Ratio Technique
     blueprint_compat = false,
     eternal_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'nicjokers',
     rarity = 2,
     cost = 6,
