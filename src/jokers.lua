@@ -117,27 +117,29 @@ SMODS.Joker{ -- Button
     rarity = 1,
     cost = 3,
     pos = {x = 2, y = 0 },
-    config = { extra = { xmult = 0.5, odds = 100 } },
+    config = { extra = { xmult = 0.5, min = 1, max = 1000, odds = 1 } },
 
     loc_vars = function(self, info_queue, card)
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds) 
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, card.ability.extra.min, card.ability.extra.max) 
         return {vars = {new_numerator, new_denominator, card.ability.extra.xmult}}
     end,
     
     calculate = function(self, card, context)
         if context.key_press_space or (context.cry_press and card.states.hover.is == true) then
-            if SMODS.pseudorandom_probability(card, ('j_nic_button'), 1, card.ability.extra.odds) then
+            if SMODS.pseudorandom_probability(card, ('j_nic_button'), card.ability.extra.min, card.ability.extra.max) then
                 card:start_dissolve({G.C.RED})
                 card:juice_up(10, 10)
                 return { play_sound("nic_explosion"), message = "BOOM!", colour = G.C.RED }
             else
+                card.ability.extra.odds = pseudorandom('j_nic_buttonodds', 1, 5)
+                card.ability.extra.min = card.ability.extra.min + card.ability.extra.odds
                 card.ability.extra.xmult = (card.ability.extra.xmult) + 0.05
                 card:juice_up(0.5, 0.5)
                 return { play_sound("nic_click") }
             end
         end
         if context.joker_main then
-            return { 
+            return {
                 xmult = card.ability.extra.xmult 
             }
         end
@@ -1136,6 +1138,30 @@ SMODS.Joker{ -- Cyan
     end
 }
 
+SMODS.Joker { -- Inc
+    key = "inc",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nicjokers',
+    rarity = 2,
+    cost = 3,
+    pos = {x = 2, y = 2},
+}
+
+SMODS.Joker { -- Invert
+    key = "invert",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nicjokers',
+    rarity = 2,
+    cost = 3,
+    pos = {x = 3, y = 2},
+}
+
 SMODS.Joker { -- Astromancer
     key = "astromancer",
     blueprint_compat = true,
@@ -1501,4 +1527,17 @@ SMODS.Joker { -- Clover Pit
             }
         end
     end
+}
+
+SMODS.Joker { -- Cuphead
+    key = "cuphead",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nicjokers',
+    rarity = 2,
+    cost = 5,
+    pos = {x = 1, y = 3},
+    pixel_size = { h = 95 / 1.2 },
 }

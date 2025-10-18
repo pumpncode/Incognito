@@ -37,12 +37,12 @@ return {
             j_nic_button = {
                 name = "Button",
                 text = {
-                    {"When {C:attention}Clicked or Space{} is",
-                    "Pressed, Gains {X:mult,C:white}X0.05{} Mult",
-                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult}"},
-                    {"When {C:attention}Clicked or Space{} is Pressed,",
-                    "{C:attention}Button{} has a {C:green}#1# in #2#{} chance",
-                    "to delete itself :3"},
+                    "When {C:attention}Clicked{} or {C:attention}Space is",
+                    "{C:attention}Pressed{}, Gains {X:mult,C:white}X0.05{} Mult and",
+                    "has a {C:green}#1# in #2#{} chance",
+                    "that this card is destroyed",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult}",
+                    " {C:green,s:0.8}Probability{C:inactive,s:0.8} increases by 1-5 every click ",
                 }
             },
             j_nic_slycooper = {
@@ -282,8 +282,8 @@ return {
             j_nic_cloverpit = {
                 name = "Clover Pit",
                 text = {
-                    "When {C:attention}Clicked or Space{} is",
-                    "Pressed, spend {C:money}$#1#{} and get",
+                    "When {C:attention}Clicked{} or {C:attention}Space is",
+                    "{C:attention}Pressed{}, spend {C:money}$#1#{} and get",
                     "between {C:mult}#2#{} to {C:mult}#3#{} Mult",
                     "{C:inactive}(Currently {C:mult}#4##5#{C:inactive} Mult)",
                     "{C:inactive,s:0.8}Value doubles after {C:attention,s:0.8}Boss Blind",
