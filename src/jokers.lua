@@ -1625,10 +1625,9 @@ SMODS.Joker { -- Jokrle
     cost = 3,
     pos = {x = 2, y = 3},
     config = { extra = {
-        tries = 0,
-        grey = '666666',
-        yellow = 'b59f3a',
-        green = '528d4d',
+        tries = 0, completed = false, 
+        answer = "[#] [#] [#] [#] [#]", answercolour = G.C.UI.TEXT_INACTIVE,
+        grey = '666666', yellow = 'b59f3a', green = '528d4d',
         string = {1, 2, 3, 4, 5},
         lines = {
             {'#', '#', '#', '#', '#'},
@@ -1646,8 +1645,7 @@ SMODS.Joker { -- Jokrle
             {'666666', '666666', '666666', '666666', '666666'},
             {'666666', '666666', '666666', '666666', '666666'},
         },
-        completed = false,
-        mult = 0
+        mult = 0, mult_gain = 10
     } },
 
     loc_vars = function(self, info_queue, card)
@@ -1659,6 +1657,7 @@ SMODS.Joker { -- Jokrle
                 HEX(card.ability.extra.linescolour[4][1]), HEX(card.ability.extra.linescolour[4][2]), HEX(card.ability.extra.linescolour[4][3]), HEX(card.ability.extra.linescolour[4][4]), HEX(card.ability.extra.linescolour[4][5]),
                 HEX(card.ability.extra.linescolour[5][1]), HEX(card.ability.extra.linescolour[5][2]), HEX(card.ability.extra.linescolour[5][3]), HEX(card.ability.extra.linescolour[5][4]), HEX(card.ability.extra.linescolour[5][5]),
                 HEX(card.ability.extra.linescolour[6][1]), HEX(card.ability.extra.linescolour[6][2]), HEX(card.ability.extra.linescolour[6][3]), HEX(card.ability.extra.linescolour[6][4]), HEX(card.ability.extra.linescolour[6][5]),
+                card.ability.extra.answercolour,
             },
             card.ability.extra.lines[1][1], card.ability.extra.lines[1][2], card.ability.extra.lines[1][3], card.ability.extra.lines[1][4], card.ability.extra.lines[1][5],
             card.ability.extra.lines[2][1], card.ability.extra.lines[2][2], card.ability.extra.lines[2][3], card.ability.extra.lines[2][4], card.ability.extra.lines[2][5],
@@ -1667,7 +1666,7 @@ SMODS.Joker { -- Jokrle
             card.ability.extra.lines[5][1], card.ability.extra.lines[5][2], card.ability.extra.lines[5][3], card.ability.extra.lines[5][4], card.ability.extra.lines[5][5],
             card.ability.extra.lines[6][1], card.ability.extra.lines[6][2], card.ability.extra.lines[6][3], card.ability.extra.lines[6][4], card.ability.extra.lines[6][5],
 
-            card.ability.extra.mult
+            card.ability.extra.mult, card.ability.extra.mult_gain, card.ability.extra.answer
         } }
     end,
 
@@ -1700,6 +1699,8 @@ SMODS.Joker { -- Jokrle
         if context.after and not context.blueprint and #context.full_hand == 5 then
             if card.ability.extra.completed == false and card.ability.extra.tries == 6 then
                 SMODS.calculate_effect({message = "FAILED!", colour = G.C.RED}, card)
+                card.ability.extra.answercolour = HEX(card.ability.extra.green)
+                card.ability.extra.answer = "[" .. (card.ability.extra.string[1]) .. "] " .. "[" .. (card.ability.extra.string[2]) .. "] " .. "[" .. (card.ability.extra.string[3]) .. "] " .. "[" .. (card.ability.extra.string[4]) .. "] " .. "[" .. (card.ability.extra.string[5]) .. "] "
             end
         end
         if context.individual and context.cardarea == G.play and context.other_card and #context.full_hand == 5 and not context.blueprint then
@@ -1712,144 +1713,62 @@ SMODS.Joker { -- Jokrle
             if norank then
             else
                 if card.ability.extra.completed == false and card.ability.extra.tries < 7 then
-
+                    card.ability.extra.lines[card.ability.extra.tries][1] = context.full_hand[1]:get_id()
+                    card.ability.extra.lines[card.ability.extra.tries][2] = context.full_hand[2]:get_id()
+                    card.ability.extra.lines[card.ability.extra.tries][3] = context.full_hand[3]:get_id()
+                    card.ability.extra.lines[card.ability.extra.tries][4] = context.full_hand[4]:get_id()
+                    card.ability.extra.lines[card.ability.extra.tries][5] = context.full_hand[5]:get_id()
                     local letter1 = true
                     local letter2 = true
                     local letter3 = true
                     local letter4 = true
                     local letter5 = true
 
-                    card.ability.extra.lines[card.ability.extra.tries][1] = context.full_hand[1]:get_id()
-                    card.ability.extra.lines[card.ability.extra.tries][2] = context.full_hand[2]:get_id()
-                    card.ability.extra.lines[card.ability.extra.tries][3] = context.full_hand[3]:get_id()
-                    card.ability.extra.lines[card.ability.extra.tries][4] = context.full_hand[4]:get_id()
-                    card.ability.extra.lines[card.ability.extra.tries][5] = context.full_hand[5]:get_id()
+                    if context.full_hand[1]:get_id() == card.ability.extra.string[1] then card.ability.extra.linescolour[card.ability.extra.tries][1] = card.ability.extra.green letter1 = false end
+                    if context.full_hand[2]:get_id() == card.ability.extra.string[2] then card.ability.extra.linescolour[card.ability.extra.tries][2] = card.ability.extra.green letter2 = false end
+                    if context.full_hand[3]:get_id() == card.ability.extra.string[3] then card.ability.extra.linescolour[card.ability.extra.tries][3] = card.ability.extra.green letter3 = false end
+                    if context.full_hand[4]:get_id() == card.ability.extra.string[4] then card.ability.extra.linescolour[card.ability.extra.tries][4] = card.ability.extra.green letter4 = false end
+                    if context.full_hand[5]:get_id() == card.ability.extra.string[5] then card.ability.extra.linescolour[card.ability.extra.tries][5] = card.ability.extra.green letter5 = false end
 
-                    if context.full_hand[1]:get_id() == card.ability.extra.string[1] then
-                        card.ability.extra.linescolour[card.ability.extra.tries][1] = card.ability.extra.green
-                        letter1 = false
-                    end
-                    if context.full_hand[2]:get_id() == card.ability.extra.string[2] then
-                        card.ability.extra.linescolour[card.ability.extra.tries][2] = card.ability.extra.green
-                        letter2 = false
-                    end
-                    if context.full_hand[3]:get_id() == card.ability.extra.string[3] then
-                        card.ability.extra.linescolour[card.ability.extra.tries][3] = card.ability.extra.green
-                        letter3 = false
-                    end
-                    if context.full_hand[4]:get_id() == card.ability.extra.string[4] then
-                        card.ability.extra.linescolour[card.ability.extra.tries][4] = card.ability.extra.green
-                        letter4 = false
-                    end
-                    if context.full_hand[5]:get_id() == card.ability.extra.string[5] then
-                        card.ability.extra.linescolour[card.ability.extra.tries][5] = card.ability.extra.green
-                        letter5 = false
-                    end
-
-                    -- 1 
                     local yellow11 = true
                     local yellow12 = true
                     local yellow13 = true
+                    if (context.full_hand[2]:get_id() == card.ability.extra.string[1] and letter1 == true) then card.ability.extra.linescolour[card.ability.extra.tries][2] = card.ability.extra.yellow yellow11 = false end
+                    if (context.full_hand[3]:get_id() == card.ability.extra.string[1] and letter1 == true and yellow11 == true) then card.ability.extra.linescolour[card.ability.extra.tries][3] = card.ability.extra.yellow yellow12 = false end
+                    if (context.full_hand[4]:get_id() == card.ability.extra.string[1] and letter1 == true and (yellow11 == true and yellow12 == true)) then card.ability.extra.linescolour[card.ability.extra.tries][4] = card.ability.extra.yellow yellow13 = false end
+                    if (context.full_hand[5]:get_id() == card.ability.extra.string[1] and letter1 == true and (yellow11 == true and yellow12 == true and yellow13 == true)) then card.ability.extra.linescolour[card.ability.extra.tries][5] = card.ability.extra.yellow end
 
-                    if (context.full_hand[2]:get_id() == card.ability.extra.string[1] and letter1 == true) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][2] = card.ability.extra.yellow
-                        yellow11 = false
-                    end
-                    if (context.full_hand[3]:get_id() == card.ability.extra.string[1] and letter1 == true and yellow11 == true) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][3] = card.ability.extra.yellow
-                        yellow12 = false
-                    end
-                    if (context.full_hand[4]:get_id() == card.ability.extra.string[1] and letter1 == true and (yellow11 == true and yellow12 == true)) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][4] = card.ability.extra.yellow
-                        yellow13 = false
-                    end
-                    if (context.full_hand[5]:get_id() == card.ability.extra.string[1] and letter1 == true and (yellow11 == true and yellow12 == true and yellow13 == true)) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][5] = card.ability.extra.yellow
-                    end
-
-                    -- 2
                     local yellow21 = true
                     local yellow22 = true
                     local yellow23 = true
-                    
-                    if (context.full_hand[1]:get_id() == card.ability.extra.string[2] and letter2 == true) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][1] = card.ability.extra.yellow
-                        yellow21 = false
-                    end
-                    if (context.full_hand[3]:get_id() == card.ability.extra.string[2] and letter2 == true and yellow21 == true) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][3] = card.ability.extra.yellow
-                        yellow22 = false
-                    end
-                    if (context.full_hand[4]:get_id() == card.ability.extra.string[2] and letter2 == true and (yellow21 == true and yellow22 == true)) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][4] = card.ability.extra.yellow
-                        yellow23 = false
-                    end
-                    if (context.full_hand[5]:get_id() == card.ability.extra.string[2] and letter2 == true and (yellow21 == true and yellow22 == true and yellow23 == true)) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][5] = card.ability.extra.yellow
-                    end
+                    if (context.full_hand[1]:get_id() == card.ability.extra.string[2] and letter2 == true) then card.ability.extra.linescolour[card.ability.extra.tries][1] = card.ability.extra.yellow yellow21 = false end
+                    if (context.full_hand[3]:get_id() == card.ability.extra.string[2] and letter2 == true and yellow21 == true) then card.ability.extra.linescolour[card.ability.extra.tries][3] = card.ability.extra.yellow yellow22 = false end
+                    if (context.full_hand[4]:get_id() == card.ability.extra.string[2] and letter2 == true and (yellow21 == true and yellow22 == true)) then card.ability.extra.linescolour[card.ability.extra.tries][4] = card.ability.extra.yellow yellow23 = false end
+                    if (context.full_hand[5]:get_id() == card.ability.extra.string[2] and letter2 == true and (yellow21 == true and yellow22 == true and yellow23 == true)) then card.ability.extra.linescolour[card.ability.extra.tries][5] = card.ability.extra.yellow end
 
-                    -- 3
                     local yellow31 = true
                     local yellow32 = true
                     local yellow33 = true
+                    if (context.full_hand[1]:get_id() == card.ability.extra.string[3] and letter3 == true) then card.ability.extra.linescolour[card.ability.extra.tries][1] = card.ability.extra.yellow yellow31 = false end
+                    if (context.full_hand[2]:get_id() == card.ability.extra.string[3] and letter3 == true and yellow31 == true) then card.ability.extra.linescolour[card.ability.extra.tries][2] = card.ability.extra.yellow yellow32 = false end
+                    if (context.full_hand[4]:get_id() == card.ability.extra.string[3] and letter3 == true and (yellow31 == true and yellow32 == true)) then card.ability.extra.linescolour[card.ability.extra.tries][4] = card.ability.extra.yellow yellow33 = false end
+                    if (context.full_hand[5]:get_id() == card.ability.extra.string[3] and letter3 == true and (yellow31 == true and yellow32 == true and yellow33 == true)) then card.ability.extra.linescolour[card.ability.extra.tries][5] = card.ability.extra.yellow end
 
-                    if (context.full_hand[1]:get_id() == card.ability.extra.string[3] and letter3 == true) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][1] = card.ability.extra.yellow
-                        yellow31 = false
-                    end
-                    if (context.full_hand[2]:get_id() == card.ability.extra.string[3] and letter3 == true and yellow31 == true) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][2] = card.ability.extra.yellow
-                        yellow32 = false
-                    end
-                    if (context.full_hand[4]:get_id() == card.ability.extra.string[3] and letter3 == true and (yellow31 == true and yellow32 == true)) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][4] = card.ability.extra.yellow
-                        yellow33 = false
-                    end
-                    if (context.full_hand[5]:get_id() == card.ability.extra.string[3] and letter3 == true and (yellow31 == true and yellow32 == true and yellow33 == true)) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][5] = card.ability.extra.yellow
-                    end
-
-                    -- 4
                     local yellow41 = true
                     local yellow42 = true
                     local yellow43 = true
+                    if (context.full_hand[1]:get_id() == card.ability.extra.string[4] and letter4 == true) then card.ability.extra.linescolour[card.ability.extra.tries][1] = card.ability.extra.yellow yellow41 = false end
+                    if (context.full_hand[2]:get_id() == card.ability.extra.string[4] and letter4 == true and yellow41 == true) then card.ability.extra.linescolour[card.ability.extra.tries][2] = card.ability.extra.yellow yellow42 = false end
+                    if (context.full_hand[3]:get_id() == card.ability.extra.string[4] and letter4 == true and (yellow41 == true and yellow42 == true)) then card.ability.extra.linescolour[card.ability.extra.tries][3] = card.ability.extra.yellow yellow43 = false end
+                    if (context.full_hand[5]:get_id() == card.ability.extra.string[4] and letter4 == true and (yellow41 == true and yellow42 == true and yellow43 == true)) then card.ability.extra.linescolour[card.ability.extra.tries][5] = card.ability.extra.yellow end
 
-                    if (context.full_hand[1]:get_id() == card.ability.extra.string[4] and letter4 == true) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][1] = card.ability.extra.yellow
-                        yellow41 = false
-                    end
-                    if (context.full_hand[2]:get_id() == card.ability.extra.string[4] and letter4 == true and yellow41 == true) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][2] = card.ability.extra.yellow
-                        yellow42 = false
-                    end
-                    if (context.full_hand[3]:get_id() == card.ability.extra.string[4] and letter4 == true and (yellow41 == true and yellow42 == true)) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][3] = card.ability.extra.yellow
-                        yellow43 = false
-                    end
-                    if (context.full_hand[5]:get_id() == card.ability.extra.string[4] and letter4 == true and (yellow41 == true and yellow42 == true and yellow43 == true)) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][5] = card.ability.extra.yellow
-                    end
-
-                    -- 5
                     local yellow51 = true
                     local yellow52 = true
                     local yellow53 = true
-
-                    if (context.full_hand[1]:get_id() == card.ability.extra.string[5] and letter5 == true) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][1] = card.ability.extra.yellow
-                        yellow51 = false
-                    end
-                    if (context.full_hand[2]:get_id() == card.ability.extra.string[5] and letter5 == true and yellow51 == true) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][2] = card.ability.extra.yellow
-                        yellow52 = false
-                    end
-                    if (context.full_hand[3]:get_id() == card.ability.extra.string[5] and letter5 == true and (yellow51 == true and yellow52 == true)) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][3] = card.ability.extra.yellow
-                        yellow53 = false
-                    end
-                    if (context.full_hand[4]:get_id() == card.ability.extra.string[5] and letter5 == true and (yellow51 == true and yellow52 == true and yellow53 == true)) then
-                        card.ability.extra.linescolour[card.ability.extra.tries][4] = card.ability.extra.yellow
-                    end
+                    if (context.full_hand[1]:get_id() == card.ability.extra.string[5] and letter5 == true) then card.ability.extra.linescolour[card.ability.extra.tries][1] = card.ability.extra.yellow yellow51 = false end
+                    if (context.full_hand[2]:get_id() == card.ability.extra.string[5] and letter5 == true and yellow51 == true) then card.ability.extra.linescolour[card.ability.extra.tries][2] = card.ability.extra.yellow yellow52 = false end
+                    if (context.full_hand[3]:get_id() == card.ability.extra.string[5] and letter5 == true and (yellow51 == true and yellow52 == true)) then card.ability.extra.linescolour[card.ability.extra.tries][3] = card.ability.extra.yellow yellow53 = false end
+                    if (context.full_hand[4]:get_id() == card.ability.extra.string[5] and letter5 == true and (yellow51 == true and yellow52 == true and yellow53 == true)) then card.ability.extra.linescolour[card.ability.extra.tries][4] = card.ability.extra.yellow end
 
                     local correct = 0
                     for i = 1, #context.full_hand do
@@ -1860,19 +1779,14 @@ SMODS.Joker { -- Jokrle
                     end
                     if correct == 5 then
                         card.ability.extra.completed = true
-                        if card.ability.extra.tries == 1 then
-                            SMODS.calculate_effect({message = "GENIUS!", colour = HEX('528d4d')}, card)
-                        elseif card.ability.extra.tries == 2 then
-                            SMODS.calculate_effect({message = "MAGNIFICENT!", colour = HEX('528d4d')}, card)
-                        elseif card.ability.extra.tries == 3 then
-                            SMODS.calculate_effect({message = "IMPRESSIVE!", colour = HEX('528d4d')}, card)
-                        elseif card.ability.extra.tries == 4 then
-                            SMODS.calculate_effect({message = "SPLENDID!", colour = HEX('528d4d')}, card)
-                        elseif card.ability.extra.tries == 5 then
-                            SMODS.calculate_effect({message = "GREAT!", colour = HEX('528d4d')}, card)
-                        elseif card.ability.extra.tries == 6 then
-                            SMODS.calculate_effect({message = "PHEW!", colour = HEX('528d4d')}, card)
-                        end
+                        card.ability.extra.answercolour = HEX(card.ability.extra.green)
+                        card.ability.extra.answer = "[" .. (card.ability.extra.string[1]) .. "] " .. "[" .. (card.ability.extra.string[2]) .. "] " .. "[" .. (card.ability.extra.string[3]) .. "] " .. "[" .. (card.ability.extra.string[4]) .. "] " .. "[" .. (card.ability.extra.string[5]) .. "] "
+                        if card.ability.extra.tries == 1 then SMODS.calculate_effect({message = "GENIUS!", colour = HEX('528d4d')}, card) card.ability.extra.mult = card.ability.extra.mult + (card.ability.extra.mult_gain * 5)
+                        elseif card.ability.extra.tries == 2 then SMODS.calculate_effect({message = "MAGNIFICENT!", colour = HEX('528d4d')}, card) card.ability.extra.mult = card.ability.extra.mult + (card.ability.extra.mult_gain * 4)
+                        elseif card.ability.extra.tries == 3 then SMODS.calculate_effect({message = "IMPRESSIVE!", colour = HEX('528d4d')}, card) card.ability.extra.mult = card.ability.extra.mult + (card.ability.extra.mult_gain * 3)
+                        elseif card.ability.extra.tries == 4 then SMODS.calculate_effect({message = "SPLENDID!", colour = HEX('528d4d')}, card) card.ability.extra.mult = card.ability.extra.mult + (card.ability.extra.mult_gain * 2)
+                        elseif card.ability.extra.tries == 5 then SMODS.calculate_effect({message = "GREAT!", colour = HEX('528d4d')}, card) card.ability.extra.mult = card.ability.extra.mult + (card.ability.extra.mult_gain * 1)
+                        elseif card.ability.extra.tries == 6 then SMODS.calculate_effect({message = "PHEW!", colour = HEX('528d4d')}, card) end
                     end
                 end
             end
@@ -1880,6 +1794,7 @@ SMODS.Joker { -- Jokrle
         if context.setting_blind and not context.blueprint then
             if card.ability.extra.completed == true then
                 SMODS.calculate_effect({message = "NEW WORD!", colour = HEX('528d4d')}, card)
+                card.ability.extra.answer = "[#] [#] [#] [#] [#]"
                 for i = 1, #card.ability.extra.string do
                     card.ability.extra.string[i] = pseudorandom('j_nic_jokrle', 2, 14)
                 end
