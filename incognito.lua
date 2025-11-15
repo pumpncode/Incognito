@@ -1,12 +1,12 @@
 Incognito = SMODS.current_mod
 assert(SMODS.load_file("config.lua"))()
 
+assert(SMODS.load_file("src/jokers.lua"))()
+assert(SMODS.load_file("src/teto/jokers.lua"))()
+
 if Incognito.config.scrapped_things then
 	SMODS.load_file("src/scrapped/scrapped.lua")()
 end
-
-assert(SMODS.load_file("src/jokers.lua"))()
-assert(SMODS.load_file("src/teto/jokers.lua"))()
 
 assert(SMODS.load_file("src/assets.lua"))()
 assert(SMODS.load_file("src/blinds.lua"))()

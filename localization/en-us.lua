@@ -158,7 +158,7 @@ return {
                 text = {
                     {"This Joker gains {X:mult,C:white} X#3# {} Mult when a",
                     "non {C:spades}Spade{} card is destroyed"},
-                    {"Each non {C:spades}Spade{} cards held in hand",
+                    {"Each non {C:spades}Spade{} card held in hand",
                     "have a {C:green}#1# in #2#{} chance to be destroyed",
                     "{C:spades}Spade{} cards held in hand gives {X:mult,C:white} X#4#{} Mult"},
                 }
@@ -313,8 +313,12 @@ return {
             j_nic_invert = {
                 name = "Invert",
                 text = {
-                    "Each {C:spades}Spade{} cards held in hand",
+                    {"This Joker increases hand size when a",
+                    "{C:dark_edition}Negative {C:spades}Spade{} card is destroyed",
+                    "{C:inactive}(Currently {C:attention}+#3#{C:inactive} Handsize)",},
+                    {"Each {C:spades}Spade{} card held in hand",
                     "have a {C:green}#1# in #2#{} chance to be {C:dark_edition}Negative",
+                    "{C:spades}Spade{} cards get destroyed when played"},
                 }
             },
             

@@ -45,11 +45,11 @@ end
 
 -- Debuff
 
-SMODS.current_mod.set_debuff = function(card)
+--[[SMODS.current_mod.set_debuff = function(card)
     if next(SMODS.find_card("j_nic_incognito")) and card.playing_card and card:is_suit("Spades") then
         return "prevent_debuff"
     end
-end
+end]]
 
 -- Object Type
 

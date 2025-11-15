@@ -746,7 +746,7 @@ SMODS.Joker{ -- Incognito
     config = { extra = { xmult = 1, xmult_gain = 1 , odds = 7 } },
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = { key = "nic_spades_no_debuff", set = "Other" }
+        --info_queue[#info_queue + 1] = { key = "nic_spades_no_debuff", set = "Other" }
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds) 
         return {vars = {new_numerator, new_denominator, card.ability.extra.xmult_gain, card.ability.extra.xmult}}
     end,
@@ -1919,14 +1919,46 @@ SMODS.Joker{ -- Invert
     cost = 20,
     pos = {x = 1, y = 3},
     soul_pos = {x = 2, y = 3},
-    config = { extra = { xmult = 1, xmult_gain = 1 , odds = 7 } },
+    config = { extra = { xmult = 1, handsize = 0 , odds = 7 } },
 
     loc_vars = function(self, info_queue, card)
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds) 
-        return {vars = {new_numerator, new_denominator, card.ability.extra.xmult_gain, card.ability.extra.xmult}}
+        return {vars = {new_numerator, new_denominator, card.ability.extra.handsize, card.ability.extra.xmult}}
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        G.hand:change_size(-card.ability.extra.handsize)
     end,
 
     calculate = function(self, card, context)
+        if context.destroy_card and context.destroy_card.should_destroy and not context.blueprint then
+            return { remove = true, colour = G.C.DARK_EDITION }
+        end
+
+        if context.remove_playing_cards and not context.blueprint then
+            local spades_cards = 0
+            for _, removed_card in ipairs(context.removed) do
+                if (removed_card.base.suit == "Spades") then 
+                    if removed_card.edition and removed_card.edition.negative == true then
+                        spades_cards = spades_cards + 1
+                    end
+                end
+            end
+            if spades_cards > 0 then
+                card.ability.extra.handsize = card.ability.extra.handsize + (spades_cards)
+                G.hand:change_size(spades_cards)
+                return {
+                    message = "+" .. spades_cards .. " HAND SIZE!",
+                    colour = G.C.SUITS.Spades,
+                }
+            end
+        end
+
+        if context.individual and context.cardarea == G.play and not context.blueprint and context.other_card:is_suit("Spades") then
+            context.other_card.should_destroy = true
+            return { message = "HAHAHA!", colour = G.C.DARK_EDITION }
+        end
+
         if context.individual and context.cardarea == G.hand and not context.end_of_round and not context.blueprint then
             if context.other_card.edition and context.other_card.edition.negative == true then
             else
