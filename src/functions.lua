@@ -1,9 +1,9 @@
 -- Config
 
-local old_config = copy_table(incognito.config)
+local old_config = copy_table(Incognito.config)
 local function should_restart()
     for k, v in pairs(old_config) do
-        if v ~= incognito.config[k] then
+        if v ~= Incognito.config[k] then
             SMODS.full_restart = 1
             return
         end
@@ -11,7 +11,7 @@ local function should_restart()
     SMODS.full_restart = 0
 end
 
-incognito.config_tab = function()
+Incognito.config_tab = function()
     return {
         n = G.UIT.ROOT,
         config = { align = "cm", padding = 0.07, emboss = 0.05, r = 0.1, colour = G.C.BLACK, minh = 4.5, minw = 7 },
@@ -31,7 +31,7 @@ incognito.config_tab = function()
                         nodes = {
                             create_toggle({
                                 label = "Scrapped Concepts [Mid]",
-                                ref_table = incognito.config,
+                                ref_table = Incognito.config,
                                 ref_value = "scrapped_things",
                                 callback = should_restart,
                             }),
@@ -159,5 +159,10 @@ end
 -- Retrigger Jokers
 
 SMODS.current_mod.optional_features = { cardareas = {}, retrigger_joker = true }
+
+-- Teto Colour
+
+loc_colour('red')
+G.ARGS.LOC_COLOURS['inc_teto'] = HEX('e15d73')
 
 -- card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "71!", colour = HEX("d0d0d0")})

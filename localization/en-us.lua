@@ -215,16 +215,6 @@ return {
                     "{C:inactive}or it won't activate)",
                 }
             },
-            j_nic_inc = {
-                name = "Inc",
-                text = {
-                }
-            },
-            j_nic_invert = {
-                name = "Invert",
-                text = {
-                }
-            },
             j_nic_astromancer = {
                 name = "Astromancer",
                 text = {
@@ -320,6 +310,13 @@ return {
                     "{C:inactive,s:0.8}Answer: {V:31,s:0.8}#33#"},
                 }
             },
+            j_nic_invert = {
+                name = "Invert",
+                text = {
+                    "Each {C:spades}Spade{} cards held in hand",
+                    "have a {C:green}#1# in #2#{} chance to be {C:dark_edition}Negative",
+                }
+            },
             
             -- Teto
 
@@ -387,7 +384,7 @@ return {
             j_nic_spokenforteto = { 
                 name = "Spoken For Teto",
                 text = {
-                    "Each {V:1}Teto{} themed {C:attention}card",
+                    "Each {C:inc_teto}Teto{} themed {C:attention}card",
                     "gives {X:red,C:white} X#1# {} Mult ",
                     "{C:inactive,s:0.8,E:1}Song By: FLAVOR FOLEY",
                 }
@@ -397,7 +394,7 @@ return {
                 text = {
                     "After {C:attention}#2# Boss Blind{} rounds,",
                     "sell this card to {C:attention}Create",
-                    "a random {V:1}Teto{} Joker",
+                    "a random {C:inc_teto}Teto{} Joker",
                     "{C:inactive,s:0.8}(Must have room)",
                     "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)",
                 }
@@ -405,7 +402,7 @@ return {
             j_nic_mesmerizerteto = { 
                 name = "Mesmerizer Teto",
                 text = {
-                    "Retrigger leftmost {V:1}Teto",
+                    "Retrigger leftmost {C:inc_teto}Teto",
                     "Joker {C:attention}#1#{} additional times",
                     "{C:inactive,s:0.8,E:1}Song By: 32ki",
                 }
@@ -443,8 +440,8 @@ return {
                 name = "Teto Territory",
                 text = {
                     "When {C:attention}Boss Blind{} is selected,",
-                    "a random non {V:1}Teto{} Joker", 
-                    "turns into a {V:1}Teto{} Joker",
+                    "a random non {C:inc_teto}Teto{} Joker", 
+                    "turns into a {C:inc_teto}Teto{} Joker",
                     "{C:inactive,s:0.8} Food Jokers turn into Pears",
                     "{C:inactive,s:0.8,E:1}Song By: Oxi",
                 }
@@ -493,7 +490,7 @@ return {
                 name = "Teto",
                 text = {
                     "This Joker is",
-                    "considered a {V:1}Teto",
+                    "considered a {C:inc_teto}Teto",
                 }
             },
             nic_moonphases = {
@@ -578,7 +575,7 @@ return {
                 name = "Tetarot",
                 text = {
                     "Gives selected Joker",
-                    "a {V:1}Teto{} Sticker",
+                    "a {C:inc_teto}Teto{} Sticker",
                     "{C:inactive,s:0.8} Food Jokers turn into Pears",
                 }
             },

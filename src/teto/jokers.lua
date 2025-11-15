@@ -263,7 +263,7 @@ SMODS.Joker{ -- Spoken For Teto
     pools = { ["Teto"] = true },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { colours = { HEX('e15d73') }, card.ability.extra.xmult } }
+        return { vars = { card.ability.extra.xmult } }
     end, 
 
     calculate = function(self, card, context)
@@ -291,7 +291,7 @@ SMODS.Joker{ -- Teto Word Of The Day
     config = { extra = { teto = 0, teto_rounds = 2 } },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { colours = { HEX('e15d73') }, card.ability.extra.teto, card.ability.extra.teto_rounds } }
+        return { vars = { card.ability.extra.teto, card.ability.extra.teto_rounds } }
     end, 
 
     calculate = function(self, card, context)
@@ -369,12 +369,12 @@ SMODS.Joker{ -- Mesmerizer Teto
                 }
             }
             return { 
-                vars = { colours = { HEX('e15d73') }, card.ability.extra.repetitions },
+                vars = { card.ability.extra.repetitions },
                 main_end = main_end 
             }
         else
             return { 
-                vars = { colours = { HEX('e15d73') }, card.ability.extra.repetitions } 
+                vars = { card.ability.extra.repetitions } 
             }
         end
     end,
@@ -563,7 +563,7 @@ SMODS.Joker{ -- Teto Territory
     pools = { ["Teto"] = true },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { colours = { HEX('e15d73') } } }
+        return { vars = {  } }
     end, 
 
     calculate = function(self, card, context)

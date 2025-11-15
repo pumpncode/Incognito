@@ -750,6 +750,16 @@ SMODS.Joker{ -- Incognito
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds) 
         return {vars = {new_numerator, new_denominator, card.ability.extra.xmult_gain, card.ability.extra.xmult}}
     end,
+
+    --[[update = function(self, card)
+        if card.edition and card.edition.key == "e_negative" then
+            card.children.center:set_sprite_pos({x = 1, y = 3})
+            card.children.floating_sprite:set_sprite_pos({x = 2, y = 3})
+        else
+            card.children.center:set_sprite_pos({x = 4, y = 1})
+            card.children.floating_sprite:set_sprite_pos({x = 5, y = 1})
+        end
+    end,]]
     
     calculate = function(self, card, context)
         if context.destroy_card and context.destroy_card.should_destroy and not context.blueprint then
@@ -781,7 +791,7 @@ SMODS.Joker{ -- Incognito
                     return { message = "NOPE!", colour = G.C.SUITS.Spades }
                 end
             end
-        end  
+        end
 
         if context.individual and context.cardarea == G.hand and not context.end_of_round then
             if context.other_card:is_suit("Spades") then
@@ -1138,30 +1148,6 @@ SMODS.Joker{ -- Cyan
     end
 }
 
---[[SMODS.Joker { -- Inc
-    key = "inc",
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = false,
-    atlas = 'nicjokers',
-    rarity = 2,
-    cost = 3,
-    pos = {x = 2, y = 2},
-}
-
-SMODS.Joker { -- Invert
-    key = "invert",
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = false,
-    atlas = 'nicjokers',
-    rarity = 2,
-    cost = 3,
-    pos = {x = 3, y = 2},
-}]]
-
 SMODS.Joker { -- Astromancer
     key = "astromancer",
     blueprint_compat = true,
@@ -1171,7 +1157,7 @@ SMODS.Joker { -- Astromancer
     atlas = 'nicjokers',
     rarity = 2,
     cost = 6,
-    pos = {x = 4, y = 2},
+    pos = {x = 2, y = 2},
 
     calculate = function(self, card, context)
         if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
@@ -1200,7 +1186,7 @@ SMODS.Joker { -- Cartonomer
     atlas = 'nicjokers',
     rarity = 2,
     cost = 8,
-    pos = {x = 5, y = 2},
+    pos = {x = 3, y = 2},
 
     add_to_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
@@ -1243,7 +1229,7 @@ SMODS.Joker{ -- Tierlist
     atlas = 'nicjokers',
     rarity = 2,
     cost = 6,
-    pos = {x = 6, y = 2},
+    pos = {x = 4, y = 2},
     config = { extra = { mult = 0 } },
 
     loc_vars = function(self, info_queue, card)
@@ -1309,7 +1295,7 @@ SMODS.Joker { -- Scenario
     atlas = 'nicjokers',
     rarity = 2,
     cost = 5,
-    pos = {x = 7, y = 2},
+    pos = {x = 5, y = 2},
     config = { extra = { rarity = "Common" } },
 
     draw = function(self, card, layer)
@@ -1364,7 +1350,7 @@ SMODS.Joker { -- Mending
     atlas = 'nicjokers',
     rarity = 3,
     cost = 10,
-    pos = {x = 8, y = 2},
+    pos = {x = 6, y = 2},
 
     calculate = function(self, card, context)
 		if context.remove_playing_cards and context.removed then
@@ -1398,7 +1384,7 @@ SMODS.Joker { -- Calligram Joker
     atlas = 'nicjokers',
     rarity = 2,
     cost = 5,
-    pos = {x = 9, y = 2},
+    pos = {x = 7, y = 2},
     config = { extra = { mult = 1 } },
 
     loc_vars = function(self, info_queue, card)
@@ -1488,7 +1474,7 @@ SMODS.Joker { -- Clover Pit
     atlas = 'nicjokers',
     rarity = 2,
     cost = 5,
-    pos = {x = 0, y = 3},
+    pos = {x = 8, y = 2},
     config = { extra = { dollars_loss = 1, min = -5 , max = 10, mult = 0 } },
 
     loc_vars = function(self, info_queue, card)
@@ -1538,7 +1524,7 @@ SMODS.Joker { -- Cuphead
     atlas = 'nicjokers',
     rarity = 2,
     cost = 5,
-    pos = {x = 1, y = 3},
+    pos = {x = 9, y = 2},
     pixel_size = { h = 95 / 1.2 },
     config = { extra = { parry = 0, mult = 10, mult_gain = 1 } },
 
@@ -1623,7 +1609,7 @@ SMODS.Joker { -- Jokrle
     atlas = 'nicjokers',
     rarity = 2,
     cost = 3,
-    pos = {x = 2, y = 3},
+    pos = {x = 0, y = 3},
     config = { extra = {
         tries = 0, completed = false, 
         answer = "[#] [#] [#] [#] [#]", answercolour = G.C.UI.TEXT_INACTIVE,
@@ -1712,7 +1698,7 @@ SMODS.Joker { -- Jokrle
             if norank then
                 if card.ability.extra.completed == false and card.ability.extra.tries < 7 then
                     for i = 1, 5 do
-                        if context.full_hand[i]:get_id() == 10 then card.ability.extra.lines[card.ability.extra.tries][i] = "T"
+                        if context.full_hand[i]:get_id() == 10 then card.ability.extra.lines[card.ability.extra.tries][i] = "X"
                         elseif context.full_hand[i]:get_id() == 11 then card.ability.extra.lines[card.ability.extra.tries][i] = "J"
                         elseif context.full_hand[i]:get_id() == 12 then card.ability.extra.lines[card.ability.extra.tries][i] = "Q"
                         elseif context.full_hand[i]:get_id() == 13 then card.ability.extra.lines[card.ability.extra.tries][i] = "K"
@@ -1866,7 +1852,7 @@ SMODS.Joker { -- Jokrle
                     end
                     if correct == 5 then
                         for i = 1, 5 do
-                            if card.ability.extra.string[i] == 10 then card.ability.extra.string[i] = "T"
+                            if card.ability.extra.string[i] == 10 then card.ability.extra.string[i] = "X"
                             elseif card.ability.extra.string[i] == 11 then card.ability.extra.string[i] = "J"
                             elseif card.ability.extra.string[i] == 12 then card.ability.extra.string[i] = "Q"
                             elseif card.ability.extra.string[i] == 13 then card.ability.extra.string[i] = "K"
@@ -1918,6 +1904,47 @@ SMODS.Joker { -- Jokrle
             return {
                 mult = card.ability.extra.mult
             }
+        end
+    end
+}
+
+SMODS.Joker{ -- Invert
+    key = "invert",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nicjokers',
+    rarity = 4,
+    cost = 20,
+    pos = {x = 1, y = 3},
+    soul_pos = {x = 2, y = 3},
+    config = { extra = { xmult = 1, xmult_gain = 1 , odds = 7 } },
+
+    loc_vars = function(self, info_queue, card)
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds) 
+        return {vars = {new_numerator, new_denominator, card.ability.extra.xmult_gain, card.ability.extra.xmult}}
+    end,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.hand and not context.end_of_round and not context.blueprint then
+            if context.other_card.edition and context.other_card.edition.negative == true then
+            else
+                if (context.other_card.base.suit == "Spades") then
+                    if SMODS.pseudorandom_probability(card, ('j_nic_invert'), 1, card.ability.extra.odds) then
+                        local other_card = context.other_card
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                other_card:set_edition('e_negative', nil, true)
+                                return true
+                            end
+                        }))
+                        return { message = "HAHAHA!", colour = G.C.DARK_EDITION }
+                    else
+                        return { message = "NOPE!", colour = G.C.DARK_EDITION }
+                    end
+                end
+            end
         end
     end
 }
