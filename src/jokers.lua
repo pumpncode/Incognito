@@ -1684,6 +1684,14 @@ SMODS.Joker { -- Jokrle
             if card.ability.extra.completed == false and card.ability.extra.tries == 6 then
                 SMODS.calculate_effect({message = "FAILED!", colour = G.C.RED}, card)
                 card.ability.extra.answercolour = HEX(card.ability.extra.green)
+                for i = 1, 5 do
+                    if card.ability.extra.string[i] == 10 then card.ability.extra.string[i] = "X"
+                    elseif card.ability.extra.string[i] == 11 then card.ability.extra.string[i] = "J"
+                    elseif card.ability.extra.string[i] == 12 then card.ability.extra.string[i] = "Q"
+                    elseif card.ability.extra.string[i] == 13 then card.ability.extra.string[i] = "K"
+                    elseif card.ability.extra.string[i] == 14 then card.ability.extra.string[i] = "A"
+                    end
+                end
                 card.ability.extra.answer = "[" .. (card.ability.extra.string[1]) .. "] " .. "[" .. (card.ability.extra.string[2]) .. "] " .. "[" .. (card.ability.extra.string[3]) .. "] " .. "[" .. (card.ability.extra.string[4]) .. "] " .. "[" .. (card.ability.extra.string[5]) .. "] "
             end
         end
