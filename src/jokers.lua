@@ -117,7 +117,7 @@ SMODS.Joker{ -- Button
     rarity = 1,
     cost = 3,
     pos = {x = 2, y = 0 },
-    config = { extra = { xmult = 0.5, min = 1, max = 1000, odds = 1 } },
+    config = { extra = { xmult = 0.5, min = 1, max = 100, odds = 1 } },
 
     loc_vars = function(self, info_queue, card)
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, card.ability.extra.min, card.ability.extra.max) 
@@ -132,7 +132,6 @@ SMODS.Joker{ -- Button
                 return { play_sound("nic_explosion"), message = "BOOM!", colour = G.C.RED }
             else
                 card.ability.extra.odds = pseudorandom('j_nic_buttonodds', 1, 5)
-                card.ability.extra.min = card.ability.extra.min + card.ability.extra.odds
                 card.ability.extra.xmult = (card.ability.extra.xmult) + 0.05
                 card:juice_up(0.5, 0.5)
                 return { play_sound("nic_click") }

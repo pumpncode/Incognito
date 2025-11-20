@@ -39,10 +39,9 @@ return {
                 text = {
                     "When {C:attention}Clicked{} or {C:attention}Space is",
                     "{C:attention}Pressed{}, Gains {X:mult,C:white}X0.05{} Mult and",
-                    "has a {C:green}#1# in #2#{} chance",
-                    "that this card is destroyed",
+                    "has a {C:green}#1# in #2#{} chance that",
+                    "this card is destroyed",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult}",
-                    " {C:green,s:0.8}Probability{C:inactive,s:0.8} increases by 1-5 every click ",
                 }
             },
             j_nic_slycooper = {
