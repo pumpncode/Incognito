@@ -1,7 +1,9 @@
 # Incognito :D
 <img width="1665" height="1050" alt="Logo2 5" src="https://github.com/user-attachments/assets/3887fa42-7fe3-4c94-adcc-568aad992708" />
 
+
 I FINALLY FINISHED RAHHHH TVT\
+
 This Mod is just another dumb mod that adds stuff I wanted in Balatro cause why not.\
 I did the art and code so don't flame me too hard for taking so long or how bad it is.
 
