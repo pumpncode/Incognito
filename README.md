@@ -4,7 +4,9 @@
 I FINALLY FINISHED RAHHHH TVT
 
 This Mod is just another dumb mod that adds stuff I wanted in Balatro cause why not.\
-I did the art and code so don't flame me too hard for taking so long or how bad it is.
+I did the art and code so don't flame me too hard for taking so long or how bad it is.\
+There is also a scrapped content button, just a bunch of stuff I didn't fully flesh out.\
+(But I might add them in the future hehehehe)
 
 # Contents
 
@@ -22,8 +24,6 @@ Tetarot
 OOPS? ALL SWOONS!\
 O0p$? @l- HAHAHA!\
 THE FUTURE WILL BE PAVED WITH METAL!
-
-## Scrapped Content (Might Be Used In The Future)
 
 ## Crossovers
 [Hyperfixation (Only DEV)](https://github.com/tomatoseandcrying/hyperfixation/tree/main)\
