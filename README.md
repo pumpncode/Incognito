@@ -15,10 +15,10 @@ I FINALLY FINISHED RAHHHH
 ## 3 Challenge Runs:
 OOPS? ALL SWOONS!\
 O0p$? @l- HAHAHA!\
-THE FUTURE WILL BE PAVED WITH METAL!\
+THE FUTURE WILL BE PAVED WITH METAL!
 
 ## Total of 1 Tarot:
-Tetarot\
+Tetarot
 
 ## Crossovers
 [Hyperfixation (only DEV)]([https://github.com/SpectralPack/Talisman](https://github.com/tomatoseandcrying/hyperfixation/tree/main))\
