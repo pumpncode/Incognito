@@ -2006,6 +2006,18 @@ SMODS.Joker{ -- Solar Eclipse
         return { vars = { card.ability.extra.mult, card.ability.extra.chips, card.ability.extra.mult_gain, card.ability.extra.chips_gain } }
     end,
 
+    update = function(self, card)
+        if card.ability.extra.sun == card.ability.extra.moon then
+            card.children.center:set_sprite_pos({x = 3, y = 3})
+        end
+        if card.ability.extra.sun > card.ability.extra.moon then
+            card.children.center:set_sprite_pos({x = 4, y = 3})
+        end
+        if card.ability.extra.sun < card.ability.extra.moon then
+            card.children.center:set_sprite_pos({x = 5, y = 3})
+        end
+    end,
+
     calculate = function(self, card, context)
         if context.using_consumeable and not context.blueprint then
             if context.consumeable.config.center.key == 'c_sun' then
@@ -2017,15 +2029,6 @@ SMODS.Joker{ -- Solar Eclipse
                 card.ability.extra.chips = (card.ability.extra.moon * card.ability.extra.chips_gain)
             end
             card:juice_up(0.5, 0.5)
-            if card.ability.extra.sun == card.ability.extra.moon then
-                card.children.center:set_sprite_pos({x = 3, y = 3})
-            end
-            if card.ability.extra.sun > card.ability.extra.moon then
-                card.children.center:set_sprite_pos({x = 4, y = 3})
-            end
-            if card.ability.extra.sun < card.ability.extra.moon then
-                card.children.center:set_sprite_pos({x = 5, y = 3})
-            end
         end
 
         if context.joker_main then
