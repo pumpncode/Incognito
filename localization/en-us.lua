@@ -27,7 +27,7 @@ return {
                     "{C:black,X:white,s:0.6}MEGA{s:0.6}/{C:black,X:white,s:0.6}VIRUS{s:0.6}/{C:black,X:white,s:0.6}MACHINE"
                 },
                 text = {
-                    {"At end of round, all non {C:attention}Enhanced cards{}",
+                    {"End of round, all non {C:attention}Enhanced cards{}",
                     "held in hand turn into {C:attention}Steel{} cards"},
                     {"Scored {C:attention}Steel{} cards get destroyed",
                     "and gains {C:mult}+15{} Mult and {X:mult,C:white}X0.5{} Mult",
@@ -38,7 +38,7 @@ return {
                 name = "Button",
                 text = {
                     "When {C:attention}Clicked{} or {C:attention}Space is",
-                    "{C:attention}Pressed{}, Gains {X:mult,C:white}X0.05{} Mult and",
+                    "{C:attention}Pressed{}, gain {X:mult,C:white}X0.05{} Mult and",
                     "has a {C:green}#1# in #2#{} chance that",
                     "this card is destroyed",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult}",
@@ -57,8 +57,8 @@ return {
             j_nic_stalagmite = {
                 name = "Stalagmite",
                 text = {
-                    {"Played {C:attention}Stone{} card turns {C:dark_edition}Negative",
-                    "while {C:dark_edition}Negative {C:attention}Stone{} card gets",
+                    {"Scoring {C:attention}Stone{} cards turn {C:dark_edition}Negative,",
+                    "Scoring {C:dark_edition}Negative {C:attention}Stone{} cards gets",
                     "destroyed and increases {C:chips}Chips{} by {C:chips}#2#"},
                     {"{C:chips}+#1#{} Chips for each",
                     "{C:attention}Stone{} card held in hand",
@@ -127,19 +127,22 @@ return {
             j_nic_invisiblewoman = {
                 name = "Invisible Woman",
                 text = {
-                    "If {C:attention}first played{} is a {C:attention}Four of a Kind{} with", 
-                    "exactly {C:attention}4{} cards, turns all cards into glass",
+                    "If {C:attention}first played{} hand is a",
+                    "{C:attention}Four of a Kind{} with exactly {C:attention}4",
+                    "cards, turn all cards into glass",
                     "{C:inactive,s:0.8}Glass cards have a higher chance to break",
                 }
             },
             j_nic_thething = {
                 name = "The Thing",
                 text = {
-                    {"When round begins, adds {C:attention}#1# Stone{}",
-                    "cards with a random {C:attention}seal{} to your deck"},
-                    {"If {C:attention}first played{} is a {C:attention}Four of a Kind{}",
-                    "with exactly {C:attention}4{} cards, increase the",
-                    "amount of {C:attention}Stone{} cards by {C:attention}#2#"},
+                    {"When round begins, add",
+                    "{C:attention}#1# Stone{} cards with a",
+                    "random {C:attention}seal{} to your deck"},
+                    {"If {C:attention}first played{} hand is a",
+                    "{C:attention}Four of a Kind{} with exactly {C:attention}4",
+                    "cards, increase the amount",
+                    "of {C:attention}Stone{} cards by {C:attention}#2#"},
                 }
             },
             j_nic_misterfantastic = {
@@ -187,8 +190,8 @@ return {
                 name = "Ratio Technique",
                 text = {
                     "Card located at the {C:attention}7:3{} ratio",
-                    "mark {C:attention}in hand{} gets destroyed",
-                    "when the {C:attention}first hand played",
+                    "mark {C:attention}held in hand{} gets destroyed",
+                    "when the {C:attention}first hand is played",
                     "{C:inactive,s:0.8}| - | - | - | - | - | - | - o - | - | - |",
                     "{C:inactive}(Currently #1##2#)",
                 }
