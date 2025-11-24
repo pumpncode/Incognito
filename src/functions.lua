@@ -97,6 +97,29 @@ function Card:get_id()
 	end
 end]]
 
+-- Crazy Taxi
+
+local function reset_nic_crazytaxi_rank()
+    G.GAME.current_round.nic_crazytaxi_card = { rank = 'Ace' }
+    local valid_crazytaxi_cards = {}
+    for _, playing_card in ipairs(G.playing_cards) do
+        if not SMODS.has_no_rank(playing_card) then
+            valid_crazytaxi_cards[#valid_crazytaxi_cards + 1] = playing_card
+        end
+    end
+    local crazytaxi_card = pseudorandom_element(valid_crazytaxi_cards, 'nic_crazytaxi' .. G.GAME.round_resets.ante)
+    if crazytaxi_card then
+        G.GAME.current_round.nic_crazytaxi_card.rank = crazytaxi_card.base.value
+        G.GAME.current_round.nic_crazytaxi_card.id = crazytaxi_card.base.id
+    end
+end
+
+-- Changes Variable
+
+function SMODS.current_mod.reset_game_globals(run_start)
+    reset_nic_crazytaxi_rank() -- Crazy Taxi
+end
+
 -- Vouchers/Boosters
 
 buyingcard = {}

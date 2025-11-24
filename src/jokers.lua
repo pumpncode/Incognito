@@ -812,12 +812,12 @@ SMODS.Joker{ -- Crazy Taxi
     rarity = 2,
     cost = 6,
     pos = {x = 6, y = 1},
-    config = { start = 0, inblind = 0, time = 30, extra = { dollars = 1, ranks = "Ace" } },
+    config = { start = 0, inblind = 0, time = 30, extra = { dollars = 1 } },
 
     loc_vars = function(self, info_queue, card)
         return { 
             vars = { 
-                card.ability.extra.dollars, card.ability.extra.ranks,
+                card.ability.extra.dollars, localize((G.GAME.current_round.nic_crazytaxi_card or {}).rank or 'Ace', 'ranks'),
             },
             main_end = {
                 {
@@ -862,8 +862,7 @@ SMODS.Joker{ -- Crazy Taxi
             }
         end
 
-        if context.individual and context.cardarea == G.play and
-        context.other_card:get_id(card.ability.extra.ranks) then
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() == G.GAME.current_round.nic_crazytaxi_card.id then
             if (G.TIMERS.REAL - card.ability.start <= 30) then
                 card.ability.start = card.ability.start + 5
                 return {
@@ -878,7 +877,6 @@ SMODS.Joker{ -- Crazy Taxi
         
         if (context.end_of_round and context.main_eval and not context.repetition) or context.forcetrigger then
 			card.ability.inblind = 0
-            card.ability.extra.ranks = (pseudorandom_element(SMODS.Ranks, 'nic_crazytaxi').key)
 			if (G.TIMERS.REAL - card.ability.start <= 30) or context.forcetrigger then
                 card.ability.extra.dollars = card.ability.extra.dollars + 3
 				return {
@@ -1988,7 +1986,7 @@ SMODS.Joker{ -- Invert
     end
 }
 
-SMODS.Joker{ -- Solar Eclipse
+--[[SMODS.Joker{ -- Solar Eclipse
     key = "solareclipse",
     blueprint_compat = true,
     eternal_compat = true,
@@ -2021,14 +2019,15 @@ SMODS.Joker{ -- Solar Eclipse
     calculate = function(self, card, context)
         if context.using_consumeable and not context.blueprint then
             if context.consumeable.config.center.key == 'c_sun' then
+                card:juice_up(0.5, 0.5)
                 card.ability.extra.sun = card.ability.extra.sun + 1
                 card.ability.extra.mult = (card.ability.extra.sun * card.ability.extra.mult_gain)
             end
             if context.consumeable.config.center.key == 'c_moon' then
+                card:juice_up(0.5, 0.5)
                 card.ability.extra.moon = card.ability.extra.moon + 1
                 card.ability.extra.chips = (card.ability.extra.moon * card.ability.extra.chips_gain)
             end
-            card:juice_up(0.5, 0.5)
         end
 
         if context.joker_main then
@@ -2050,4 +2049,4 @@ SMODS.Joker{ -- Solar Eclipse
             end
         end
     end
-}
+}]]

@@ -404,8 +404,8 @@ return {
             j_nic_spokenforteto = { 
                 name = "Spoken For Teto",
                 text = {
-                    "Each {C:inc_teto}Teto{} themed {C:attention}card",
-                    "gives {X:red,C:white} X#1# {} Mult ",
+                    "Each {C:inc_teto}Teto{} themed",
+                    "{C:attention}card{} gives {X:red,C:white} X#1# {} Mult ",
                     "{C:inactive,s:0.8,E:1}Song By: FLAVOR FOLEY",
                 }
             },
@@ -422,7 +422,7 @@ return {
             j_nic_mesmerizerteto = { 
                 name = "Mesmerizer Teto",
                 text = {
-                    "If leftmost {C:attention}Joker{} is",
+                    "If leftmost Joker is",
                     "a {C:inc_teto}Teto{}, retrigger it",
                     "{C:attention}#1#{} additional times",
                     "{C:inactive,s:0.8,E:1}Song By: 32ki",

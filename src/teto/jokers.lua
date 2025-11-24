@@ -273,7 +273,7 @@ SMODS.Joker{ -- Spoken For Teto
     rarity = "nic_teto",
     cost = 8,
     pos = {x = 2, y = 1},
-    config = { extra = { xmult = 2 } },
+    config = { extra = { xmult = 1.5 } },
     pools = { ["Teto"] = true },
 
     loc_vars = function(self, info_queue, card)
