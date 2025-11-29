@@ -29,4 +29,5 @@ THE FUTURE WILL BE PAVED WITH METAL!
 ## Crossovers
 [Hyperfixation (Only DEV)](https://github.com/tomatoseandcrying/hyperfixation/tree/main)\
 [GARBSHIT](https://github.com/Gainumki/GARBSHIT)\
+[JokerDisplay](https://github.com/nh6574/JokerDisplay/tree/32404069a39f6f9389bb97de006ad8e00de4f913)\
 More maybe idk XP
