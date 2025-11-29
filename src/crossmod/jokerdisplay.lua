@@ -23,7 +23,7 @@ jd_def["j_nic_machinedramon"] = {
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
-        { text = " and " },
+        { text = " " },
         {
             border_nodes = {
                 { text = "X" },
@@ -657,7 +657,7 @@ jd_def["j_nic_solareclipse"] = {
     text = {
         { text = "+", colour = G.C.MULT },
         { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
-        { text = " and " },
+        { text = " " },
         { text = "+", colour = G.C.CHIPS },
         { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
     },
