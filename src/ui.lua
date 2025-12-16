@@ -1047,6 +1047,286 @@ G.FUNCS.nic_can_gravebuster = function(e)
 	end
 end
 
+-- Hypno-shroom
+
+local card_highlighted_ref = Card.highlight
+function Card:highlight(is_highlighted)
+	self.highlighted = is_highlighted
+	if self.highlighted and string.find(self.ability.name, "j_nic_hypnoshroom") and self.area == G.jokers then
+		if self.children.use_button then
+			self.children.use_button:remove()
+			self.children.use_button = nil
+		end
+
+		self.children.use_button = UIBox({
+			definition = Incognito.hypnoshroom(self, {
+				sell = true,
+				use = true,
+			}),
+			config = {
+				align = "cr",
+				offset = {
+					x = -0.4,
+					y = 0,
+				},
+				parent = self,
+			},
+		})
+	else
+		card_highlighted_ref(self, is_highlighted)
+	end
+end
+
+Incognito.hypnoshroom = function(card, args)
+	local args = args or {}
+	local sell = nil
+	local use = nil
+
+	if args.sell then
+		sell = {
+			n = G.UIT.C,
+			config = {
+				align = "cr",
+			},
+			nodes = {
+				{
+					n = G.UIT.C,
+					config = {
+						ref_table = card,
+						align = "cr",
+						padding = 0.1,
+						r = 0.08,
+						minw = 1.25,
+						hover = true,
+						shadow = true,
+						colour = G.C.UI.BACKGROUND_INACTIVE,
+						one_press = true,
+						button = "sell_card",
+						func = "can_sell_card",
+					},
+					nodes = {
+						{
+							n = G.UIT.B,
+							config = {
+								w = 0.1,
+								h = 0.6,
+							},
+						},
+						{
+							n = G.UIT.C,
+							config = {
+								align = "tm",
+							},
+							nodes = {
+								{
+									n = G.UIT.R,
+									config = {
+										align = "cm",
+										maxw = 1.25,
+									},
+									nodes = {
+										{
+											n = G.UIT.T,
+											config = {
+												text = localize("b_sell"),
+												colour = G.C.UI.TEXT_LIGHT,
+												scale = 0.4,
+												shadow = true,
+											},
+										},
+									},
+								},
+								{
+									n = G.UIT.R,
+									config = {
+										align = "cm",
+									},
+									nodes = {
+										{
+											n = G.UIT.T,
+											config = {
+												text = localize("$"),
+												colour = G.C.WHITE,
+												scale = 0.4,
+												shadow = true,
+											},
+										},
+										{
+											n = G.UIT.T,
+											config = {
+												ref_table = card,
+												ref_value = "sell_cost_label",
+												colour = G.C.WHITE,
+												scale = 0.55,
+												shadow = true,
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+	end
+
+	if args.use then
+		use = {
+			n = G.UIT.C,
+			config = {
+				align = "cr",
+			},
+			nodes = {
+				{
+					n = G.UIT.C,
+					config = {
+						ref_table = card,
+						align = "cr",
+						padding = 0.1,
+						r = 0.08,
+						minw = 0,
+						minh = 0.8,
+						hover = true,
+						shadow = true,
+						colour = G.C.RED,
+						button = "nic_hypnoshroom",
+						func = "nic_can_hypnoshroom",
+					},
+					nodes = {
+						{
+							n = G.UIT.B,
+							config = {
+								w = 0.1,
+								h = 0,
+							},
+						},
+						{
+							n = G.UIT.C,
+							config = {
+								align = "tm",
+							},
+							nodes = {
+								{
+									n = G.UIT.R,
+									config = {
+										align = "cm",
+										maxw = 1.25,
+									},
+									nodes = {
+										{
+											n = G.UIT.T,
+											config = {
+												text = "HYPNO",
+												colour = G.C.UI.TEXT_LIGHT,
+												scale = 0.55,
+												shadow = true,
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+	end
+
+	return {
+		n = G.UIT.ROOT,
+		config = {
+			align = "cr",
+			padding = 0,
+			colour = G.C.CLEAR,
+		},
+		nodes = {
+			{
+				n = G.UIT.C,
+				config = {
+					padding = 0.15,
+					align = "cl",
+				},
+				nodes = {
+					sell and {
+						n = G.UIT.R,
+						config = {
+							align = "cl",
+						},
+						nodes = { sell },
+					} or nil,
+					use and {
+						n = G.UIT.R,
+						config = {
+							align = "cl",
+						},
+						nodes = { use },
+					} or nil,
+				},
+			},
+		},
+	}
+end
+
+G.FUNCS.nic_hypnoshroom = function(e)
+    local card = e.config.ref_table
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            SMODS.destroy_cards(card)
+			for i = 1, card.ability.extra["amount"] do
+				for i = 1, #G.hand.highlighted do 
+					local cen_pool = {}
+					for _, enhancement_center in pairs(G.P_CENTER_POOLS["Enhanced"]) do
+						if enhancement_center.key ~= 'm_stone' and not enhancement_center.overrides_base_rank then
+							cen_pool[#cen_pool + 1] = enhancement_center
+						end
+					end
+					local enhancement = pseudorandom_element(cen_pool, 'nic_hypnoshroom')
+
+					local cards = copy_card(G.hand.highlighted[i], nil, nil, G.playing_card)
+
+					G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+					cards.playing_card = G.playing_card
+					table.insert(G.playing_cards, cards)
+							
+					cards:start_materialize()
+					cards:set_ability(enhancement, true)
+					G.hand:emplace(cards)
+					G.hand:sort()
+				end
+			end
+			SMODS.calculate_context({ playing_card_added = true, cards = cards })
+			G.hand:unhighlight_all()
+            return true
+        end
+    }))
+    return { play_sound("nic_hypnoshroom") }
+end
+
+G.FUNCS.nic_can_hypnoshroom = function(e)
+    local card = e.config.ref_table
+	local stone = false
+	if #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra["max_highlighted"] then
+		for i = 1, #G.hand.highlighted do
+			for _, playing_card in ipairs(G.hand.highlighted) do
+				if SMODS.has_enhancement(playing_card, 'm_stone') then
+					stone = true
+				end
+			end
+		end
+		if stone then
+			e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+			e.config.button = nil
+		else
+			e.config.colour = G.C.RED
+			e.config.button = "nic_hypnoshroom"
+		end
+	else
+		e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+		e.config.button = nil
+	end
+end
+
 -- Doom-shroom
 
 local card_highlighted_ref = Card.highlight

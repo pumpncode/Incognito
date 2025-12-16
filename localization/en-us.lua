@@ -485,7 +485,7 @@ return {
                 name = "Sunflower",
                 text = {
                     "Earn {C:money}$#1#{} for",
-                    "each played hand",
+                    "each played card",
                 }
             },
             j_nic_cherrybomb = {
@@ -547,7 +547,7 @@ return {
                 text = {
                     "Earn {C:money}$#3#{} for",
                     "each played hand,",
-                    "after {C:attention}#2#{C:inactive} [#1#]{} hands,",
+                    "every {C:attention}#2#{C:inactive} [#1#]{} hands,",
                     "double the {C:money}cash{} earn",
                 }
             },
@@ -564,12 +564,17 @@ return {
                     "{C:attention}Stone{} cards, each card",
                     "adds {C:attention}#2#{} random {C:attention}Enhanced",
                     "{C:attention}cards{} to your hand",
+                    "{C:red,E:2}self destructs",
                 }
             },
             j_nic_hypnoshroom = {
                 name = "Hypno-shroom",
                 text = {
-                    "",
+                    "Create {C:attention}#2#{} random {C:attention}Enhanced",
+                    "copies of up to {C:attention}#1#{} selected",
+                    "cards in your hand",
+                    "{C:inactive,s:0.8}doesn't work on stones",
+                    "{C:red,E:2}self destructs",
                 }
             },
             j_nic_scaredyshroom = {
@@ -585,6 +590,7 @@ return {
                 name = "Ice-shroom",
                 text = {
                     "",
+                    "{C:red,E:2}self destructs",
                 }
             },
             j_nic_doomshroom = {

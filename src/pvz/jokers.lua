@@ -9,7 +9,7 @@ SMODS.Joker{ -- Peashooter
     cost = 4,
     pos = {x = 0, y = 7},
     soul_pos = {x = 0, y = 0},
-    config = { extra = { chips = 50 } },
+    config = { extra_slots_used = -1, extra = { chips = 50 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -42,7 +42,7 @@ SMODS.Joker{ -- Sunflower
     cost = 2,
     pos = {x = 0, y = 7},
     soul_pos = {x = 1, y = 0},
-    config = { extra = { dollars = 1 } },
+    config = { extra_slots_used = -1, extra = { dollars = 1 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -56,7 +56,7 @@ SMODS.Joker{ -- Sunflower
     end,
 
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.individual and context.cardarea == G.play then
             return {
                 dollars = card.ability.extra.dollars,
             }
@@ -75,7 +75,7 @@ SMODS.Joker{ -- Cherry Bomb
     cost = 6,
     pos = {x = 0, y = 7},
     soul_pos = {x = 2, y = 0},
-    config = { extra = { max_highlighted = 3 } },
+    config = { extra_slots_used = -1, extra = { max_highlighted = 3 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -105,7 +105,7 @@ SMODS.Joker{ -- Wall-nut
     cost = 2,
     pos = {x = 0, y = 7},
     soul_pos = {x = 3, y = 0},
-    config = { extra = { hand = 1, discard = 1 } },
+    config = { extra_slots_used = -1, extra = { hand = 1, discard = 1 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -158,7 +158,7 @@ SMODS.Joker{ -- Potato Mine
     cost = 1,
     pos = {x = 0, y = 7},
     soul_pos = {x = 4, y = 0},
-    config = { extra = { max_highlighted = 3, countdown = 0, countdown_needed = 3 } },
+    config = { extra_slots_used = -1, extra = { max_highlighted = 3, countdown = 0, countdown_needed = 3 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -198,7 +198,7 @@ SMODS.Joker{ -- Snow Pea
     cost = 7,
     pos = {x = 0, y = 7},
     soul_pos = {x = 5, y = 0},
-    config = { extra = { chips = 50, hand = 1 } },
+    config = { extra_slots_used = -1, extra = { chips = 50, hand = 1 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -241,7 +241,7 @@ SMODS.Joker{ -- Chomper
     cost = 6,
     pos = {x = 0, y = 7},
     soul_pos = {x = 6, y = 0},
-    config = { extra = { max_highlighted = 1, countdown = 3, countdown_needed = 3, mult = 0, mult_gain = 10 } },
+    config = { extra_slots_used = -1, extra = { max_highlighted = 1, countdown = 3, countdown_needed = 3, mult = 0, mult_gain = 10 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -292,7 +292,7 @@ SMODS.Joker{ -- Repeater
     cost = 8,
     pos = {x = 0, y = 7},
     soul_pos = {x = 7, y = 0},
-    config = { extra = { chips = 50 } },
+    config = { extra_slots_used = -1, extra = { chips = 50 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -328,7 +328,7 @@ SMODS.Joker{ -- Puff-shroom
     cost = 0,
     pos = {x = 0, y = 7},
     soul_pos = {x = 0, y = 1},
-    config = { extra = { chips = 50 } },
+    config = { extra_slots_used = -1, extra = { chips = 50 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -363,7 +363,7 @@ SMODS.Joker{ -- Sun-shroom
     cost = 1,
     pos = {x = 0, y = 7},
     soul_pos = {x = 1, y = 1},
-    config = { extra = { countdown = 0, countdown_needed = 10, dollars = 0.5 } },
+    config = { extra_slots_used = -1, extra = { countdown = 0, countdown_needed = 10, dollars = 0.5 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -381,10 +381,11 @@ SMODS.Joker{ -- Sun-shroom
             if card.ability.extra.countdown ~= card.ability.extra.countdown_needed then
                 card.ability.extra.countdown = card.ability.extra.countdown + 1
                 if card.ability.extra.countdown == card.ability.extra.countdown_needed then
+                    card.ability.extra.countdown = 0
                     card.ability.extra.dollars = card.ability.extra.dollars * 2
                 end
                 return {
-                    message = (card.ability.extra.countdown < card.ability.extra.countdown_needed) and (card.ability.extra.countdown .. '/' .. card.ability.extra.countdown_needed) or "INCREASE CASH",
+                    message = card.ability.extra.countdown == 0 and "INCREASE CASH" or (card.ability.extra.countdown < card.ability.extra.countdown_needed) and (card.ability.extra.countdown .. '/' .. card.ability.extra.countdown_needed),
                 }
             end
         end
@@ -407,7 +408,7 @@ SMODS.Joker{ -- Fume-shroom
     cost = 3,
     pos = {x = 0, y = 7},
     soul_pos = {x = 2, y = 1},
-    config = { extra = {} },
+    config = { extra_slots_used = -1, extra = {} },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -432,7 +433,7 @@ SMODS.Joker{ -- Grave Buster
     cost = 3,
     pos = {x = 0, y = 7},
     soul_pos = {x = 3, y = 1},
-    config = { extra = { max_highlighted = 3, amount = 3 } },
+    config = { extra_slots_used = -1, extra = { max_highlighted = 3, amount = 3 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -456,21 +457,12 @@ SMODS.Joker{ -- Hypno-shroom
     cost = 3,
     pos = {x = 0, y = 7},
     soul_pos = {x = 4, y = 1},
-    config = { extra = { } },
+    config = { extra_slots_used = -1, extra = { max_highlighted = 3, amount = 2 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { } }
+        return { vars = { card.ability.extra.max_highlighted, card.ability.extra.amount } }
     end,
-
-    add_to_deck = function(self, card, from_debuff)        
-        if card.cost == 1 then
-            card.ability.extra_value = -card.cost
-        else
-            card.ability.extra_value = -math.floor(card.cost/2)
-        end
-        card:set_cost()
-    end
 }
 
 SMODS.Joker{ -- Scaredy-shroom
@@ -484,7 +476,7 @@ SMODS.Joker{ -- Scaredy-shroom
     cost = 1,
     pos = {x = 0, y = 7},
     soul_pos = {x = 5, y = 1},
-    config = { extra = { chips = 50, rounds = 1, hand = 1 } },
+    config = { extra_slots_used = -1, extra = { chips = 50, rounds = 1, hand = 1 } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -530,7 +522,7 @@ SMODS.Joker{ -- Ice-shroom
     cost = 3,
     pos = {x = 0, y = 7},
     soul_pos = {x = 6, y = 1},
-    config = { extra = { } },
+    config = { extra_slots_used = -1, extra = { } },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)
@@ -549,7 +541,7 @@ SMODS.Joker{ -- Doom-shroom
     cost = 5,
     pos = {x = 0, y = 7},
     soul_pos = {x = 7, y = 1},
-    config = { extra = {} },
+    config = { extra_slots_used = -1, extra = {} },
     pools = { ["Plants"] = true },
 
     loc_vars = function(self, info_queue, card)

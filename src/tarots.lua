@@ -17,6 +17,7 @@ SMODS.Consumable {
                     G.jokers.highlighted[1]:juice_up()
                     G.jokers.highlighted[1]:set_ability(G.P_CENTERS.j_nic_pear)
                     play_sound('gold_seal', 1.2, 0.4)
+                    G.jokers:unhighlight_all()
                     return true
                 end
             }))
@@ -28,6 +29,7 @@ SMODS.Consumable {
                     G.jokers.highlighted[1]:juice_up()
                     G.jokers.highlighted[1]:add_sticker("nic_tetosticker", true)
                     play_sound('gold_seal', 1.2, 0.4)
+                    G.jokers:unhighlight_all()
                     return true 
                 end 
             }))

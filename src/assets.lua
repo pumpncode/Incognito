@@ -42,6 +42,13 @@ SMODS.Atlas{ -- Placeholder
     py = 95,
 }
 
+SMODS.Atlas{ -- Mahoraga Wheel
+    key = "mahoragawheel",
+    path = "scrapped/mahoragawheel.png",
+    px = 71,
+    py = 95,
+}
+
 -- Others
 
 SMODS.Atlas{ -- Blinds
@@ -196,6 +203,11 @@ SMODS.Sound{ -- Doom-shroom
 SMODS.Sound{ -- Grave Buster
     key = "gravebuster",
     path = "pvz/gravebuster.ogg",
+}
+
+SMODS.Sound{ -- Hypno-shroom
+    key = "hypnoshroom",
+    path = "pvz/hypnoshroom.ogg",
 }
 
 SMODS.Sound{ -- Potato Mine
