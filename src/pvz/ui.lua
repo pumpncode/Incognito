@@ -31,12 +31,33 @@ SMODS.DrawStep({
     conditions = { vortex = false },
 })
 
+-- Card Area
+
+SMODS.current_mod.custom_card_areas = function(game)
+	game.zengarden = CardArea(
+		game.jokers.T.x - 2, game.jokers.T.y + 2,
+        game.jokers.T.w * 1.5, game.jokers.T.h * 1.5,
+        { card_limit = 5, type = 'joker', highlight_limit = 1 }
+	)
+end
+
+local zengarden_emplace = CardArea.emplace
+function CardArea:emplace(card, location, stay_flipped)
+    if self == G.jokers and card.config.center.rarity == "nic_plants" then 
+        card:remove_from_area()
+        G.zengarden:emplace(card, location, stay_flipped)
+        return
+    end
+    if self == G.zengarden then self:change_size(1) end
+    zengarden_emplace(self, card, location, stay_flipped)
+end
+
 -- Cherry Bomb
 
 local card_highlighted_ref = Card.highlight
 function Card:highlight(is_highlighted)
 	self.highlighted = is_highlighted
-	if self.highlighted and string.find(self.ability.name, "j_nic_cherrybomb") and self.area == G.jokers then
+	if self.highlighted and string.find(self.ability.name, "j_nic_cherrybomb") and self.area == G.zengarden then
 		if self.children.use_button then
 			self.children.use_button:remove()
 			self.children.use_button = nil
@@ -44,6 +65,126 @@ function Card:highlight(is_highlighted)
 
 		self.children.use_button = UIBox({
 			definition = Incognito.cherrybomb(self, {
+				sell = true,
+				use = true,
+			}),
+			config = {
+				align = "cr",
+				offset = {
+					x = -0.4,
+					y = 0,
+				},
+				parent = self,
+			},
+		})
+	elseif self.highlighted and string.find(self.ability.name, "j_nic_potatomine") and self.area == G.zengarden then
+		if self.children.use_button then
+			self.children.use_button:remove()
+			self.children.use_button = nil
+		end
+
+		self.children.use_button = UIBox({
+			definition = Incognito.potatomine(self, {
+				sell = true,
+				use = true,
+			}),
+			config = {
+				align = "cr",
+				offset = {
+					x = -0.4,
+					y = 0,
+				},
+				parent = self,
+			},
+		})
+	elseif self.highlighted and string.find(self.ability.name, "j_nic_chomper") and self.area == G.zengarden then
+		if self.children.use_button then
+			self.children.use_button:remove()
+			self.children.use_button = nil
+		end
+
+		self.children.use_button = UIBox({
+			definition = Incognito.chomper(self, {
+				sell = true,
+				use = true,
+			}),
+			config = {
+				align = "cr",
+				offset = {
+					x = -0.4,
+					y = 0,
+				},
+				parent = self,
+			},
+		})
+		elseif self.highlighted and string.find(self.ability.name, "j_nic_gravebuster") and self.area == G.zengarden then
+		if self.children.use_button then
+			self.children.use_button:remove()
+			self.children.use_button = nil
+		end
+
+		self.children.use_button = UIBox({
+			definition = Incognito.gravebuster(self, {
+				sell = true,
+				use = true,
+			}),
+			config = {
+				align = "cr",
+				offset = {
+					x = -0.4,
+					y = 0,
+				},
+				parent = self,
+			},
+		})
+	elseif self.highlighted and string.find(self.ability.name, "j_nic_hypnoshroom") and self.area == G.zengarden then
+		if self.children.use_button then
+			self.children.use_button:remove()
+			self.children.use_button = nil
+		end
+
+		self.children.use_button = UIBox({
+			definition = Incognito.hypnoshroom(self, {
+				sell = true,
+				use = true,
+			}),
+			config = {
+				align = "cr",
+				offset = {
+					x = -0.4,
+					y = 0,
+				},
+				parent = self,
+			},
+		})
+	elseif self.highlighted and string.find(self.ability.name, "j_nic_iceshroom") and self.area == G.zengarden then
+		if self.children.use_button then
+			self.children.use_button:remove()
+			self.children.use_button = nil
+		end
+
+		self.children.use_button = UIBox({
+			definition = Incognito.iceshroom(self, {
+				sell = true,
+				use = true,
+			}),
+			config = {
+				align = "cr",
+				offset = {
+					x = -0.4,
+					y = 0,
+				},
+				parent = self,
+			},
+		})
+	elseif self.highlighted and string.find(self.ability.name, "j_nic_doomshroom") and self.area == G.zengarden then
+		if self.children.use_button then
+			self.children.use_button:remove()
+			self.children.use_button = nil
+		end
+
+		self.children.use_button = UIBox({
+			definition = Incognito.doomshroom(self, {
 				sell = true,
 				use = true,
 			}),
@@ -67,188 +208,34 @@ Incognito.cherrybomb = function(card, args)
 	local use = nil
 
 	if args.sell then
-		sell = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 1.25,
-						hover = true,
-						shadow = true,
-						colour = G.C.UI.BACKGROUND_INACTIVE,
-						one_press = true,
-						button = "sell_card",
-						func = "can_sell_card",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0.6,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("b_sell"),
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-									},
-								},
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("$"),
-												colour = G.C.WHITE,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-										{
-											n = G.UIT.T,
-											config = {
-												ref_table = card,
-												ref_value = "sell_cost_label",
-												colour = G.C.WHITE,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		sell = { n = G.UIT.C, config = { align = "cr", },
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, 
+		one_press = true, button = "sell_card", func = "can_sell_card", },
+
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0.6, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = localize("b_sell"), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true, }, }, }, }, { n = G.UIT.R, config = { align = "cm", },
+		nodes = { { n = G.UIT.T, config = { text = localize("$"), colour = G.C.WHITE, scale = 0.4, shadow = true, }, }, { n = G.UIT.T, config = { ref_table = card, ref_value = "sell_cost_label", colour = G.C.WHITE, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
 	if args.use then
-		use = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 0,
-						minh = 0.8,
-						hover = true,
-						shadow = true,
-						colour = G.C.RED,
-						button = "nic_cherrybomb",
-						func = "nic_can_cherrybomb",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = "BOOM",
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		use = { n = G.UIT.C, config = { align = "cr", }, 
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 0, minh = 0.8, hover = true, shadow = true, colour = G.C.RED,
+		button = "nic_cherrybomb", func = "nic_can_cherrybomb", },
+		
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = "BOOM", colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
-	return {
-		n = G.UIT.ROOT,
-		config = {
-			align = "cr",
-			padding = 0,
-			colour = G.C.CLEAR,
-		},
-		nodes = {
-			{
-				n = G.UIT.C,
-				config = {
-					padding = 0.15,
-					align = "cl",
-				},
-				nodes = {
-					sell and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { sell },
-					} or nil,
-					use and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { use },
-					} or nil,
-				},
-			},
-		},
+	return { n = G.UIT.ROOT, config = { align = "cr", padding = 0, colour = G.C.CLEAR, },
+	nodes = { { n = G.UIT.C, config = { padding = 0.15, align = "cl", },
+	nodes = {
+		sell and { n = G.UIT.R, config = { align = "cl", }, nodes = { sell }, } or nil,
+		use and { n = G.UIT.R, config = { align = "cl", }, nodes = { use }, } or nil, 
+	}, }, },
 	}
 end
 
@@ -277,222 +264,40 @@ end
 
 -- Potato Mine
 
-local card_highlighted_ref = Card.highlight
-function Card:highlight(is_highlighted)
-	self.highlighted = is_highlighted
-	if self.highlighted and string.find(self.ability.name, "j_nic_potatomine") and self.area == G.jokers then
-		if self.children.use_button then
-			self.children.use_button:remove()
-			self.children.use_button = nil
-		end
-
-		self.children.use_button = UIBox({
-			definition = Incognito.potatomine(self, {
-				sell = true,
-				use = true,
-			}),
-			config = {
-				align = "cr",
-				offset = {
-					x = -0.4,
-					y = 0,
-				},
-				parent = self,
-			},
-		})
-	else
-		card_highlighted_ref(self, is_highlighted)
-	end
-end
-
 Incognito.potatomine = function(card, args)
 	local args = args or {}
 	local sell = nil
 	local use = nil
 
 	if args.sell then
-		sell = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 1.25,
-						hover = true,
-						shadow = true,
-						colour = G.C.UI.BACKGROUND_INACTIVE,
-						one_press = true,
-						button = "sell_card",
-						func = "can_sell_card",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0.6,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("b_sell"),
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-									},
-								},
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("$"),
-												colour = G.C.WHITE,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-										{
-											n = G.UIT.T,
-											config = {
-												ref_table = card,
-												ref_value = "sell_cost_label",
-												colour = G.C.WHITE,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		sell = { n = G.UIT.C, config = { align = "cr", },
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, 
+		one_press = true, button = "sell_card", func = "can_sell_card", },
+
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0.6, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = localize("b_sell"), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true, }, }, }, }, { n = G.UIT.R, config = { align = "cm", },
+		nodes = { { n = G.UIT.T, config = { text = localize("$"), colour = G.C.WHITE, scale = 0.4, shadow = true, }, }, { n = G.UIT.T, config = { ref_table = card, ref_value = "sell_cost_label", colour = G.C.WHITE, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
 	if args.use then
-		use = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 0,
-						minh = 0.8,
-						hover = true,
-						shadow = true,
-						colour = G.C.RED,
-						button = "nic_potatomine",
-						func = "nic_can_potatomine",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = "BOOM",
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		use = { n = G.UIT.C, config = { align = "cr", }, 
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 0, minh = 0.8, hover = true, shadow = true, colour = G.C.RED,
+		button = "nic_potatomine", func = "nic_can_potatomine", },
+		
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = "BOOM", colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
-	return {
-		n = G.UIT.ROOT,
-		config = {
-			align = "cr",
-			padding = 0,
-			colour = G.C.CLEAR,
-		},
-		nodes = {
-			{
-				n = G.UIT.C,
-				config = {
-					padding = 0.15,
-					align = "cl",
-				},
-				nodes = {
-					sell and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { sell },
-					} or nil,
-					use and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { use },
-					} or nil,
-				},
-			},
-		},
+	return { n = G.UIT.ROOT, config = { align = "cr", padding = 0, colour = G.C.CLEAR, },
+	nodes = { { n = G.UIT.C, config = { padding = 0.15, align = "cl", },
+	nodes = {
+		sell and { n = G.UIT.R, config = { align = "cl", }, nodes = { sell }, } or nil,
+		use and { n = G.UIT.R, config = { align = "cl", }, nodes = { use }, } or nil, 
+	}, }, },
 	}
 end
 
@@ -521,222 +326,40 @@ end
 
 -- Chomper
 
-local card_highlighted_ref = Card.highlight
-function Card:highlight(is_highlighted)
-	self.highlighted = is_highlighted
-	if self.highlighted and string.find(self.ability.name, "j_nic_chomper") and self.area == G.jokers then
-		if self.children.use_button then
-			self.children.use_button:remove()
-			self.children.use_button = nil
-		end
-
-		self.children.use_button = UIBox({
-			definition = Incognito.chomper(self, {
-				sell = true,
-				use = true,
-			}),
-			config = {
-				align = "cr",
-				offset = {
-					x = -0.4,
-					y = 0,
-				},
-				parent = self,
-			},
-		})
-	else
-		card_highlighted_ref(self, is_highlighted)
-	end
-end
-
 Incognito.chomper = function(card, args)
 	local args = args or {}
 	local sell = nil
 	local use = nil
 
 	if args.sell then
-		sell = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 1.25,
-						hover = true,
-						shadow = true,
-						colour = G.C.UI.BACKGROUND_INACTIVE,
-						one_press = true,
-						button = "sell_card",
-						func = "can_sell_card",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0.6,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("b_sell"),
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-									},
-								},
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("$"),
-												colour = G.C.WHITE,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-										{
-											n = G.UIT.T,
-											config = {
-												ref_table = card,
-												ref_value = "sell_cost_label",
-												colour = G.C.WHITE,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		sell = { n = G.UIT.C, config = { align = "cr", },
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, 
+		one_press = true, button = "sell_card", func = "can_sell_card", },
+
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0.6, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = localize("b_sell"), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true, }, }, }, }, { n = G.UIT.R, config = { align = "cm", },
+		nodes = { { n = G.UIT.T, config = { text = localize("$"), colour = G.C.WHITE, scale = 0.4, shadow = true, }, }, { n = G.UIT.T, config = { ref_table = card, ref_value = "sell_cost_label", colour = G.C.WHITE, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
 	if args.use then
-		use = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 0,
-						minh = 0.8,
-						hover = true,
-						shadow = true,
-						colour = G.C.RED,
-						button = "nic_chomper",
-						func = "nic_can_chomper",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = "CHOMP",
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		use = { n = G.UIT.C, config = { align = "cr", }, 
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 0, minh = 0.8, hover = true, shadow = true, colour = G.C.RED,
+		button = "nic_chomper", func = "nic_can_chomper", },
+		
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = "CHOMP", colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
-	return {
-		n = G.UIT.ROOT,
-		config = {
-			align = "cr",
-			padding = 0,
-			colour = G.C.CLEAR,
-		},
-		nodes = {
-			{
-				n = G.UIT.C,
-				config = {
-					padding = 0.15,
-					align = "cl",
-				},
-				nodes = {
-					sell and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { sell },
-					} or nil,
-					use and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { use },
-					} or nil,
-				},
-			},
-		},
+	return { n = G.UIT.ROOT, config = { align = "cr", padding = 0, colour = G.C.CLEAR, },
+	nodes = { { n = G.UIT.C, config = { padding = 0.15, align = "cl", },
+	nodes = {
+		sell and { n = G.UIT.R, config = { align = "cl", }, nodes = { sell }, } or nil,
+		use and { n = G.UIT.R, config = { align = "cl", }, nodes = { use }, } or nil, 
+	}, }, },
 	}
 end
 
@@ -747,7 +370,7 @@ G.FUNCS.nic_chomper = function(e)
     G.E_MANAGER:add_event(Event({
         func = function()
 			card:juice_up()
-			G.jokers:unhighlight_all()
+			G.zengarden:unhighlight_all()
             SMODS.destroy_cards(G.hand.highlighted)
             return true
         end
@@ -768,222 +391,40 @@ end
 
 -- Grave Buster
 
-local card_highlighted_ref = Card.highlight
-function Card:highlight(is_highlighted)
-	self.highlighted = is_highlighted
-	if self.highlighted and string.find(self.ability.name, "j_nic_gravebuster") and self.area == G.jokers then
-		if self.children.use_button then
-			self.children.use_button:remove()
-			self.children.use_button = nil
-		end
-
-		self.children.use_button = UIBox({
-			definition = Incognito.gravebuster(self, {
-				sell = true,
-				use = true,
-			}),
-			config = {
-				align = "cr",
-				offset = {
-					x = -0.4,
-					y = 0,
-				},
-				parent = self,
-			},
-		})
-	else
-		card_highlighted_ref(self, is_highlighted)
-	end
-end
-
 Incognito.gravebuster = function(card, args)
 	local args = args or {}
 	local sell = nil
 	local use = nil
 
 	if args.sell then
-		sell = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 1.25,
-						hover = true,
-						shadow = true,
-						colour = G.C.UI.BACKGROUND_INACTIVE,
-						one_press = true,
-						button = "sell_card",
-						func = "can_sell_card",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0.6,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("b_sell"),
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-									},
-								},
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("$"),
-												colour = G.C.WHITE,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-										{
-											n = G.UIT.T,
-											config = {
-												ref_table = card,
-												ref_value = "sell_cost_label",
-												colour = G.C.WHITE,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		sell = { n = G.UIT.C, config = { align = "cr", },
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, 
+		one_press = true, button = "sell_card", func = "can_sell_card", },
+
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0.6, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = localize("b_sell"), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true, }, }, }, }, { n = G.UIT.R, config = { align = "cm", },
+		nodes = { { n = G.UIT.T, config = { text = localize("$"), colour = G.C.WHITE, scale = 0.4, shadow = true, }, }, { n = G.UIT.T, config = { ref_table = card, ref_value = "sell_cost_label", colour = G.C.WHITE, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
 	if args.use then
-		use = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 0,
-						minh = 0.8,
-						hover = true,
-						shadow = true,
-						colour = G.C.RED,
-						button = "nic_gravebuster",
-						func = "nic_can_gravebuster",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = "GRAVE",
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		use = { n = G.UIT.C, config = { align = "cr", }, 
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 0, minh = 0.8, hover = true, shadow = true, colour = G.C.RED,
+		button = "nic_gravebuster", func = "nic_can_gravebuster", },
+		
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = "GRAVE", colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
-	return {
-		n = G.UIT.ROOT,
-		config = {
-			align = "cr",
-			padding = 0,
-			colour = G.C.CLEAR,
-		},
-		nodes = {
-			{
-				n = G.UIT.C,
-				config = {
-					padding = 0.15,
-					align = "cl",
-				},
-				nodes = {
-					sell and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { sell },
-					} or nil,
-					use and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { use },
-					} or nil,
-				},
-			},
-		},
+	return { n = G.UIT.ROOT, config = { align = "cr", padding = 0, colour = G.C.CLEAR, },
+	nodes = { { n = G.UIT.C, config = { padding = 0.15, align = "cl", },
+	nodes = {
+		sell and { n = G.UIT.R, config = { align = "cl", }, nodes = { sell }, } or nil,
+		use and { n = G.UIT.R, config = { align = "cl", }, nodes = { use }, } or nil, 
+	}, }, },
 	}
 end
 
@@ -1037,222 +478,40 @@ end
 
 -- Hypno-shroom
 
-local card_highlighted_ref = Card.highlight
-function Card:highlight(is_highlighted)
-	self.highlighted = is_highlighted
-	if self.highlighted and string.find(self.ability.name, "j_nic_hypnoshroom") and self.area == G.jokers then
-		if self.children.use_button then
-			self.children.use_button:remove()
-			self.children.use_button = nil
-		end
-
-		self.children.use_button = UIBox({
-			definition = Incognito.hypnoshroom(self, {
-				sell = true,
-				use = true,
-			}),
-			config = {
-				align = "cr",
-				offset = {
-					x = -0.4,
-					y = 0,
-				},
-				parent = self,
-			},
-		})
-	else
-		card_highlighted_ref(self, is_highlighted)
-	end
-end
-
 Incognito.hypnoshroom = function(card, args)
 	local args = args or {}
 	local sell = nil
 	local use = nil
 
 	if args.sell then
-		sell = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 1.25,
-						hover = true,
-						shadow = true,
-						colour = G.C.UI.BACKGROUND_INACTIVE,
-						one_press = true,
-						button = "sell_card",
-						func = "can_sell_card",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0.6,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("b_sell"),
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-									},
-								},
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("$"),
-												colour = G.C.WHITE,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-										{
-											n = G.UIT.T,
-											config = {
-												ref_table = card,
-												ref_value = "sell_cost_label",
-												colour = G.C.WHITE,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		sell = { n = G.UIT.C, config = { align = "cr", },
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, 
+		one_press = true, button = "sell_card", func = "can_sell_card", },
+
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0.6, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = localize("b_sell"), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true, }, }, }, }, { n = G.UIT.R, config = { align = "cm", },
+		nodes = { { n = G.UIT.T, config = { text = localize("$"), colour = G.C.WHITE, scale = 0.4, shadow = true, }, }, { n = G.UIT.T, config = { ref_table = card, ref_value = "sell_cost_label", colour = G.C.WHITE, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
 	if args.use then
-		use = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 0,
-						minh = 0.8,
-						hover = true,
-						shadow = true,
-						colour = G.C.RED,
-						button = "nic_hypnoshroom",
-						func = "nic_can_hypnoshroom",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = "HYPNO",
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		use = { n = G.UIT.C, config = { align = "cr", }, 
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 0, minh = 0.8, hover = true, shadow = true, colour = G.C.RED,
+		button = "nic_hypnoshroom", func = "nic_can_hypnoshroom", },
+		
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = "HYPNO", colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
-	return {
-		n = G.UIT.ROOT,
-		config = {
-			align = "cr",
-			padding = 0,
-			colour = G.C.CLEAR,
-		},
-		nodes = {
-			{
-				n = G.UIT.C,
-				config = {
-					padding = 0.15,
-					align = "cl",
-				},
-				nodes = {
-					sell and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { sell },
-					} or nil,
-					use and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { use },
-					} or nil,
-				},
-			},
-		},
+	return { n = G.UIT.ROOT, config = { align = "cr", padding = 0, colour = G.C.CLEAR, },
+	nodes = { { n = G.UIT.C, config = { padding = 0.15, align = "cl", },
+	nodes = {
+		sell and { n = G.UIT.R, config = { align = "cl", }, nodes = { sell }, } or nil,
+		use and { n = G.UIT.R, config = { align = "cl", }, nodes = { use }, } or nil, 
+	}, }, },
 	}
 end
 
@@ -1317,222 +576,40 @@ end
 
 -- Ice-shroom
 
-local card_highlighted_ref = Card.highlight
-function Card:highlight(is_highlighted)
-	self.highlighted = is_highlighted
-	if self.highlighted and string.find(self.ability.name, "j_nic_iceshroom") and self.area == G.jokers then
-		if self.children.use_button then
-			self.children.use_button:remove()
-			self.children.use_button = nil
-		end
-
-		self.children.use_button = UIBox({
-			definition = Incognito.iceshroom(self, {
-				sell = true,
-				use = true,
-			}),
-			config = {
-				align = "cr",
-				offset = {
-					x = -0.4,
-					y = 0,
-				},
-				parent = self,
-			},
-		})
-	else
-		card_highlighted_ref(self, is_highlighted)
-	end
-end
-
 Incognito.iceshroom = function(card, args)
 	local args = args or {}
 	local sell = nil
 	local use = nil
 
 	if args.sell then
-		sell = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 1.25,
-						hover = true,
-						shadow = true,
-						colour = G.C.UI.BACKGROUND_INACTIVE,
-						one_press = true,
-						button = "sell_card",
-						func = "can_sell_card",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0.6,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("b_sell"),
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-									},
-								},
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("$"),
-												colour = G.C.WHITE,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-										{
-											n = G.UIT.T,
-											config = {
-												ref_table = card,
-												ref_value = "sell_cost_label",
-												colour = G.C.WHITE,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		sell = { n = G.UIT.C, config = { align = "cr", },
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, 
+		one_press = true, button = "sell_card", func = "can_sell_card", },
+
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0.6, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = localize("b_sell"), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true, }, }, }, }, { n = G.UIT.R, config = { align = "cm", },
+		nodes = { { n = G.UIT.T, config = { text = localize("$"), colour = G.C.WHITE, scale = 0.4, shadow = true, }, }, { n = G.UIT.T, config = { ref_table = card, ref_value = "sell_cost_label", colour = G.C.WHITE, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
 	if args.use then
-		use = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 0,
-						minh = 0.8,
-						hover = true,
-						shadow = true,
-						colour = G.C.RED,
-						button = "nic_iceshroom",
-						func = "nic_can_iceshroom",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = "BOOM",
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		use = { n = G.UIT.C, config = { align = "cr", }, 
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 0, minh = 0.8, hover = true, shadow = true, colour = G.C.RED,
+		button = "nic_iceshroom", func = "nic_can_iceshroom", },
+		
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = "FREEZE", colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
-	return {
-		n = G.UIT.ROOT,
-		config = {
-			align = "cr",
-			padding = 0,
-			colour = G.C.CLEAR,
-		},
-		nodes = {
-			{
-				n = G.UIT.C,
-				config = {
-					padding = 0.15,
-					align = "cl",
-				},
-				nodes = {
-					sell and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { sell },
-					} or nil,
-					use and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { use },
-					} or nil,
-				},
-			},
-		},
+	return { n = G.UIT.ROOT, config = { align = "cr", padding = 0, colour = G.C.CLEAR, },
+	nodes = { { n = G.UIT.C, config = { padding = 0.15, align = "cl", },
+	nodes = {
+		sell and { n = G.UIT.R, config = { align = "cl", }, nodes = { sell }, } or nil,
+		use and { n = G.UIT.R, config = { align = "cl", }, nodes = { use }, } or nil, 
+	}, }, },
 	}
 end
 
@@ -1576,222 +653,40 @@ end
 
 -- Doom-shroom
 
-local card_highlighted_ref = Card.highlight
-function Card:highlight(is_highlighted)
-	self.highlighted = is_highlighted
-	if self.highlighted and string.find(self.ability.name, "j_nic_doomshroom") and self.area == G.jokers then
-		if self.children.use_button then
-			self.children.use_button:remove()
-			self.children.use_button = nil
-		end
-
-		self.children.use_button = UIBox({
-			definition = Incognito.doomshroom(self, {
-				sell = true,
-				use = true,
-			}),
-			config = {
-				align = "cr",
-				offset = {
-					x = -0.4,
-					y = 0,
-				},
-				parent = self,
-			},
-		})
-	else
-		card_highlighted_ref(self, is_highlighted)
-	end
-end
-
 Incognito.doomshroom = function(card, args)
 	local args = args or {}
 	local sell = nil
 	local use = nil
 
 	if args.sell then
-		sell = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 1.25,
-						hover = true,
-						shadow = true,
-						colour = G.C.UI.BACKGROUND_INACTIVE,
-						one_press = true,
-						button = "sell_card",
-						func = "can_sell_card",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0.6,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("b_sell"),
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-									},
-								},
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize("$"),
-												colour = G.C.WHITE,
-												scale = 0.4,
-												shadow = true,
-											},
-										},
-										{
-											n = G.UIT.T,
-											config = {
-												ref_table = card,
-												ref_value = "sell_cost_label",
-												colour = G.C.WHITE,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		sell = { n = G.UIT.C, config = { align = "cr", },
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, 
+		one_press = true, button = "sell_card", func = "can_sell_card", },
+
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0.6, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = localize("b_sell"), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true, }, }, }, }, { n = G.UIT.R, config = { align = "cm", },
+		nodes = { { n = G.UIT.T, config = { text = localize("$"), colour = G.C.WHITE, scale = 0.4, shadow = true, }, }, { n = G.UIT.T, config = { ref_table = card, ref_value = "sell_cost_label", colour = G.C.WHITE, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
 	if args.use then
-		use = {
-			n = G.UIT.C,
-			config = {
-				align = "cr",
-			},
-			nodes = {
-				{
-					n = G.UIT.C,
-					config = {
-						ref_table = card,
-						align = "cr",
-						padding = 0.1,
-						r = 0.08,
-						minw = 0,
-						minh = 0.8,
-						hover = true,
-						shadow = true,
-						colour = G.C.RED,
-						button = "nic_doomshroom",
-						func = "nic_can_doomshroom",
-					},
-					nodes = {
-						{
-							n = G.UIT.B,
-							config = {
-								w = 0.1,
-								h = 0,
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								align = "tm",
-							},
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										align = "cm",
-										maxw = 1.25,
-									},
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = "BOOM",
-												colour = G.C.UI.TEXT_LIGHT,
-												scale = 0.55,
-												shadow = true,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
+		use = { n = G.UIT.C, config = { align = "cr", }, 
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 0, minh = 0.8, hover = true, shadow = true, colour = G.C.RED,
+		button = "nic_doomshroom", func = "nic_can_doomshroom", },
+		
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = "BOOM", colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
 		}
 	end
 
-	return {
-		n = G.UIT.ROOT,
-		config = {
-			align = "cr",
-			padding = 0,
-			colour = G.C.CLEAR,
-		},
-		nodes = {
-			{
-				n = G.UIT.C,
-				config = {
-					padding = 0.15,
-					align = "cl",
-				},
-				nodes = {
-					sell and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { sell },
-					} or nil,
-					use and {
-						n = G.UIT.R,
-						config = {
-							align = "cl",
-						},
-						nodes = { use },
-					} or nil,
-				},
-			},
-		},
+	return { n = G.UIT.ROOT, config = { align = "cr", padding = 0, colour = G.C.CLEAR, },
+	nodes = { { n = G.UIT.C, config = { padding = 0.15, align = "cl", },
+	nodes = {
+		sell and { n = G.UIT.R, config = { align = "cl", }, nodes = { sell }, } or nil,
+		use and { n = G.UIT.R, config = { align = "cl", }, nodes = { use }, } or nil, 
+	}, }, },
 	}
 end
 
