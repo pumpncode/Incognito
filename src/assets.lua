@@ -66,7 +66,7 @@ SMODS.Atlas{ -- Boosters
     key = 'nicboosters',
     path = 'nicboosters.png',
     px = 71,
-    py = 96,
+    py = 95,
 }
 
 SMODS.Atlas { -- Icon
@@ -225,4 +225,9 @@ SMODS.Sound{ -- Potato Mine
 SMODS.Sound{ -- Shovel
     key = "shovel",
     path = "pvz/shovel.ogg",
+}
+
+SMODS.Sound{ -- Vase Break
+    key = "vasebreak",
+    path = "pvz/vasebreak.ogg",
 }

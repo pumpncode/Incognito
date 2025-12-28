@@ -303,6 +303,7 @@ SMODS.Joker{ -- Teto Word Of The Day
     cost = 8,
     pos = {x = 3, y = 1},
     config = { extra = { teto = 0, teto_rounds = 2 } },
+    pools = { ["Teto"] = true },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.teto, card.ability.extra.teto_rounds } }

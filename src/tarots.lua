@@ -13,6 +13,8 @@ SMODS.Consumable {
     use = function(self, card, area, copier)
         if (G.jokers.highlighted[1].config.center.pools or {}).Food then
             G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
                 func = function()
                     G.jokers.highlighted[1]:juice_up()
                     G.jokers.highlighted[1]:set_ability(G.P_CENTERS.j_nic_pear)
@@ -24,7 +26,7 @@ SMODS.Consumable {
         else
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
-                delay = 0.6,
+                delay = 0.4,
                 func = function() 
                     G.jokers.highlighted[1]:juice_up()
                     G.jokers.highlighted[1]:add_sticker("nic_tetosticker", true)
@@ -34,6 +36,7 @@ SMODS.Consumable {
                 end 
             }))
         end
+        delay(0.6)
     end,
 
     can_use = function (self, card) 

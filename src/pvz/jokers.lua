@@ -9,8 +9,7 @@ SMODS.Joker{ -- Peashooter
     cost = 4,
     pos = {x = 0, y = 7},
     soul_pos = {x = 0, y = 0},
-    config = { extra_slots_used = -1, extra = { chips = 50 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { chips = 50 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips } }
@@ -42,8 +41,7 @@ SMODS.Joker{ -- Sunflower
     cost = 2,
     pos = {x = 0, y = 7},
     soul_pos = {x = 1, y = 0},
-    config = { extra_slots_used = -1, extra = { dollars = 1 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { dollars = 1 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.dollars } }
@@ -75,8 +73,7 @@ SMODS.Joker{ -- Cherry Bomb
     cost = 6,
     pos = {x = 0, y = 7},
     soul_pos = {x = 2, y = 0},
-    config = { extra_slots_used = -1, extra = { max_highlighted = 3 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { max_highlighted = 3 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.max_highlighted } }
@@ -99,8 +96,7 @@ SMODS.Joker{ -- Wall-nut
     cost = 2,
     pos = {x = 0, y = 7},
     soul_pos = {x = 3, y = 0},
-    config = { extra_slots_used = -1, extra = { hand = 1, discard = 1 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { hand = 1, discard = 1 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.hand, card.ability.extra.discard } }
@@ -152,8 +148,7 @@ SMODS.Joker{ -- Potato Mine
     cost = 1,
     pos = {x = 0, y = 7},
     soul_pos = {x = 4, y = 0},
-    config = { extra_slots_used = -1, extra = { max_highlighted = 3, countdown = 0, countdown_needed = 3 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { max_highlighted = 3, countdown = 0, countdown_needed = 3 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.max_highlighted, card.ability.extra.countdown, card.ability.extra.countdown_needed } }
@@ -192,8 +187,7 @@ SMODS.Joker{ -- Snow Pea
     cost = 7,
     pos = {x = 0, y = 7},
     soul_pos = {x = 5, y = 0},
-    config = { extra_slots_used = -1, extra = { chips = 50, hand = 1 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { chips = 50, hand = 1 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.hand } }
@@ -235,8 +229,7 @@ SMODS.Joker{ -- Chomper
     cost = 6,
     pos = {x = 0, y = 7},
     soul_pos = {x = 6, y = 0},
-    config = { extra_slots_used = -1, extra = { max_highlighted = 1, countdown = 3, countdown_needed = 3, mult = 0, mult_gain = 10 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { max_highlighted = 1, countdown = 3, countdown_needed = 3, mult = 0, mult_gain = 10 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.max_highlighted, card.ability.extra.countdown, card.ability.extra.countdown_needed, card.ability.extra.mult, card.ability.extra.mult_gain } }
@@ -286,8 +279,7 @@ SMODS.Joker{ -- Repeater
     cost = 8,
     pos = {x = 0, y = 7},
     soul_pos = {x = 7, y = 0},
-    config = { extra_slots_used = -1, extra = { chips = 50 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { chips = 50 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips } }
@@ -322,8 +314,7 @@ SMODS.Joker{ -- Puff-shroom
     cost = 0,
     pos = {x = 0, y = 7},
     soul_pos = {x = 0, y = 1},
-    config = { extra_slots_used = -1, extra = { chips = 50 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { chips = 50 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips } }
@@ -357,8 +348,7 @@ SMODS.Joker{ -- Sun-shroom
     cost = 1,
     pos = {x = 0, y = 7},
     soul_pos = {x = 1, y = 1},
-    config = { extra_slots_used = -1, extra = { countdown = 0, countdown_needed = 10, dollars = 0.5 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { countdown = 0, countdown_needed = 10, dollars = 0.5 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.countdown, card.ability.extra.countdown_needed, card.ability.extra.dollars } }
@@ -402,8 +392,7 @@ SMODS.Joker{ -- Fume-shroom
     cost = 3,
     pos = {x = 0, y = 7},
     soul_pos = {x = 2, y = 1},
-    config = { extra_slots_used = -1, extra = { chips = 50, blind = 5 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { chips = 50, blind = 5 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.blind } }
@@ -448,8 +437,7 @@ SMODS.Joker{ -- Grave Buster
     cost = 3,
     pos = {x = 0, y = 7},
     soul_pos = {x = 3, y = 1},
-    config = { extra_slots_used = -1, extra = { max_highlighted = 3, amount = 3 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { max_highlighted = 3, amount = 3 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.max_highlighted, card.ability.extra.amount } }
@@ -472,8 +460,7 @@ SMODS.Joker{ -- Hypno-shroom
     cost = 3,
     pos = {x = 0, y = 7},
     soul_pos = {x = 4, y = 1},
-    config = { extra_slots_used = -1, extra = { max_highlighted = 3, amount = 2 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { max_highlighted = 3, amount = 2 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.max_highlighted, card.ability.extra.amount } }
@@ -484,6 +471,11 @@ SMODS.Joker{ -- Hypno-shroom
             allow_duplicates = next(SMODS.find_card("j_nic_hypnoshroom"))
         }
     end,
+
+    add_to_deck = function(self, card, from_debuff)    
+        local eval = function(card) return not card.REMOVED end
+        juice_card_until(card, eval, true)
+    end
 }
 
 SMODS.Joker{ -- Scaredy-shroom
@@ -497,11 +489,16 @@ SMODS.Joker{ -- Scaredy-shroom
     cost = 1,
     pos = {x = 0, y = 7},
     soul_pos = {x = 5, y = 1},
-    config = { extra_slots_used = -1, extra = { chips = 50, rounds = 1, hand = 1 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { chips = 50, rounds = 1, hand = 1 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.hand, card.ability.extra.discard } }
+    end,
+
+    in_pool = function (self, args)
+        return true, {
+            allow_duplicates = next(SMODS.find_card("j_nic_scaredyshroom"))
+        }
     end,
 
     calculate = function(self, card, context)
@@ -543,8 +540,7 @@ SMODS.Joker{ -- Ice-shroom
     cost = 3,
     pos = {x = 0, y = 7},
     soul_pos = {x = 6, y = 1},
-    config = { extra_slots_used = -1, extra = { max_highlighted = 5, hand = 1 } },
-    pools = { ["Plants"] = true },
+    config = { extra = { max_highlighted = 5, hand = 1 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.max_highlighted, card.ability.extra.hand } }
@@ -567,8 +563,7 @@ SMODS.Joker{ -- Doom-shroom
     cost = 5,
     pos = {x = 0, y = 7},
     soul_pos = {x = 7, y = 1},
-    config = { extra_slots_used = -1, extra = {} },
-    pools = { ["Plants"] = true },
+    config = { extra = {} },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { } }
@@ -579,22 +574,3 @@ SMODS.Joker{ -- Doom-shroom
         juice_card_until(card, eval, true)
     end
 }
-
-local card_set_cost_ref = Card.set_cost
-function Card:set_cost()
-    card_set_cost_ref(self)
-    if (self.config.center.key == 'j_nic_puffshroom') then 
-        self.cost = 0 
-    end
-    if (self.config.center.rarity == "nic_plants") then
-        self.sell_cost = 0
-    end
-    self.sell_cost_label = self.facing == 'back' and '?' or self.sell_cost
-end
-
-local oldstartrun = Game.start_run
-function Game:start_run(args)
-    local g = oldstartrun(self, args)
-    self.jokers.config.highlighted_limit = 2
-    return g
-end

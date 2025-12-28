@@ -5,13 +5,11 @@ assert(SMODS.load_file("src/jokers.lua"))()
 
 -- Teto
 assert(SMODS.load_file("src/teto/jokers.lua"))()
-assert(SMODS.load_file("src/teto/stickers.lua"))()
-assert(SMODS.load_file("src/teto/tarots.lua"))()
 
 -- Pvz
-assert(SMODS.load_file("src/pvz/consumables.lua"))()
+assert(SMODS.load_file("src/pvz/functions.lua"))()
 assert(SMODS.load_file("src/pvz/jokers.lua"))()
-assert(SMODS.load_file("src/pvz/ui.lua"))()
+assert(SMODS.load_file("src/pvz/zengarden.lua"))()
 
 if Incognito.config.scrapped_things then
 	SMODS.load_file("src/scrapped/scrapped.lua")()
@@ -33,5 +31,7 @@ assert(SMODS.load_file("src/draw.lua"))()
 assert(SMODS.load_file("src/functions.lua"))()
 assert(SMODS.load_file("src/quips.lua"))()
 assert(SMODS.load_file("src/rarity.lua"))()
+assert(SMODS.load_file("src/stickers.lua"))()
+assert(SMODS.load_file("src/tarots.lua"))()
 assert(SMODS.load_file("src/texturedeck.lua"))()
 assert(SMODS.load_file("src/ui.lua"))()

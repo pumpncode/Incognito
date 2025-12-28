@@ -1356,7 +1356,7 @@ SMODS.Joker { -- Scenario
 
 SMODS.Joker { -- Mending
     key = "mending",
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     unlocked = true,
     discovered = false,

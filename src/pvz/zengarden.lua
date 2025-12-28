@@ -1,0 +1,139 @@
+SMODS.ConsumableType {
+    key = 'nic_zengarden',
+    default = 'c_nic_mysteryvase',
+    primary_colour = HEX("33cc00"),
+    secondary_colour = HEX("33cc00"),
+    collection_rows = { 6, 6 },
+    shop_rate = 1,
+    loc_txt = {
+        name = " Zen Garden ",
+        collection = "Zen Garden",
+        undiscovered = {
+            name = "Not Discovered",
+            text = { 
+                "Purchase or use",
+                "this card in an",
+                "unseeded run to",
+                "learn what it does",
+
+            },
+        }
+    },
+}
+
+SMODS.Consumable { -- Mystery Vase
+    key = 'mysteryvase',
+    set = 'nic_zengarden',
+    cost = 4,
+    atlas = 'nicpvzconsumables',
+    pos = {x = 0, y = 1 },
+    soul_pos = {x = 0, y = 0 },
+    config = { },
+    pools = { ["Vase"] = true },
+
+    in_pool = function (self, args)
+        return true, {
+            allow_duplicates = next(SMODS.find_card("c_nic_mysteryvase"))
+        }
+    end,
+
+}
+
+SMODS.Consumable { -- Plants Vase
+    key = 'plantsvase',
+    set = 'nic_zengarden',
+    cost = 4,
+    atlas = 'nicpvzconsumables',
+    pos = {x = 0, y = 1 },
+    soul_pos = {x = 1, y = 0 },
+    config = { },
+    pools = { ["Vase"] = true, ["PlantVase"] = true },
+
+    in_pool = function (self, args)
+        return true, {
+            allow_duplicates = next(SMODS.find_card("c_nic_plantsvase"))
+        }
+    end,
+
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('nic_vasebreak')
+                SMODS.add_card({ area = G.zengarden, set = 'Joker', rarity = 'nic_plants', no_edition = true })
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        delay(0.6)
+    end,
+
+    can_use = function(self, card)
+        return G.zengarden and #G.zengarden.cards < G.zengarden.config.card_limit
+    end
+}
+
+SMODS.Consumable { -- Shovel
+    key = 'shovel',
+    set = 'nic_zengarden',
+    cost = 4,
+    atlas = 'nicpvzconsumables',
+    pos = {x = 0, y = 1 },
+    soul_pos = {x = 2, y = 0 },
+    config = { },
+    pools = { ["Tools"] = true },
+
+    loc_vars = function(self, info_queue, card)
+        if card.area and card.area == G.zengarden or card.area == G.consumeables then
+            local compatible = #G.zengarden.highlighted > 0 and #G.zengarden.highlighted == 1 and G.zengarden.highlighted[1].config.center.rarity == "nic_plants"
+            main_end = {
+                {
+                    n = G.UIT.C,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GOLD, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = ' ' .. (compatible and (G.localization.descriptions.Joker[G.zengarden.highlighted[1].config.center.key].name .. ': $' .. G.zengarden.highlighted[1].config.center.cost) or 'Nothing') .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                            }
+                        }
+                    }
+                }
+            }
+            return { main_end = main_end }
+        end
+    end,
+
+    use = function(self, card, area, copier)
+        SMODS.calculate_effect({message = ("$" .. G.zengarden.highlighted[1].config.center.cost), colour = G.C.GOLD}, G.zengarden.highlighted[1])
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.6,
+            func = function()
+                ease_dollars(G.zengarden.highlighted[1].config.center.cost, true)
+                G.zengarden.highlighted[1]:juice_up()
+                return true 
+            end 
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 1.2,
+            func = function()
+                SMODS.destroy_cards(G.zengarden.highlighted[1])
+                play_sound('nic_shovel', 1.2, 0.4)
+                card:juice_up()
+                return true 
+            end 
+        }))
+    end,
+
+    keep_on_use = function (self,card)
+        return true
+    end,
+
+    can_use = function (self, card) 
+        return #G.zengarden.highlighted > 0 and #G.zengarden.highlighted == 1 and G.zengarden.highlighted[1].config.center.rarity == "nic_plants"
+    end,
+}

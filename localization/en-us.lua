@@ -645,6 +645,19 @@ return {
             },
         },
         nic_zengarden = {
+            c_nic_mysteryvase = {
+                name = "Mystery Vase",
+                text = {
+                }
+            },
+            c_nic_plantsvase = {
+                name = "Plants Vase",
+                text = {
+                    "Creates a random",
+                    "{C:nic_plants}Plants{} Joker card",
+                    "{C:inactive}(Must have room)",
+                }
+            },
             c_nic_shovel = {
                 name = "Shovel",
                 text = {

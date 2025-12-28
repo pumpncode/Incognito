@@ -31,28 +31,46 @@ SMODS.DrawStep({
     conditions = { vortex = false },
 })
 
+-- Set Cost
+local card_set_cost_ref = Card.set_cost
+function Card:set_cost()
+    card_set_cost_ref(self)
+    if (self.config.center.key == 'j_nic_puffshroom') then 
+        self.cost = 0 
+    end
+    if (self.config.center.rarity == "nic_plants") then
+        self.sell_cost = 0
+    end
+    self.sell_cost_label = self.facing == 'back' and '?' or self.sell_cost
+end
+
 -- Card Area
 
 SMODS.current_mod.custom_card_areas = function(game)
 	game.zengarden = CardArea(
-		game.jokers.T.x - 2, game.jokers.T.y + 2,
-        game.jokers.T.w * 1.5, game.jokers.T.h * 1.5,
-        { card_limit = 5, type = 'joker', highlight_limit = 1 }
+		game.jokers.T.x + 12.4, game.jokers.T.y + 3,
+        game.jokers.T.w/4, game.jokers.T.h,
+        { card_limit = 5, type = 'joker', highlight_limit = 2 }
 	)
+end
+
+function Incognito.set_card_back(card)
+    if not card or G.STAGE ~= G.STAGES.RUN then
+        return
+    end
 end
 
 local zengarden_emplace = CardArea.emplace
 function CardArea:emplace(card, location, stay_flipped)
+	Incognito.set_card_back(card)
     if self == G.jokers and card.config.center.rarity == "nic_plants" then 
-        card:remove_from_area()
-        G.zengarden:emplace(card, location, stay_flipped)
-        return
+		G.zengarden:emplace(card, location, stay_flipped)
+		return
     end
-    if self == G.zengarden then self:change_size(1) end
     zengarden_emplace(self, card, location, stay_flipped)
 end
 
--- Cherry Bomb
+-- Button Stuff
 
 local card_highlighted_ref = Card.highlight
 function Card:highlight(is_highlighted)
@@ -197,9 +215,53 @@ function Card:highlight(is_highlighted)
 				parent = self,
 			},
 		})
+	elseif self.highlighted and self.config.center.rarity == "nic_plants" and self.area == G.zengarden then
+		if self.children.use_button then
+			self.children.use_button:remove()
+			self.children.use_button = nil
+		end
+
+		self.children.use_button = UIBox({
+			definition = Incognito.defaultplant(self, {
+				sell = true,
+			}),
+			config = {
+				align = "cr",
+				offset = {
+					x = -0.4,
+					y = 0,
+				},
+				parent = self,
+			},
+		})
 	else
 		card_highlighted_ref(self, is_highlighted)
 	end
+end
+
+Incognito.defaultplant = function(card, args)
+	local args = args or {}
+	local sell = nil
+	local use = nil
+
+	if args.sell then
+		sell = { n = G.UIT.C, config = { align = "cr", },
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, 
+		one_press = true, button = "sell_card", func = "can_sell_card", },
+
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0.6, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = localize("b_sell"), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true, }, }, }, }, { n = G.UIT.R, config = { align = "cm", },
+		nodes = { { n = G.UIT.T, config = { text = localize("$"), colour = G.C.WHITE, scale = 0.4, shadow = true, }, }, { n = G.UIT.T, config = { ref_table = card, ref_value = "sell_cost_label", colour = G.C.WHITE, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
+		}
+	end
+
+	return { n = G.UIT.ROOT, config = { align = "cr", padding = 0, colour = G.C.CLEAR, },
+	nodes = { { n = G.UIT.C, config = { padding = 0.15, align = "cl", },
+	nodes = {
+		sell and { n = G.UIT.R, config = { align = "cl", }, nodes = { sell }, } or nil,
+	}, }, },
+	}
 end
 
 Incognito.cherrybomb = function(card, args)
