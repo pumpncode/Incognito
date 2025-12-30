@@ -482,6 +482,19 @@ return {
 
             -- Plants
 
+            j_nic_crazydave = {
+                name = "Crazy Dave",
+                text = {
+                    {"Greetings, neighbor!",
+                    "The name's {C:attention}Crazy Dave{}.",
+                    "But you can just call",
+                    "me {C:attention}Crazy Joker{}."},
+                    {"Creates an {C:nic_plants}Area",
+                    "for the {C:nic_plants}Plants",
+                    "{C:nic_plants,s:0.8}Zen Garden {C:inactive,s:0.8}Tools appear",
+                    "{C:inactive,s:0.8}more frequently in the shop"},
+                }
+            },
             j_nic_peashooter = {
                 name = "Peashooter",
                 text = {
@@ -648,21 +661,24 @@ return {
             c_nic_mysteryvase = {
                 name = "Mystery Vase",
                 text = {
+                    "Creates a random",
+                    "{C:nic_plants}???{} card",
+                    "{C:inactive}(Must have room)",
                 }
             },
             c_nic_plantsvase = {
                 name = "Plants Vase",
                 text = {
                     "Creates a random",
-                    "{C:nic_plants}Plants{} Joker card",
+                    "{C:nic_plants}Plants{} card",
                     "{C:inactive}(Must have room)",
                 }
             },
             c_nic_shovel = {
                 name = "Shovel",
                 text = {
-                    "Selected {C:nic_plants}Plants{} Joker",
-                    "gets {C:attention}digged up{} and gains",
+                    "Selected {C:nic_plants}Plants{} gets",
+                    "{C:attention}digged up{} and gains",
                     "original {C:attention}cost value",
                 }
             },

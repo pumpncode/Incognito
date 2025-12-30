@@ -46,23 +46,24 @@ end
 
 -- Card Area
 
-SMODS.current_mod.custom_card_areas = function(game)
-	game.zengarden = CardArea(
-		game.jokers.T.x + 12.4, game.jokers.T.y + 3,
-        game.jokers.T.w/4, game.jokers.T.h,
-        { card_limit = 5, type = 'joker', highlight_limit = 2 }
-	)
+local igo = Game.init_game_object
+function Game:init_game_object()
+    local ret = igo(self)
+    ret.zengarden = 0
+    return ret
 end
 
-function Incognito.set_card_back(card)
-    if not card or G.STAGE ~= G.STAGES.RUN then
-        return
+local cardUpdateHook = Card.update
+function Card:update(dt)
+    if self.config.center_key == "j_nic_crazydave" and self.states.drag.is and G.zengarden then
+        G.zengarden:set_role{role_type = "Minor", xy_bond = "Strong", major = self, offset = { x = -G.zengarden.T.w/2 + 1, y = 3}}
     end
+    local x = {cardUpdateHook(self,dt)}
+    return unpack(x)
 end
 
 local zengarden_emplace = CardArea.emplace
 function CardArea:emplace(card, location, stay_flipped)
-	Incognito.set_card_back(card)
     if self == G.jokers and card.config.center.rarity == "nic_plants" then 
 		G.zengarden:emplace(card, location, stay_flipped)
 		return
@@ -75,7 +76,27 @@ end
 local card_highlighted_ref = Card.highlight
 function Card:highlight(is_highlighted)
 	self.highlighted = is_highlighted
-	if self.highlighted and string.find(self.ability.name, "j_nic_cherrybomb") and self.area == G.zengarden then
+	if self.highlighted and string.find(self.ability.name, "j_nic_crazydave") and self.area == G.jokers then
+		if self.children.use_button then
+			self.children.use_button:remove()
+			self.children.use_button = nil
+		end
+
+		self.children.use_button = UIBox({
+			definition = Incognito.crazydave(self, {
+				sell = true,
+				use = true,
+			}),
+			config = {
+				align = "cr",
+				offset = {
+					x = -0.4,
+					y = 0,
+				},
+				parent = self,
+			},
+		})
+	elseif self.highlighted and string.find(self.ability.name, "j_nic_cherrybomb") and self.area == G.zengarden then
 		if self.children.use_button then
 			self.children.use_button:remove()
 			self.children.use_button = nil
@@ -239,6 +260,8 @@ function Card:highlight(is_highlighted)
 	end
 end
 
+-- Default Plant
+
 Incognito.defaultplant = function(card, args)
 	local args = args or {}
 	local sell = nil
@@ -263,6 +286,94 @@ Incognito.defaultplant = function(card, args)
 	}, }, },
 	}
 end
+
+-- Crazy Dave
+
+Incognito.crazydave = function(card, args)
+	local args = args or {}
+	local sell = nil
+	local use = nil
+
+	if args.sell then
+		sell = { n = G.UIT.C, config = { align = "cr", },
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, 
+		one_press = true, button = "sell_card", func = "can_sell_card", },
+
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0.6, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = localize("b_sell"), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true, }, }, }, }, { n = G.UIT.R, config = { align = "cm", },
+		nodes = { { n = G.UIT.T, config = { text = localize("$"), colour = G.C.WHITE, scale = 0.4, shadow = true, }, }, { n = G.UIT.T, config = { ref_table = card, ref_value = "sell_cost_label", colour = G.C.WHITE, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
+		}
+	end
+
+	if args.use then
+		use = { n = G.UIT.C, config = { align = "cr", }, 
+		nodes = { { n = G.UIT.C, config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 0, minh = 0.8, hover = true, shadow = true, colour = G.C.RED,
+		button = "nic_crazydave", func = "nic_can_crazydave", },
+		
+		nodes = { { n = G.UIT.B, config = { w = 0.1, h = 0, }, }, { n = G.UIT.C, config = { align = "tm", },
+		nodes = { { n = G.UIT.R, config = { align = "cm", maxw = 1.25, },
+		nodes = { { n = G.UIT.T, config = { text = "USE", colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true, }, }, }, }, }, }, }, }, }, 
+		}
+	end
+
+	return { n = G.UIT.ROOT, config = { align = "cr", padding = 0, colour = G.C.CLEAR, },
+	nodes = { { n = G.UIT.C, config = { padding = 0.15, align = "cl", },
+	nodes = {
+		sell and { n = G.UIT.R, config = { align = "cl", }, nodes = { sell }, } or nil,
+		use and { n = G.UIT.R, config = { align = "cl", }, nodes = { use }, } or nil, 
+	}, }, },
+	}
+end
+
+G.FUNCS.nic_crazydave = function(e)
+	local card = e.config.ref_table
+	if G.zengarden.states.visible == false then
+    	G.zengarden.states.visible = true
+	else
+		G.zengarden.states.visible = false
+	end
+	G.E_MANAGER:add_event(Event({
+        func = function()
+            card:juice_up()
+			local random = pseudorandom('j_nic_crazydave', 1, 12)
+            if random == 1 then
+				play_sound("nic_crazydave1")
+			elseif random == 2 then
+				play_sound("nic_crazydave2")
+			elseif random == 3 then
+				play_sound("nic_crazydave3")
+			elseif random == 4 then
+				play_sound("nic_crazydave4")
+			elseif random == 5 then
+				play_sound("nic_crazydave5")
+            elseif random == 6 then
+                play_sound("nic_crazydave6")
+            elseif random == 7 then
+                play_sound("nic_crazydave7")
+			elseif random == 8 then
+				play_sound("nic_crazydave8")
+			elseif random == 9 then
+				play_sound("nic_crazydave9")
+			elseif random == 10 then
+				play_sound("nic_crazydave10")
+			elseif random == 11 then
+				play_sound("nic_crazydave11")
+			elseif random == 12 then
+				play_sound("nic_crazydave12")
+			end
+			return true
+		end
+	}))
+end
+
+G.FUNCS.nic_can_crazydave = function(e)
+    local card = e.config.ref_table
+	e.config.colour = G.C.RED
+	e.config.button = "nic_crazydave"
+end
+
+-- Cherry Bomb
 
 Incognito.cherrybomb = function(card, args)
 	local args = args or {}

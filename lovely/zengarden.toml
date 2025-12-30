@@ -1,0 +1,29 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = '-- TARGET: add your own CardAreas for joker evaluation'
+position = "after"
+payload = '''
+if G.GAME.zengarden > 0 then table.insert(t, 1, G.zengarden) end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''G.playing_cards = {}'''
+position = "before"
+payload = '''
+self.zengarden = CardArea(3, CAI.deck_H + 1, CAI.deck_W * 3.5, CAI.deck_H, {
+    card_limit = 5,
+    type = "joker",
+    highlight_limit = 1
+})
+self.zengarden.states.visible = false
+'''
+match_indent = true

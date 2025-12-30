@@ -4,7 +4,7 @@ SMODS.ConsumableType {
     primary_colour = HEX("33cc00"),
     secondary_colour = HEX("33cc00"),
     collection_rows = { 6, 6 },
-    shop_rate = 1,
+    shop_rate = 0,
     loc_txt = {
         name = " Zen Garden ",
         collection = "Zen Garden",
@@ -33,10 +33,9 @@ SMODS.Consumable { -- Mystery Vase
 
     in_pool = function (self, args)
         return true, {
-            allow_duplicates = next(SMODS.find_card("c_nic_mysteryvase"))
+            allow_duplicates = next(SMODS.find_card("c_nic_mysteryvase")) or next(SMODS.find_card("j_nic_crazydave")) 
         }
     end,
-
 }
 
 SMODS.Consumable { -- Plants Vase
@@ -51,7 +50,7 @@ SMODS.Consumable { -- Plants Vase
 
     in_pool = function (self, args)
         return true, {
-            allow_duplicates = next(SMODS.find_card("c_nic_plantsvase"))
+            allow_duplicates = next(SMODS.find_card("c_nic_plantsvase")) or next(SMODS.find_card("j_nic_crazydave")) 
         }
     end,
 
@@ -70,8 +69,8 @@ SMODS.Consumable { -- Plants Vase
     end,
 
     can_use = function(self, card)
-        return G.zengarden and #G.zengarden.cards < G.zengarden.config.card_limit
-    end
+        return G.zengarden and #G.zengarden.cards < G.zengarden.config.card_limit and next(SMODS.find_card("j_nic_crazydave"))
+    end,
 }
 
 SMODS.Consumable { -- Shovel

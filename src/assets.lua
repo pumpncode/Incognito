@@ -231,3 +231,65 @@ SMODS.Sound{ -- Vase Break
     key = "vasebreak",
     path = "pvz/vasebreak.ogg",
 }
+
+-- Crazy Dave
+
+SMODS.Sound{
+    key = "crazydave1",
+    path = "pvz/crazydave/crazydave1.ogg",
+}
+
+SMODS.Sound{
+    key = "crazydave2",
+    path = "pvz/crazydave/crazydave2.ogg",
+}
+
+SMODS.Sound{
+    key = "crazydave3",
+    path = "pvz/crazydave/crazydave3.ogg",
+}
+
+SMODS.Sound{
+    key = "crazydave4",
+    path = "pvz/crazydave/crazydave4.ogg",
+}
+
+SMODS.Sound{
+    key = "crazydave5",
+    path = "pvz/crazydave/crazydave5.ogg",
+}
+
+SMODS.Sound{
+    key = "crazydave6",
+    path = "pvz/crazydave/crazydave6.ogg",
+}
+
+SMODS.Sound{
+    key = "crazydave7",
+    path = "pvz/crazydave/crazydave7.ogg",
+}
+
+SMODS.Sound{
+    key = "crazydave8",
+    path = "pvz/crazydave/crazydave8.ogg",
+}
+
+SMODS.Sound{
+    key = "crazydave9",
+    path = "pvz/crazydave/crazydave9.ogg",
+}
+
+SMODS.Sound{
+    key = "crazydave10",
+    path = "pvz/crazydave/crazydave10.ogg",
+}
+
+SMODS.Sound{
+    key = "crazydave11",
+    path = "pvz/crazydave/crazydave11.ogg",
+}
+
+SMODS.Sound{
+    key = "crazydave12",
+    path = "pvz/crazydave/crazydave12.ogg",
+}

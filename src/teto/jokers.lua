@@ -92,7 +92,7 @@ SMODS.Joker{ -- Pear
         if context.after and context.main_eval and not context.blueprint and context.scoring_name == "Pair" then
             if card.ability.extra.pear - card.ability.extra.pear_loss <= 0 then
                 SMODS.destroy_cards(card, nil, nil, true)
-                G.GAME.pool_flags.nic_pear_gone = true
+                G.GAME.pool_flags.nic_pear = true
                 return {
                     message = "NOM :(",
                     colour = HEX("e15d73")
@@ -131,7 +131,7 @@ SMODS.Joker{ -- Pearto
     end,
 
     in_pool = function(self, args)
-        return G.GAME.pool_flags.nic_pear_gone
+        return G.GAME.pool_flags.nic_pear
     end,
 
     calculate = function(self, card, context)

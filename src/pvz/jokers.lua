@@ -1,3 +1,127 @@
+SMODS.Joker{ -- Crazy Dave
+    key = "crazydave",
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nicpvzjokers',
+    rarity = 2,
+    cost = 5,
+    pos = {x = 0, y = 7},
+    soul_pos = {x = 0, y = 6},
+    config = { extra = { mult = 12 } },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {  } }
+    end,
+
+    add_to_deck = function (self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.nic_zengarden_rate = (G.GAME.nic_zengarden_rate) + 3
+                G.GAME.zengarden = #SMODS.find_card("j_nic_crazydave")
+                return true
+            end
+        }))
+    end,
+
+    remove_from_deck = function (self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.nic_zengarden_rate = (G.GAME.nic_zengarden_rate) - 3
+                G.GAME.zengarden = #SMODS.find_card("j_nic_crazydave")
+                G.zengarden.states.visible = false
+                if G.GAME.zengarden < 1 then
+                    for i = 1, #G.zengarden.cards do 
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                SMODS.destroy_cards(G.zengarden.cards[i])
+                                return true
+                            end
+                        }))
+                    end
+                end
+                return true
+            end
+        }))
+    end,
+    
+    calculate = function(self, card, context)
+        if context.using_consumeable and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local random = pseudorandom('j_nic_crazydave', 1, 12)
+                    if random == 1 then
+                        play_sound("nic_crazydave1")
+                    elseif random == 2 then
+                        play_sound("nic_crazydave2")
+                    elseif random == 3 then
+                        play_sound("nic_crazydave3")
+                    elseif random == 4 then
+                        play_sound("nic_crazydave4")
+                    elseif random == 5 then
+                        play_sound("nic_crazydave5")
+                    elseif random == 6 then
+                        play_sound("nic_crazydave6")
+                    elseif random == 7 then
+                        play_sound("nic_crazydave7")
+                    elseif random == 8 then
+                        play_sound("nic_crazydave8")
+                    elseif random == 9 then
+                        play_sound("nic_crazydave9")
+                    elseif random == 10 then
+                        play_sound("nic_crazydave10")
+                    elseif random == 11 then
+                        play_sound("nic_crazydave11")
+                    elseif random == 12 then
+                        play_sound("nic_crazydave12")
+                    end
+                    return true
+                end
+            }))
+            if context.consumeable.ability.set == 'nic_zengarden' then
+                card:juice_up(0.5, 0.5)
+            end
+        end
+        if context.joker_main and next(context.poker_hands["Straight"]) then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local random = pseudorandom('j_nic_crazydave', 1, 12)
+                    if random == 1 then
+                        play_sound("nic_crazydave1")
+                    elseif random == 2 then
+                        play_sound("nic_crazydave2")
+                    elseif random == 3 then
+                        play_sound("nic_crazydave3")
+                    elseif random == 4 then
+                        play_sound("nic_crazydave4")
+                    elseif random == 5 then
+                        play_sound("nic_crazydave5")
+                    elseif random == 6 then
+                        play_sound("nic_crazydave6")
+                    elseif random == 7 then
+                        play_sound("nic_crazydave7")
+                    elseif random == 8 then
+                        play_sound("nic_crazydave8")
+                    elseif random == 9 then
+                        play_sound("nic_crazydave9")
+                    elseif random == 10 then
+                        play_sound("nic_crazydave10")
+                    elseif random == 11 then
+                        play_sound("nic_crazydave11")
+                    elseif random == 12 then
+                        play_sound("nic_crazydave12")
+                    end
+                    return true
+                end
+            }))
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end
+}
+
 SMODS.Joker{ -- Peashooter
     key = "peashooter",
     blueprint_compat = true,
@@ -313,7 +437,7 @@ SMODS.Joker{ -- Puff-shroom
     rarity = 'nic_plants',
     cost = 0,
     pos = {x = 0, y = 7},
-    soul_pos = {x = 0, y = 1},
+    soul_pos = {x = 8, y = 0},
     config = { extra = { chips = 50 } },
 
     loc_vars = function(self, info_queue, card)
@@ -347,7 +471,7 @@ SMODS.Joker{ -- Sun-shroom
     rarity = 'nic_plants',
     cost = 1,
     pos = {x = 0, y = 7},
-    soul_pos = {x = 1, y = 1},
+    soul_pos = {x = 9, y = 0},
     config = { extra = { countdown = 0, countdown_needed = 10, dollars = 0.5 } },
 
     loc_vars = function(self, info_queue, card)
@@ -391,7 +515,7 @@ SMODS.Joker{ -- Fume-shroom
     rarity = 'nic_plants',
     cost = 3,
     pos = {x = 0, y = 7},
-    soul_pos = {x = 2, y = 1},
+    soul_pos = {x = 0, y = 1},
     config = { extra = { chips = 50, blind = 5 } },
 
     loc_vars = function(self, info_queue, card)
@@ -436,7 +560,7 @@ SMODS.Joker{ -- Grave Buster
     rarity = 'nic_plants',
     cost = 3,
     pos = {x = 0, y = 7},
-    soul_pos = {x = 3, y = 1},
+    soul_pos = {x = 1, y = 1},
     config = { extra = { max_highlighted = 3, amount = 3 } },
 
     loc_vars = function(self, info_queue, card)
@@ -459,7 +583,7 @@ SMODS.Joker{ -- Hypno-shroom
     rarity = 'nic_plants',
     cost = 3,
     pos = {x = 0, y = 7},
-    soul_pos = {x = 4, y = 1},
+    soul_pos = {x = 2, y = 1},
     config = { extra = { max_highlighted = 3, amount = 2 } },
 
     loc_vars = function(self, info_queue, card)
@@ -488,7 +612,7 @@ SMODS.Joker{ -- Scaredy-shroom
     rarity = 'nic_plants',
     cost = 1,
     pos = {x = 0, y = 7},
-    soul_pos = {x = 5, y = 1},
+    soul_pos = {x = 3, y = 1},
     config = { extra = { chips = 50, rounds = 1, hand = 1 } },
 
     loc_vars = function(self, info_queue, card)
@@ -539,7 +663,7 @@ SMODS.Joker{ -- Ice-shroom
     rarity = 'nic_plants',
     cost = 3,
     pos = {x = 0, y = 7},
-    soul_pos = {x = 6, y = 1},
+    soul_pos = {x = 4, y = 1},
     config = { extra = { max_highlighted = 5, hand = 1 } },
 
     loc_vars = function(self, info_queue, card)
@@ -562,7 +686,7 @@ SMODS.Joker{ -- Doom-shroom
     rarity = 'nic_plants',
     cost = 5,
     pos = {x = 0, y = 7},
-    soul_pos = {x = 7, y = 1},
+    soul_pos = {x = 5, y = 1},
     config = { extra = {} },
 
     loc_vars = function(self, info_queue, card)
