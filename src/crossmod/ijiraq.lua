@@ -55,9 +55,6 @@ SMODS.Joker({
             }
         }
     end,
-    check_for_unlock = function(self, args)
-        return args.type == 'Incognito'
-    end,
     calculate = function(self, card, context)
         local retrigger_joker = 0
         for _, c in pairs(G.jokers.cards) do
