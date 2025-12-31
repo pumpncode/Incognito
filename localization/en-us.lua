@@ -337,13 +337,36 @@ return {
                     "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"},
                 }
             },
+
+            -- Ijiraq
+
+            j_nic_faketechnoblade = {
+                name = "Technoblade",
+                text = {
+                    "Prevents Death {C:attention}#2#{C:inactive} [#1#]{} times",
+                    "if chips scored are at least",
+                    "{C:attention}#3#%{} of required chips{C:hpfx_IjiGray}#5#",
+                    "{C:inactive,s:0.8}#4# % by 25% every death",
+                    "{s:1.1,C:red,E:2}self destructs when [0]",
+                }
+            },
+            j_nic_faketechnoblade_alt = {
+                name = "Technoblade{C:hpfx_IjiGray}...?{}",
+                text = {
+                    "Prevents Death {C:attention}#2#{C:inactive} [#1#]{} times",
+                    "if chips scored are at least",
+                    "{C:attention}#3#%{} of required chips{C:hpfx_IjiGray}#5#",
+                    "{C:inactive,s:0.8}#4# % by 25% every death",
+                    "{s:1.1,C:red,E:2}self destructs when [0]",
+                }
+            },
             
             -- Teto
 
             j_nic_kasanejokto = {
                 name = "Kasane Jokto",
                 text = {
-                    "{C:attention}Retrigger{} played {C:attention}4s{}",
+                    "{C:attention}Retrigger{} played {C:attention}4s",
                     "an additional {C:attention}two{} times",
                     "{C:inactive,s:0.8,E:1}Inspired By: Neato Jokers",
                 }

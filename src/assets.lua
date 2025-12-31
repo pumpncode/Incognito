@@ -12,6 +12,13 @@ SMODS.Atlas{ -- Ijiraq Jokers
     py = 95,
 }
 
+SMODS.Atlas { -- Tetoraq
+    key = 'tetoraq',
+    path = "ijiraq/tetoraq.png",
+    px = 71,
+    py = 95
+}
+
 SMODS.Atlas{ -- Teto Jokers
     key = "nictetojokers",
     path = "teto/nictetojokers.png",
