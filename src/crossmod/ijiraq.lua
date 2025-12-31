@@ -26,7 +26,7 @@ SMODS.Joker({
         end
     },
     cost = 8,
-    unlocked = false,
+    unlocked = true,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
