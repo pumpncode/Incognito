@@ -66,7 +66,7 @@ SMODS.Booster{
     atlas = 'nicboosters',
     pos = {x = 0,y = 1},
     discovered = true,
-    weight = 1,
+    weight = 0.5,
     cost = 4,
     config = {
         extra = 3,
@@ -118,7 +118,7 @@ SMODS.Booster{
     atlas = 'nicboosters',
     pos = {x = 1,y = 1},
     discovered = true,
-    weight = 0.05,
+    weight = 0.1,
     cost = 4,
     config = {
         extra = 3,
@@ -170,7 +170,7 @@ SMODS.Booster{
     atlas = 'nicboosters',
     pos = {x = 2,y = 1},
     discovered = true,
-    weight = 1,
+    weight = 0.5,
     cost = 4,
     config = {
         extra = 3,

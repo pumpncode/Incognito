@@ -42,7 +42,7 @@ return {
                 name = "Button",
                 text = {
                     "When {C:attention}Clicked{} or {C:attention}Space is",
-                    "{C:attention}Pressed{}, gain {X:mult,C:white}X0.05{} Mult and",
+                    "{C:attention}Pressed{}, gain {X:mult,C:white}X#4#{} Mult and",
                     "has a {C:green}#1# in #2#{} chance that",
                     "this card is destroyed",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult}",
@@ -51,11 +51,11 @@ return {
             j_nic_slycooper = {
                 name = "Sly Cooper",
                 text = {
-                    {"When {C:attention}Blind{} is defeated, Buy",
-                    "{C:attention}One Item{} for {C:green}Free{} in the {C:attention}Shop{},",
-                    "{C:green}#1# in #2#{} chance you get",
-                    "{C:red}Caught{} and {C:attention}Pay Double{}",
-                    "{C:inactive}(Currently: #3#)"},
+                    "When {C:attention}Blind{} is defeated, Buy",
+                    "{C:attention}One Item{} for {C:green}Free{} in the",
+                    "{C:attention}Shop{}, {C:green}#1# in #2#{} chance you get",
+                    "{C:red}Caught{} and {C:attention}Pay Double",
+                    "{C:inactive}(Currently: #3#)",
                 }
             },
             j_nic_stalagmite = {
@@ -84,7 +84,7 @@ return {
                     "if the round had a played",
                     "{C:attention}High Card{}, {C:attention}Pair{}, or {C:attention}Two Pair",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
-                    " {C:inactive,s:0.8}This Joker breaks if failed {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} time ",
+                    "{C:inactive,s:0.8}This Joker breaks if failed {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} times",
                 }
             },
             j_nic_dalgonatriangle = {
@@ -94,7 +94,7 @@ return {
                     "if the round had a played",
                     "{C:attention}3oak{}, {C:attention}Straight{}, or {C:attention}Flush",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
-                    " {C:inactive,s:0.8}This Joker breaks if failed {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} time ",
+                    "{C:inactive,s:0.8}This Joker breaks if failed {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} times",
                 }
             },
             j_nic_dalgonastar = {
@@ -104,7 +104,7 @@ return {
                     "if the round had a played",
                     "{C:attention}Full House{}, {C:attention}4oak{}, or {C:attention}Straight Flush",
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
-                    " {C:inactive,s:0.8}This Joker breaks if failed {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} time ",
+                    "{C:inactive,s:0.8}This Joker breaks if failed {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} times",
                 }
             },
             j_nic_dalgonaumbrella = {
@@ -114,17 +114,17 @@ return {
                     "if the round had a played",
                     "{C:attention}5oak{}, {C:attention}Flush House{}, or {C:attention}Flush Five",
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
-                    " {C:inactive,s:0.8}This Joker breaks if failed {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} time ",
+                    "{C:inactive,s:0.8}This Joker breaks if failed {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} times",
                 }
             },
             j_nic_humantorch = {
                 name = "Human Torch",
                 text = {
-                    "If {C:attention}first played{} hand is a",
-                    "{C:attention}Four of a Kind{} with exactly {C:attention}4",
-                    "cards, level up the {C:attention}hand{} by {C:attention}#1#{},",
-                    "increase the amount by {C:attention}#2#{}, and",
-                    "destroy a {C:attention}random played card",
+                    "If {C:attention}first played{} hand is a {C:attention}Four",
+                    "{C:attention}of a Kind{} with exactly {C:attention}4{} cards,",
+                    "level up the {C:attention}hand{} by {C:attention}#1#{}, increase",
+                    "the amount by {C:attention}#2#{}, and destroy",
+                    "a {C:attention}random played card",
                 }
             },
             j_nic_invisiblewoman = {
@@ -345,7 +345,7 @@ return {
                 text = {
                     "Prevents Death {C:attention}#2#{C:inactive} [#1#]{} times",
                     "if chips scored are at least",
-                    "{C:attention}#3#%{} of required chips{C:hpfx_IjiGray}#5#",
+                    "{C:attention}#3#%{} of required chips{C:hpfx_IjiGray}#5#{}",
                     "{C:inactive,s:0.8}#4# % by 25% every death",
                     "{s:1.1,C:red,E:2}self destructs when [0]",
                 }
@@ -355,12 +355,312 @@ return {
                 text = {
                     "Prevents Death {C:attention}#2#{C:inactive} [#1#]{} times",
                     "if chips scored are at least",
-                    "{C:attention}#3#%{} of required chips{C:hpfx_IjiGray}#5#",
+                    "{C:attention}#3#%{} of required chips{C:hpfx_IjiGray}#5#{}",
                     "{C:inactive,s:0.8}#4# % by 25% every death",
                     "{s:1.1,C:red,E:2}self destructs when [0]",
                 }
             },
+
+            j_nic_fakemachinedramon = {
+                name = {
+                    "Machinedramon",
+                    "{C:black,X:white,s:0.6}MEGA{s:0.6}/{C:black,X:white,s:0.6}VIRUS{s:0.6}/{C:black,X:white,s:0.6}MACHINE"
+                },
+                text = {
+                    {"{X:blue,C:white,s:0.8}When`````Attacking{C:hpfx_IjiGray} #6#{}",
+                    "{C:attention}#5# Cards{} get destroyed,",
+                    "gain {C:mult}+#3#{} Mult and {X:mult,C:white}X#4#{} Mult"},
+                    {"{X:blue,C:white,s:0.8}End`````of`````Attack",
+                    "{C:mult}+#1#{} Mult and {X:mult,C:white}X#2#{} Mult"},
+                    {"{X:blue,C:white,s:0.8}End`````of`````Your`````Turn{C:hpfx_IjiGray} #6#{}",
+                    "non {C:attention}Enhanced Cards{} held in",
+                    "hand turn into {C:attention}#5# Cards"},
+                }
+            },
+            j_nic_fakemachinedramon_alt = {
+                name = {
+                    "Machinedramon{C:hpfx_IjiGray}...?{}",
+                    "{C:black,X:white,s:0.6}MEGA{s:0.6}/{C:black,X:white,s:0.6}VIRUS{s:0.6}/{C:black,X:white,s:0.6}MACHINE"
+                },
+                text = {
+                    {"{X:blue,C:white,s:0.8}When`````Attacking{C:hpfx_IjiGray} #6#{}",
+                    "{C:attention}#5# Cards{} get destroyed,",
+                    "gain {C:mult}+#3#{} Mult and {X:mult,C:white}X#4#{} Mult"},
+                    {"{X:blue,C:white,s:0.8}End`````of`````Attack",
+                    "{C:mult}+#1#{} Mult and {X:mult,C:white}X#2#{} Mult"},
+                    {"{X:blue,C:white,s:0.8}End`````of`````Your`````Turn{C:hpfx_IjiGray} #6#{}",
+                    "non {C:attention}Enhanced Cards{} held in",
+                    "hand turn into {C:attention}#5# Cards"},
+                }
+            },
+
+            j_nic_fakebutton = {
+                name = "Button",
+                text = {
+                    "When {C:attention}Clicked{} or {C:attention}Space is",
+                    "{C:attention}Pressed{}, gain {X:mult,C:white}X#4#{} Mult and",
+                    "has a {C:green}#1# in #2#{} chance that",
+                    "this card is destroyed{C:hpfx_IjiGray}#5#{}",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult}",
+                }
+            },
+            j_nic_fakebutton_alt = {
+                name = "Button{C:hpfx_IjiGray}...?{}",
+                text = {
+                    "When {C:attention}Clicked{} or {C:attention}Space is",
+                    "{C:attention}Pressed{}, gain {X:mult,C:white}X#4#{} Mult and",
+                    "has a {C:green}#1# in #2#{} chance that",
+                    "this card is destroyed{C:hpfx_IjiGray}#5#{}",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult}",
+                }
+            },
+
+            j_nic_fakeslycooper = {
+                name = "Sly Cooper",
+                text = {
+                    "When {C:attention}Blind{} is defeated, Buy",
+                    "{C:attention}One Item{} for {V:1}#4#{} in the",
+                    "{C:attention}Shop{}, {C:green}#1# in #2#{} chance you get",
+                    "{C:red}Caught{} and {C:attention}Pay {V:2}#5#{C:hpfx_IjiGray}#6#{}",
+                    "{C:inactive}(Currently: #3#)",
+                }
+            },
+            j_nic_fakeslycooper_alt = {
+                name = "Sly Cooper{C:hpfx_IjiGray}...?{}",
+                text = {
+                    "When {C:attention}Blind{} is defeated, Buy",
+                    "{C:attention}One Item{} for {V:1}#4#{} in the",
+                    "{C:attention}Shop{}, {C:green}#1# in #2#{} chance you get",
+                    "{C:red}Caught{} and {C:attention}Pay {V:2}#5#{C:hpfx_IjiGray}#6#{}",
+                    "{C:inactive}(Currently: #3#)",
+                }
+            },
             
+            j_nic_fakestalagmite = {
+                name = "Stalagmite",
+                text = {
+                    {"Scoring {C:attention}Stone{} cards turn {C:dark_edition}Negative,",
+                    "Scoring {C:dark_edition}Negative {C:attention}Stone{} cards gets",
+                    "destroyed and gain {C:chips}+#2#{} Chips"},
+                    {"{C:chips}+#1#{} Chips for each",
+                    "{C:attention}Stone{} card held in hand",
+                    "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"},
+                }
+            },
+            j_nic_fakestalagmite_alt = {
+                name = "Stalagmite{C:hpfx_IjiGray}...?{}",
+                text = {
+                    {"Scoring {C:attention}Stone{} cards turn {C:dark_edition}Negative,",
+                    "Scoring {C:dark_edition}Negative {C:attention}Stone{} cards gets",
+                    "destroyed and gain {C:chips}+#2#{} Chips"},
+                    {"{C:chips}+#1#{} Chips for each",
+                    "{C:attention}Stone{} card held in hand",
+                    "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"},
+                }
+            },
+
+            j_nic_fakedalgonacookie = {
+                name = "Dalgona Cookie",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "it becomes {C:attention}1{} of the 4",
+                    "{C:attention}#1# Dalgona Cookies{C:hpfx_IjiGray}#2#{}",
+                }
+            },
+            j_nic_fakedalgonacookie_alt = {
+                name = "Dalgona Cookie{C:hpfx_IjiGray}...?{}",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "it becomes {C:attention}1{} of the 4",
+                    "{C:attention}#1# Dalgona Cookies{C:hpfx_IjiGray}#2#{}",
+                }
+            },
+
+            j_nic_fakedalgonacircle = {
+                name = "Dalgona Circle",
+                text = {
+                    "This Joker gains {C:mult}+#2#{} Mult",
+                    "if the round had a played",
+                    "{C:attention}High Card{}, {C:attention}Pair{}, or {C:attention}Two Pair",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){C:hpfx_IjiGray}#6#{}",
+                    "{C:inactive,s:0.8}This Joker breaks if #5# {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} times",
+                }
+            },
+            j_nic_fakedalgonacircle_alt = {
+                name = "Dalgona Circle{C:hpfx_IjiGray}...?{}",
+                text = {
+                    "This Joker gains {C:mult}+#2#{} Mult",
+                    "if the round had a played",
+                    "{C:attention}High Card{}, {C:attention}Pair{}, or {C:attention}Two Pair",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){C:hpfx_IjiGray}#6#{}",
+                    "{C:inactive,s:0.8}This Joker breaks if #5# {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} times",
+                }
+            },
+
+            j_nic_fakedalgonatriangle = {
+                name = "Dalgona Triangle",
+                text = {
+                    "This Joker gains {C:mult}+#2#{} Mult",
+                    "if the round had a played",
+                    "{C:attention}3oak{}, {C:attention}Straight{}, or {C:attention}Flush",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){C:hpfx_IjiGray}#6#{}",
+                    "{C:inactive,s:0.8}This Joker breaks if #5# {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} times",
+                }
+            },
+            j_nic_fakedalgonatriangle_alt = {
+                name = "Dalgona Triangle{C:hpfx_IjiGray}...?{}",
+                text = {
+                    "This Joker gains {C:mult}+#2#{} Mult",
+                    "if the round had a played",
+                    "{C:attention}3oak{}, {C:attention}Straight{}, or {C:attention}Flush",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){C:hpfx_IjiGray}#6#{}",
+                    "{C:inactive,s:0.8}This Joker breaks if #5# {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} times",
+                }
+            },
+
+            j_nic_fakedalgonastar = {
+                name = "Dalgona Star",
+                text = {
+                    "This Joker gains {X:mult,C:white}X#2#{} Mult",
+                    "if the round had a played",
+                    "{C:attention}Full House{}, {C:attention}4oak{}, or {C:attention}Straight Flush",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){C:hpfx_IjiGray}#6#{}",
+                    "{C:inactive,s:0.8}This Joker breaks if #5# {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} times",
+                }
+            },
+            j_nic_fakedalgonastar_alt = {
+                name = "Dalgona Star{C:hpfx_IjiGray}...?{}",
+                text = {
+                    "This Joker gains {X:mult,C:white}X#2#{} Mult",
+                    "if the round had a played",
+                    "{C:attention}Full House{}, {C:attention}4oak{}, or {C:attention}Straight Flush",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){C:hpfx_IjiGray}#6#{}",
+                    "{C:inactive,s:0.8}This Joker breaks if #5# {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} times",
+                }
+            },
+
+            j_nic_fakedalgonaumbrella = {
+                name = "Dalgona Umbrella",
+                text = {
+                    "This Joker gains {X:mult,C:white}X#2#{} Mult",
+                    "if the round had a played",
+                    "{C:attention}5oak{}, {C:attention}Flush House{}, or {C:attention}Flush Five",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){C:hpfx_IjiGray}#6#{}",
+                    "{C:inactive,s:0.8}This Joker breaks if #5# {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} times",
+                }
+            },
+            j_nic_fakedalgonaumbrella_alt = {
+                name = "Dalgona Umbrella{C:hpfx_IjiGray}...?{}",
+                text = {
+                    "This Joker gains {X:mult,C:white}X#2#{} Mult",
+                    "if the round had a played",
+                    "{C:attention}5oak{}, {C:attention}Flush House{}, or {C:attention}Flush Five",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){C:hpfx_IjiGray}#6#{}",
+                    "{C:inactive,s:0.8}This Joker breaks if #5# {C:attention,s:0.8}#4#{C:inactive,s:0.8} [#3#]{C:attention,s:0.8} times",
+                }
+            },
+
+            j_nic_fakehumantorch = {
+                name = "Human Torch",
+                text = {
+                    "If {C:attention}first played{} hand is a {C:attention}#3#",
+                    "{C:attention}of a Kind{} with exactly {C:attention}#4#{} cards,",
+                    "level up the {C:attention}hand{} by {C:attention}#1#{}, increase",
+                    "the amount by {C:attention}#2#{}, and destroy",
+                    "a {C:attention}random played card{C:hpfx_IjiGray}#5#{}",
+                }
+            },
+            j_nic_fakehumantorch_alt = {
+                name = "Human Torch{C:hpfx_IjiGray}...?{}",
+                text = {
+                    "If {C:attention}first played{} hand is a {C:attention}#3#",
+                    "{C:attention}of a Kind{} with exactly {C:attention}#4#{} cards,",
+                    "level up the {C:attention}hand{} by {C:attention}#1#{}, increase",
+                    "the amount by {C:attention}#2#{}, and destroy",
+                    "a {C:attention}random played card{C:hpfx_IjiGray}#5#{}",
+                }
+            },
+
+            j_nic_fakeinvisiblewoman = {
+                name = "Invisible Woman",
+                text = {
+                    "If {C:attention}first played{} hand is a",
+                    "{C:attention}#1# of a Kind{} with exactly {C:attention}#2#",
+                    "cards, turn all cards into glass{C:hpfx_IjiGray}#3#{}",
+                }
+            },
+            j_nic_fakeinvisiblewoman_alt = {
+                name = "Invisible Woman{C:hpfx_IjiGray}...?{}",
+                text = {
+                    "If {C:attention}first played{} hand is a",
+                    "{C:attention}#1# of a Kind{} with exactly {C:attention}#2#",
+                    "cards, turn all cards into glass{C:hpfx_IjiGray}#3#{}",
+                }
+            },
+
+            j_nic_fakethething = {
+                name = "The Thing",
+                text = {
+                    {"When round begins, add",
+                    "{C:attention}#1# Stone{} cards with a",
+                    "random {C:attention}seal{} to your deck"},
+                    {"If {C:attention}first played{} hand is a",
+                    "{C:attention}#3# of a Kind{} with exactly {C:attention}#4#",
+                    "cards, increase the amount",
+                    "of {C:attention}Stone{} cards by {C:attention}#2#{C:hpfx_IjiGray}#5#{}"},
+                }
+            },
+            j_nic_fakethething_alt = {
+                name = "The Thing{C:hpfx_IjiGray}...?{}",
+                text = {
+                    {"When round begins, add",
+                    "{C:attention}#1# Stone{} cards with a",
+                    "random {C:attention}seal{} to your deck"},
+                    {"If {C:attention}first played{} hand is a",
+                    "{C:attention}#3# of a Kind{} with exactly {C:attention}#4#",
+                    "cards, increase the amount",
+                    "of {C:attention}Stone{} cards by {C:attention}#2#{C:hpfx_IjiGray}#5#{}"},
+                }
+            },
+
+            j_nic_fakemisterfantastic = {
+                name = "Mister Fantastic",
+                text = {
+                    "All {C:attention}played hands{} with exactly {C:attention}#2#",
+                    "cards are considered {C:attention}#1#{C:hpfx_IjiGray}#3#{}",
+                    "and the {C:attention}cards{} will count when played",
+                }
+            },
+            j_nic_fakemisterfantastic_alt = {
+                name = "Mister Fantastic{C:hpfx_IjiGray}...?{}",
+                text = {
+                    "All {C:attention}played hands{} with exactly {C:attention}#2#",
+                    "cards are considered {C:attention}#1#{C:hpfx_IjiGray}#3#{}",
+                    "and the {C:attention}cards{} will count when played",
+                }
+            },
+
+            j_nic_fakeincognito = {
+                name = "Incognito",
+                text = {
+                    {"This Joker gains {X:mult,C:white} X#3# {} Mult when a",
+                    "#5# {C:spades}#6#{} card is destroyed{C:hpfx_IjiGray}#7#{}"},
+                    {"Each #5# {C:spades}#6#{} card held in hand",
+                    "has a {C:green}#1# in #2#{} chance to be destroyed",
+                    "{C:spades}#6#{} cards held in hand gives {X:mult,C:white} X#4#{} Mult{C:hpfx_IjiGray}#7#{}"},
+                }
+            },
+            j_nic_fakeincognito_alt = {
+                name = "Incognito{C:hpfx_IjiGray}...?{}",
+                text = {
+                    {"This Joker gains {X:mult,C:white} X#3# {} Mult when a",
+                    "#5# {C:spades}#6#{} card is destroyed{C:hpfx_IjiGray}#7#{}"},
+                    {"Each #5# {C:spades}#6#{} card held in hand",
+                    "has a {C:green}#1# in #2#{} chance to be destroyed",
+                    "{C:spades}#6#{} cards held in hand gives {X:mult,C:white} X#4#{} Mult{C:hpfx_IjiGray}#7#{}"},
+                }
+            },
+
             -- Teto
 
             j_nic_kasanejokto = {

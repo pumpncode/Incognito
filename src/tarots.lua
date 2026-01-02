@@ -23,6 +23,18 @@ SMODS.Consumable {
                     return true
                 end
             }))
+        elseif G.jokers.highlighted[1].config.center.key == 'j_hpfx_ijiraq' then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    G.jokers.highlighted[1]:juice_up()
+                    G.jokers.highlighted[1]:set_ability(G.P_CENTERS.j_nic_tetoraq)
+                    play_sound('gold_seal', 1.2, 0.4)
+                    G.jokers:unhighlight_all()
+                    return true
+                end
+            }))
         else
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',

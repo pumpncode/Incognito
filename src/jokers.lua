@@ -71,29 +71,22 @@ SMODS.Joker{ -- Machinedramon
             return { remove = true }
         end
 
-        if context.individual and context.cardarea == G.hand and not context.blueprint and context.end_of_round then
-            if context.other_card then
-			    local other_card = context.other_card
-                if not next(SMODS.get_enhancements(other_card)) and not other_card.debuff then
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.1,
-                        func = function()
-                            other_card:juice_up()
-                            other_card:set_ability('m_steel')
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            for i = 1, #G.hand.cards do 
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.5,
+                    func = function()
+                        if not next(SMODS.get_enhancements(G.hand.cards[i])) and not G.hand.cards[i].debuff then
+                            G.hand.cards[i]:juice_up()
+                            G.hand.cards[i]:set_ability('m_steel')
                             play_sound("nic_machinedramon")
-                            return true
                         end
-                    }))
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.5,
-                        func = function()
-                            return true
-                        end
-                    }))
-                end
+                        return true
+                    end
+                }))
             end
+
         end
 
         if context.individual and context.cardarea == G.play and not context.blueprint then
@@ -124,11 +117,11 @@ SMODS.Joker{ -- Button
     rarity = 1,
     cost = 3,
     pos = {x = 2, y = 0 },
-    config = { extra = { xmult = 0.5, odds = 100 } },
+    config = { extra = { xmult = 0.5, xmult_gain = 0.05 , odds = 100 } },
 
     loc_vars = function(self, info_queue, card)
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds) 
-        return {vars = {new_numerator, new_denominator, card.ability.extra.xmult}}
+        return {vars = {new_numerator, new_denominator, card.ability.extra.xmult, card.ability.extra.xmult_gain}}
     end,
     
     calculate = function(self, card, context)
@@ -138,7 +131,7 @@ SMODS.Joker{ -- Button
                 card:juice_up(10, 10)
                 return { play_sound("nic_explosion"), message = "BOOM!", colour = G.C.RED }
             else
-                card.ability.extra.xmult = (card.ability.extra.xmult) + 0.05
+                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
                 card:juice_up(0.5, 0.5)
                 return { play_sound("nic_click") }
             end
@@ -174,8 +167,11 @@ SMODS.Joker{ -- Sly Cooper
 
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
-            local eval = function(card) return card.ability.extra.slycooper_remaining == 0 and not card.REMOVED end
-            juice_card_until(card, eval, true)
+            if next(SMODS.find_mod('hyperfixation_mod')) then
+            else
+                local eval = function(card) return card.ability.extra.slycooper_remaining == 0 and not card.REMOVED end
+                juice_card_until(card, eval, true)
+            end
             card.ability.extra.slycooper_remaining = 0
             return { message = "ACTIVE!", colour = G.C.RED }
         end
@@ -188,7 +184,7 @@ SMODS.Joker{ -- Sly Cooper
 
         if card.ability.extra.slycooper_remaining == 0 then
             if (context.buying_card or context.nic_buying_booster or context.nic_buying_voucher) and context.card.cost > 0 then
-                card.ability.extra.slycooper_remaining = card.ability.extra.slycooper_remaining + 1
+                card.ability.extra.slycooper_remaining = 1
                 if SMODS.pseudorandom_probability(card, ('j_nic_slycooper'), 1, card.ability.extra.odds) then
                     context.card.cost = context.card.cost * 2
                     SMODS.calculate_effect({
@@ -650,8 +646,6 @@ SMODS.Joker{ --  Invisible Woman
             end
         end
     end
-
-
 }
 
 SMODS.Joker{ -- The Thing
@@ -677,9 +671,10 @@ SMODS.Joker{ -- The Thing
                 local eval = function(card) return G.GAME.current_round.hands_played == 0 and not card.REMOVED end
                 juice_card_until(card, eval, true)
             end
+            local counter = card.ability.extra.counter
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    for i = 1, card.ability.extra.counter do
+                    for i = 1, counter do
                         local stone_card = SMODS.create_card { set = "Base", enhancement = "m_stone", seal = SMODS.poll_seal({ guaranteed = true }), area = G.discard }
                         G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                         stone_card.playing_card = G.playing_card
@@ -717,6 +712,7 @@ SMODS.Joker{ -- Mister Fantastic
     rarity = 3,
     cost = 8,
     pos = {x = 3, y = 1},
+    config = { extra = {} },
 
     calculate = function(self, card, context)
         if context.modify_scoring_hand and not context.blueprint and #context.full_hand == 4 then
