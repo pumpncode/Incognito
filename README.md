@@ -11,10 +11,10 @@ There is also a scrapped content button, just a bunch of stuff I didn't fully fl
 
 # Contents
 
-## 61 Jokers:
+## 64 Jokers:
 1 Common Joker\
-17 Uncommon Jokers\
-10 Rare Jokers\
+19 Uncommon Jokers\
+11 Rare Jokers\
 2 Legendary Jokers\
 15 Teto Jokers\
 16 Plants Jokers
@@ -24,6 +24,8 @@ Tetarot
 
 ## 1 Custom Consumable:
 Zen Garden
+- Plants Vase
+- Shovel
 
 ## 3 Challenge Runs:
 OOPS? ALL SWOONS!\
