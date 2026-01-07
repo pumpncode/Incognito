@@ -1,6 +1,6 @@
 SMODS.ConsumableType {
     key = 'nic_zengarden',
-    default = 'c_nic_mysteryvase',
+    default = 'c_nic_plantsvase',
     primary_colour = HEX("33cc00"),
     secondary_colour = HEX("33cc00"),
     collection_rows = { 6, 6 },
@@ -21,7 +21,7 @@ SMODS.ConsumableType {
     },
 }
 
-SMODS.Consumable { -- Mystery Vase
+--[[SMODS.Consumable { -- Mystery Vase
     key = 'mysteryvase',
     set = 'nic_zengarden',
     cost = 4,
@@ -36,7 +36,7 @@ SMODS.Consumable { -- Mystery Vase
             allow_duplicates = next(SMODS.find_card("c_nic_mysteryvase")) or next(SMODS.find_card("j_nic_crazydave")) 
         }
     end,
-}
+}]]
 
 SMODS.Consumable { -- Plants Vase
     key = 'plantsvase',

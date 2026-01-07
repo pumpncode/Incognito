@@ -13,7 +13,7 @@ SMODS.Booster{
     atlas = 'nicboosters',
     pos = {x = 0,y = 0},
     discovered = true,
-    weight = 0,
+    weight = 0.5,
     cost = 4,
     config = {
         extra = 3,
@@ -51,7 +51,7 @@ SMODS.ObjectType{
 	end,
 }
 
-SMODS.Booster{
+--[[SMODS.Booster{
     key = 'vase_booser1',
     loc_txt = {
         name = "Vase Pack",
@@ -101,7 +101,7 @@ SMODS.ObjectType{
 	inject = function(self)
 		SMODS.ObjectType.inject(self)
 	end,
-}
+}]]
 
 SMODS.Booster{
     key = 'vase_booser2',
@@ -155,7 +155,7 @@ SMODS.ObjectType{
 	end,
 }
 
-SMODS.Booster{
+--[[SMODS.Booster{
     key = 'tools_booster',
     loc_txt = {
         name = "Tools Pack",
@@ -206,4 +206,4 @@ SMODS.ObjectType{
 	inject = function(self)
 		SMODS.ObjectType.inject(self)
 	end,
-}
+}]]
