@@ -30,9 +30,25 @@ Incognito.config_tab = function()
                         n = G.UIT.C,
                         nodes = {
                             create_toggle({
-                                label = "Scrapped Concepts [Mid]",
+                                label = "  Scrapped Concepts [Mid]",
                                 ref_table = Incognito.config,
                                 ref_value = "scrapped_things",
+                                callback = should_restart,
+                            }),
+                        },
+                    },
+                },
+            },
+            {
+                n = G.UIT.R,
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        nodes = {
+                            create_toggle({
+                                label = "     THE ROARING INC?",
+                                ref_table = Incognito.config,
+                                ref_value = "roaring_inc",
                                 callback = should_restart,
                             }),
                         },

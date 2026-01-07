@@ -1298,7 +1298,7 @@ SMODS.Joker{ -- Fake Incognito
     end,
 }
 
-SMODS.Joker{ -- Fake Crazy Taxi
+--[[SMODS.Joker{ -- Fake Crazy Taxi
     key = "fakecrazytaxi",
     blueprint_compat = false,
     eternal_compat = true,
@@ -1395,4 +1395,4 @@ SMODS.Joker{ -- Fake Crazy Taxi
         local money = card.ability.extra.dollars
         return money
     end,
-}
+}]]

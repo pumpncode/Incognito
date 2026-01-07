@@ -41,7 +41,6 @@ if next(SMODS.find_mod('hyperfixation_mod')) then
             Hyperfixation.hypercross('Incognito', 'j_nic_thething', 'j_nic_fakethething', false)
             Hyperfixation.hypercross('Incognito', 'j_nic_misterfantastic', 'j_nic_fakemisterfantastic', false)
             Hyperfixation.hypercross('Incognito', 'j_nic_incognito', 'j_nic_fakeincognito', false)
-            Hyperfixation.hypercross('Incognito', 'j_nic_crazytaxi', 'j_nic_fakecrazytaxi', false)
         end
     end
 end
@@ -55,6 +54,10 @@ assert(SMODS.load_file("src/pvz/zengarden.lua"))()
 
 if Incognito.config.scrapped_things then
 	SMODS.load_file("src/scrapped/scrapped.lua")()
+end
+
+if Incognito.config.roaring_inc then
+	SMODS.load_file("src/music.lua")()
 end
 
 -- JokerDisplay
