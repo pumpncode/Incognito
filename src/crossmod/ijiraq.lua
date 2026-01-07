@@ -1211,6 +1211,7 @@ SMODS.Joker{ -- Fake Mister Fantastic
 
 SMODS.Joker{ -- Fake Incognito
     key = "fakeincognito",
+    no_collection = true,
     blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
@@ -1294,5 +1295,104 @@ SMODS.Joker{ -- Fake Incognito
         card.ability.extra.new_key = "j_nic_fakeincognito_alt"
         local sticker = SMODS.Stickers['hpfx_priceless']
         sticker.apply(sticker, card, true)
+    end,
+}
+
+SMODS.Joker{ -- Fake Crazy Taxi
+    key = "fakecrazytaxi",
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nicjokersijiraq',
+    rarity = 2,
+    cost = 6,
+    pos = {x = 6, y = 1},
+    config = { start = 0, inblind = 0, time = 30, extra = { dollars = 1 } },
+
+    loc_vars = function(self, info_queue, card)
+        return { 
+            vars = { 
+                card.ability.extra.dollars, localize((G.GAME.current_round.nic_crazytaxi_card or {}).rank or 'Ace', 'ranks'),
+            },
+            main_end = {
+                {
+                    n = G.UIT.C,
+                    config = { align = "bm", minh = 0.3 },
+                    nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = {
+                                ref_table = card.ability,
+                                ref_value = "time",
+                                scale = 0.32,
+                                colour = G.C.MONEY
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    end,
+
+    update = function(self, card)
+        local time = 30 - (G.TIMERS.REAL - card.ability.start) * card.ability.inblind
+        if time <= 0 then
+            card.ability.time = "0:00"
+        else
+            card.ability.time = string.gsub(string.format("%.2f", time), "%.", ":")
+        end
+    end,
+
+    calculate = function(self, card, context)
+        if context.blueprint then return end
+        if context.setting_blind then
+            card.ability.start = G.TIMERS.REAL
+			card.ability.inblind = 1
+            return {
+                message = "TAKE ME TO THE NEXT ROUND"
+            }
+        end
+
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() == G.GAME.current_round.nic_crazytaxi_card.id then
+            if (G.TIMERS.REAL - card.ability.start <= 30) then
+                card.ability.start = card.ability.start + 5
+                return {
+                    message = "+5 Seconds"
+                }
+            else
+                return {
+                    message = "YOU'RE LATE"
+                }
+            end
+        end
+        
+        if (context.end_of_round and context.main_eval and not context.repetition) or context.forcetrigger then
+			card.ability.inblind = 0
+			if (G.TIMERS.REAL - card.ability.start <= 30) or context.forcetrigger then
+                card.ability.extra.dollars = card.ability.extra.dollars + 3
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        hpfx_Transform(card, context)
+                        return true
+                    end
+                }))
+				return {
+                    message = "THANK YOU",
+                    play_sound('nic_win')
+                }
+            else
+                card:start_dissolve()
+                return {
+                    message = "Failure",
+                    play_sound('nic_explosion')
+                }
+			end
+        end
+    end,
+
+    calc_dollar_bonus = function(self, card)
+        local money = card.ability.extra.dollars
+        return money
     end,
 }

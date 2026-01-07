@@ -122,6 +122,11 @@ SMODS.Sound{ -- Click
     path = "click.ogg",
 }
 
+SMODS.Sound{ -- Death Whistle
+    key = "deathwhistle",
+    path = "deathwhistle.ogg",
+}
+
 SMODS.Sound{ -- Dripstone
     key = "dripstone",
     path = "dripstone.ogg",

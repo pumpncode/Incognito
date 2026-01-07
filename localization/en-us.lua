@@ -169,10 +169,10 @@ return {
                 name = "Crazy Taxi",
                 text = {
                     {"When {C:attention}end of round{} is within {C:attention}time,",
-                    "Earns {C:money}$#1#{} and increases {C:money}cash{} by {C:money}3{}",
+                    "Earns {C:money}$#1#{} and increases {C:money}cash{} by {C:money}#2#{}",
                     "If {C:red}failed{}, This Joker gets destroyed",
                     "{s:0.8}Time resets every round"},
-                    {"Each played {C:attention}#2#{} adds {C:attention}+5 Seconds",
+                    {"Each played {C:attention}#3#{} adds {C:attention}+5 Seconds",
                     "{s:0.8}Rank changes every round"},
                 }
             },
@@ -335,6 +335,14 @@ return {
                     {"Gains {C:chips}+#4#{} Chips every",
                     "time {C:tarot}The Moon{} is used",
                     "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"},
+                }
+            },
+            j_nic_death = {
+                name = "Death",
+                text = {
+                    "Each played {C:attention}9{} gets",
+                    "destroyed and creates",
+                    "a {C:dark_edition}Negative {C:tarot}Death",
                 }
             },
 
@@ -1171,9 +1179,13 @@ return {
 
             -- Loss
 
-            nic_tetowordofthedaylose1 = {
+            nic_tetowordofthedayloss1 = {
                 "Teto Word Of The Day",
                 "      Loser :P"
+            },
+            nic_deathloss1 = {
+                "I just love the",
+                "smell of FEAR",
             },
         },
         ranks={},

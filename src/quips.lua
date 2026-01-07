@@ -37,7 +37,7 @@ SMODS.JimboQuip{
 -- Loss
 
 SMODS.JimboQuip{
-    key = 'tetowordofthedaylose1',
+    key = 'tetowordofthedayloss1',
     type = 'loss',
     extra = { 
         center = 'j_nic_tetowordoftheday', 
@@ -48,6 +48,25 @@ SMODS.JimboQuip{
     },
     filter = function()
         if next(SMODS.find_card('j_nic_tetowordoftheday')) then
+            return true, { weight = 100 }
+        end
+        return false
+    end,
+}
+
+SMODS.JimboQuip{
+    key = 'deathloss1',
+    type = 'loss',
+    extra = { 
+        center = 'j_nic_death', 
+        sound = 'nic_deathwhistle',
+        times = 1,
+        pitch = 1,
+        particle_colours = { HEX("830000"), HEX("830000"), HEX("830000") }, 
+        materialize_colours = { HEX("000000"), HEX("000000"), HEX("000000") } 
+    },
+    filter = function()
+        if next(SMODS.find_card('j_nic_death')) then
             return true, { weight = 100 }
         end
         return false

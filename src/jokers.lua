@@ -817,12 +817,12 @@ SMODS.Joker{ -- Crazy Taxi
     rarity = 2,
     cost = 6,
     pos = {x = 6, y = 1},
-    config = { start = 0, inblind = 0, time = 30, extra = { dollars = 1 } },
+    config = { start = 0, inblind = 0, time = 30, extra = { dollars = 1, dollars_gain = 3 } },
 
     loc_vars = function(self, info_queue, card)
         return { 
             vars = { 
-                card.ability.extra.dollars, localize((G.GAME.current_round.nic_crazytaxi_card or {}).rank or 'Ace', 'ranks'),
+                card.ability.extra.dollars, card.ability.extra.dollars_gain, localize((G.GAME.current_round.nic_crazytaxi_card or {}).rank or 'Ace', 'ranks'),
             },
             main_end = {
                 {
@@ -853,10 +853,6 @@ SMODS.Joker{ -- Crazy Taxi
         end
     end,
 
-    calc_dollar_bonus = function(self, card)
-        return card.ability.extra.dollars
-    end,
-
     calculate = function(self, card, context)
         if context.blueprint then return end
         if context.setting_blind then
@@ -883,7 +879,7 @@ SMODS.Joker{ -- Crazy Taxi
         if (context.end_of_round and context.main_eval and not context.repetition) or context.forcetrigger then
 			card.ability.inblind = 0
 			if (G.TIMERS.REAL - card.ability.start <= 30) or context.forcetrigger then
-                card.ability.extra.dollars = card.ability.extra.dollars + 3
+                card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_gain
 				return {
                     message = "THANK YOU",
                     play_sound('nic_win')
@@ -896,7 +892,12 @@ SMODS.Joker{ -- Crazy Taxi
                 }
 			end
         end
-    end
+    end,
+
+    calc_dollar_bonus = function(self, card)
+        local money = card.ability.extra.dollars
+        return money
+    end,
 }
 
 SMODS.Joker{ -- Strawberry Cake
@@ -1998,7 +1999,7 @@ SMODS.Joker{ -- Invert
     end
 }
 
---[[SMODS.Joker{ -- Solar Eclipse
+SMODS.Joker{ -- Solar Eclipse
     key = "solareclipse",
     blueprint_compat = true,
     eternal_compat = true,
@@ -2061,4 +2062,70 @@ SMODS.Joker{ -- Invert
             end
         end
     end
-}]]
+}
+
+SMODS.Joker{ -- Death
+    key = "death",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nicjokers',
+    rarity = 3,
+    cost = 7,
+    pos = {x = 6, y = 3},
+    config = { extra = { fear = false } },
+
+    add_to_deck = function(self, card, from_debuff)
+        card.ability.extra.fear = true
+        return {
+            play_sound('nic_deathwhistle')
+        }
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        card.ability.extra.fear = false
+    end,
+
+    update = function(self, card)
+        if card.ability.extra.fear then
+            G.PITCH_MOD = 0
+        end
+    end,
+
+    calculate = function(self, card, context)
+        if context.destroy_card and context.destroy_card.should_destroy and not context.blueprint then
+            return { remove = true }
+        end
+
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() == 9 then
+            context.other_card.should_destroy = true
+            return {
+                message = "Death...",
+                colour = G.C.RED,
+                message_card = card,
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.add_card({ set = 'Tarot', key = "c_death", edition = "e_negative" })
+                        return true
+                    end
+                }))
+            }
+        end
+
+        if context.post_trigger and context.other_ret.jokers and context.other_ret.jokers.saved and not context.blueprint then
+            card:juice_up()
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 1.5,
+                func = function()
+                    love.audio.stop()
+                    G.STATE = G.STATES.GAME_OVER
+                    G.FILE_HANDLER.force = true
+                    G.STATE_COMPLETE = false
+                    return true
+                end
+            }))
+        end
+    end
+}
