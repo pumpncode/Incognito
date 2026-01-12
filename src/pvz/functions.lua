@@ -3,7 +3,7 @@
 local set_sprites_hook = Card.set_sprites
 function Card:set_sprites(_center, _front)
     set_sprites_hook(self, _center, _front)
-    self.children.plant_select = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["nic_nicpvzconsumables"], { x = 1, y = 1 })
+    self.children.plant_select = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["nic_nicpvzconsumables"], { x = 3, y = 1 })
     self.children.plant_select.role.draw_major = self
     self.children.plant_select.states.hover.can = false
     self.children.plant_select.states.click.can = false

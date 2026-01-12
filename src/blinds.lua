@@ -1,3 +1,12 @@
+SMODS.Atlas{ -- Blinds
+    key = "nicblinds",
+    path = "nicblinds.png",
+    px = 34,
+    py = 34,
+    atlas_table = 'ANIMATION_ATLAS',
+    frames = 21,
+}
+
 SMODS.Blind {
     key = "monarch",
     dollars = 5,

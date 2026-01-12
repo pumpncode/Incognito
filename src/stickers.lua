@@ -1,3 +1,10 @@
+SMODS.Atlas{ -- Sticker
+    key = "nicstickers",
+    path = "nicstickers.png",
+    px = 71,
+    py = 95,
+}
+
 SMODS.Sticker {
     key = "tetosticker",
     badge_colour = HEX("e15d73"),

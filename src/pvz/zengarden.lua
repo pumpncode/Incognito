@@ -1,6 +1,13 @@
+SMODS.Atlas{ -- Plant Consumables
+    key = "nicpvzconsumables",
+    path = "pvz/nicpvzconsumables.png",
+    px = 71,
+    py = 95,
+}
+
 SMODS.ConsumableType {
     key = 'nic_zengarden',
-    default = 'c_nic_plantsvase',
+    default = 'c_nic_mysteryvase',
     primary_colour = HEX("33cc00"),
     secondary_colour = HEX("33cc00"),
     collection_rows = { 6, 6 },
@@ -21,7 +28,7 @@ SMODS.ConsumableType {
     },
 }
 
---[[SMODS.Consumable { -- Mystery Vase
+SMODS.Consumable { -- Mystery Vase
     key = 'mysteryvase',
     set = 'nic_zengarden',
     cost = 4,
@@ -31,22 +38,72 @@ SMODS.ConsumableType {
     config = { },
     pools = { ["Vase"] = true },
 
-    in_pool = function (self, args)
-        return true, {
-            allow_duplicates = next(SMODS.find_card("c_nic_mysteryvase")) or next(SMODS.find_card("j_nic_crazydave")) 
-        }
+    loc_vars = function(self, info_queue, center) 
+		info_queue[#info_queue+1] = G.P_CENTERS["j_nic_crazydave"]
+	end,
+
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                local random = pseudorandom('c_nic_mysteryvase', 1, 4)
+                play_sound('nic_vasebreak')
+
+                if random == 1 then
+                    SMODS.calculate_effect({message = "Plants", colour = HEX("33cc00") }, card)
+                    if #G.zengarden.cards < G.zengarden.config.card_limit then
+                        SMODS.add_card({ area = G.zengarden, set = 'Joker', rarity = 'nic_plants', no_edition = true })
+                    end
+                elseif random == 2 then
+                    SMODS.calculate_effect({message = "Joker" }, card)
+                    if #G.jokers.cards < G.jokers.config.card_limit then
+                        SMODS.add_card({ set = 'Joker' })
+                    end 
+                elseif random == 3 then
+                    SMODS.calculate_effect({message = "Consumeables" }, card)
+                    if #G.consumeables.cards < G.consumeables.config.card_limit then
+                        SMODS.add_card({ set = 'Consumeables' })
+                    end 
+                elseif random == 4 then
+                    SMODS.calculate_effect({message = "Playing Card" }, card)
+                    local _card = SMODS.create_card { 
+                        set = "Base", 
+                        edition = SMODS.poll_edition({ mod = 2 }), 
+                        seal = SMODS.poll_seal({ mod = 10 }), 
+                        area = G.discard 
+                    }
+                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                    _card.playing_card = G.playing_card
+                    table.insert(G.playing_cards, _card)
+                    
+                    _card:start_materialize()
+                    G.deck:emplace(_card)
+                end
+
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        delay(0.6)
     end,
-}]]
+
+    can_use = function(self, card)
+        return card.area == G.consumeables and next(SMODS.find_card("j_nic_crazydave"))
+    end,
+}
 
 SMODS.Consumable { -- Plants Vase
     key = 'plantsvase',
     set = 'nic_zengarden',
     cost = 4,
     atlas = 'nicpvzconsumables',
-    pos = {x = 0, y = 1 },
+    pos = {x = 1, y = 1 },
     soul_pos = {x = 1, y = 0 },
     config = { },
     pools = { ["Vase"] = true, ["PlantVase"] = true },
+
+    loc_vars = function(self, info_queue, center) 
+		info_queue[#info_queue+1] = G.P_CENTERS["j_nic_crazydave"]
+	end,
 
     in_pool = function (self, args)
         return true, {
@@ -56,9 +113,8 @@ SMODS.Consumable { -- Plants Vase
 
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.4,
             func = function()
+                SMODS.calculate_effect({message = "Plants", colour = HEX("33cc00") }, card)
                 play_sound('nic_vasebreak')
                 SMODS.add_card({ area = G.zengarden, set = 'Joker', rarity = 'nic_plants', no_edition = true })
                 card:juice_up(0.3, 0.5)
@@ -78,7 +134,7 @@ SMODS.Consumable { -- Shovel
     set = 'nic_zengarden',
     cost = 4,
     atlas = 'nicpvzconsumables',
-    pos = {x = 0, y = 1 },
+    pos = {x = 2, y = 1 },
     soul_pos = {x = 2, y = 0 },
     config = { },
     pools = { ["Tools"] = true },

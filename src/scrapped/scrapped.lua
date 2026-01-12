@@ -1,3 +1,17 @@
+SMODS.Atlas{ -- Placeholder
+    key = "nicplaceholder",
+    path = "scrapped/nicplaceholder.png",
+    px = 71,
+    py = 95,
+}
+
+SMODS.Atlas{ -- Phases
+    key = "nicphases",
+    path = "scrapped/nicphases.png",
+    px = 71,
+    py = 95,
+}
+
 -- SCRAP
 
 SMODS.Rarity{

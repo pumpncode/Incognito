@@ -1,3 +1,10 @@
+SMODS.Atlas{ -- Jokers
+    key = "nicjokers",
+    path = "nicjokers.png",
+    px = 71,
+    py = 95,
+}
+
 SMODS.Joker{ -- Technoblade
     key = "technoblade",
     blueprint_compat = true,
@@ -2075,6 +2082,11 @@ SMODS.Joker{ -- Death
     cost = 7,
     pos = {x = 6, y = 3},
     config = { extra = { fear = false } },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.c_death
+        return { }
+    end,
 
     add_to_deck = function(self, card, from_debuff)
         card.ability.extra.fear = true

@@ -1,3 +1,10 @@
+SMODS.Atlas{ -- Boosters
+    key = 'nicboosters',
+    path = 'nicboosters.png',
+    px = 71,
+    py = 95,
+}
+
 SMODS.Booster{
     key = 'teto_booster',
     loc_txt = {
@@ -32,7 +39,6 @@ SMODS.Booster{
         }
     end,
     create_card = function(self, card)
-        play_sound("nic_tetoohmygodmypenis")
         return { 
             set = "Teto", 
             area = G.pack_cards,
@@ -51,7 +57,7 @@ SMODS.ObjectType{
 	end,
 }
 
---[[SMODS.Booster{
+SMODS.Booster{
     key = 'vase_booser1',
     loc_txt = {
         name = "Vase Pack",
@@ -101,7 +107,7 @@ SMODS.ObjectType{
 	inject = function(self)
 		SMODS.ObjectType.inject(self)
 	end,
-}]]
+}
 
 SMODS.Booster{
     key = 'vase_booser2',

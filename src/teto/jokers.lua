@@ -1,3 +1,10 @@
+SMODS.Atlas{ -- Teto Jokers
+    key = "nictetojokers",
+    path = "teto/nictetojokers.png",
+    px = 71,
+    py = 95,
+}
+
 SMODS.Joker{ -- Kasane Jokto
     key = "kasanejokto",
     blueprint_compat = true,
@@ -82,7 +89,7 @@ SMODS.Joker{ -- Pear
     cost = 6,
     pos = {x = 2, y = 0},
     config = { extra = { levels = 1, pear = 5, pear_needed = 5, pear_loss = 1 } },
-    pools = { Food = true, ["Teto"] = true },
+    pools = { Food = true, ["Teto"] = true, ["Pear"] = true },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.levels, card.ability.extra.pear, card.ability.extra.pear_needed } }
@@ -123,7 +130,7 @@ SMODS.Joker{ -- Pearto
     cost = 7,
     pos = {x = 3, y = 0},
     config = { extra = { levels = 3, odds = 1000 } },
-    pools = { Food = true, ["Teto"] = true },
+    pools = { Food = true, ["Teto"] = true, ["Pear"] = true },
 
     loc_vars = function(self, info_queue, card)
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds) 
@@ -200,7 +207,7 @@ SMODS.Joker{ -- Birdbrain Teto
     atlas = 'nictetojokers',
     rarity = "nic_teto",
     cost = 5,
-    pos = {x = 0, y = 1},
+    pos = {x = 5, y = 0},
     config = { extra = { mult = 0, mult_gain = 5} },
     pools = { ["Teto"] = true },
 
@@ -237,7 +244,7 @@ SMODS.Joker{ -- Tenebre Rosso Sangue Teto
     atlas = 'nictetojokers',
     rarity = "nic_teto",
     cost = 7,
-    pos = {x = 1, y = 1},
+    pos = {x = 6, y = 0},
     config = { extra = { dollars = 4 } },
     pools = { ["Teto"] = true },
 
@@ -273,7 +280,7 @@ SMODS.Joker{ -- Spoken For Teto
     atlas = 'nictetojokers',
     rarity = "nic_teto",
     cost = 8,
-    pos = {x = 2, y = 1},
+    pos = {x = 7, y = 0},
     config = { extra = { xmult = 1.5 } },
     pools = { ["Teto"] = true },
 
@@ -301,7 +308,7 @@ SMODS.Joker{ -- Teto Word Of The Day
     atlas = 'nictetojokers',
     rarity = "nic_teto",
     cost = 8,
-    pos = {x = 3, y = 1},
+    pos = {x = 8, y = 0},
     config = { extra = { teto = 0, teto_rounds = 2 } },
     pools = { ["Teto"] = true },
 
@@ -360,7 +367,7 @@ SMODS.Joker{ -- Mesmerizer Teto
     atlas = 'nictetojokers',
     rarity = "nic_teto",
     cost = 8,
-    pos = {x = 4, y = 1},
+    pos = {x = 9, y = 0},
     config = { extra = { } },
     pools = { ["Teto"] = true },
 
@@ -416,7 +423,7 @@ SMODS.Joker{ -- Spamteto
     atlas = 'nictetojokers',
     rarity = "nic_teto",
     cost = 5,
-    pos = {x = 0, y = 2},
+    pos = {x = 0, y = 1},
     config = { extra = { dollars = 30, dollars_final = 0, uses = 0 } },
     pools = { ["Teto"] = true },
 
@@ -489,7 +496,7 @@ SMODS.Joker{ -- Tetoris
     atlas = 'nictetojokers',
     rarity = "nic_teto",
     cost = 5,
-    pos = {x = 1, y = 2},
+    pos = {x = 1, y = 1},
     config = { extra = { hearts = 5, hearts_needed = 5, hearts_loss = 1 } },
     pools = { ["Teto"] = true },
 
@@ -539,7 +546,7 @@ SMODS.Joker{ -- Minimum Rage Teto
     atlas = 'nictetojokers',
     rarity = "nic_teto",
     cost = 5,
-    pos = {x = 2, y = 2},
+    pos = {x = 2, y = 1},
     config = { extra = { mult = 0 } },
     pools = { ["Teto"] = true },
 
@@ -575,7 +582,7 @@ SMODS.Joker{ -- Teto Territory
     atlas = 'nictetojokers',
     rarity = "nic_teto",
     cost = 5,
-    pos = {x = 3, y = 2},
+    pos = {x = 3, y = 1},
     config = { extra = {} },
     pools = { ["Teto"] = true },
 
@@ -628,7 +635,7 @@ SMODS.Joker{ -- Contradictions Teto
     atlas = 'nictetojokers',
     rarity = "nic_teto",
     cost = 5,
-    pos = {x = 4, y = 2},
+    pos = {x = 4, y = 1},
     config = { extra = {} },
     pools = { ["Teto"] = true },
 
@@ -658,6 +665,102 @@ SMODS.Joker{ -- Contradictions Teto
                     colour = HEX("e15d73")
                 }
             end
+        end
+    end
+}
+
+SMODS.ObjectType{
+    key = "Pear",
+    cards = {},
+    default = 'j_nic_pear',
+	inject = function(self)
+		SMODS.ObjectType.inject(self)
+	end,
+}
+
+SMODS.Joker{ -- Pear Basket
+    key = "pearbasket",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nictetojokers',
+    rarity = "nic_teto",
+    cost = 7,
+    pos = {x = 5, y = 1},
+    config = { extra = { levels = 0, levels_gain = 1 } },
+    pools = { Food = true, ["Teto"] = true, ["Pear"] = true },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.levels, card.ability.extra.levels_gain }, }
+    end,
+
+    in_pool = function(self, args)
+        return G.GAME.pool_flags.nic_pear
+    end,
+
+    calculate = function(self, card, context)
+        if context.selling_card and not context.blueprint and (context.card.config.center.pools or {}).Pear then
+            card.ability.extra.levels = card.ability.extra.levels + card.ability.extra.levels_gain
+            return {
+                message = "+1 PEARS!",
+                colour = HEX("e15d73"),
+            }
+        end
+
+        if context.before and context.main_eval and context.scoring_name == "Pair" then
+            if card.ability.extra.levels > 0 then
+                return {
+                    level_up = card.ability.extra.levels, level_up_hand = "Pair", 
+                    message = "PEAR BASKET!", 
+                    colour = HEX("e15d73"),
+                }
+            end
+        end
+    end
+}
+
+SMODS.Joker{ -- Keychain Teto
+    key = "keychainteto",
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nictetojokers',
+    rarity = "nic_teto",
+    cost = 5,
+    pos = {x = 6, y = 1},
+    config = { extra = {} },
+    pools = { ["Teto"] = true },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = { key = 'tag_nic_twindrill', set = 'Tag' }
+        return { vars = { localize { type = 'name_text', set = 'Tag', key = 'tag_nic_twindrill' } } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                func = (function()
+                    card:juice_up()
+                    add_tag(Tag('tag_nic_twindrill'))
+                    play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
+                    play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
+                    return true
+                end)
+            }))
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 1.5,
+                func = (function()
+                    card:start_dissolve()
+                    return true
+                end)
+            }))
+            return {
+                message = "YAY!", 
+                colour = HEX("e15d73"),
+            }
         end
     end
 }

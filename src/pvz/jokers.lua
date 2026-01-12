@@ -1,3 +1,10 @@
+SMODS.Atlas{ -- Plant Jokers
+    key = "nicpvzjokers",
+    path = "pvz/nicpvzjokers.png",
+    px = 71,
+    py = 95,
+}
+
 SMODS.Joker{ -- Crazy Dave
     key = "crazydave",
     blueprint_compat = false,
@@ -47,7 +54,8 @@ SMODS.Joker{ -- Crazy Dave
     end,
     
     calculate = function(self, card, context)
-        if context.using_consumeable and not context.blueprint then
+        if context.using_consumeable and not context.blueprint and context.consumeable.ability.set == 'nic_zengarden' then
+            card:juice_up(0.5, 0.5)
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local random = pseudorandom('j_nic_crazydave', 1, 12)
@@ -79,9 +87,6 @@ SMODS.Joker{ -- Crazy Dave
                     return true
                 end
             }))
-            if context.consumeable.ability.set == 'nic_zengarden' then
-                card:juice_up(0.5, 0.5)
-            end
         end
         if context.joker_main and next(context.poker_hands["Straight"]) then
             G.E_MANAGER:add_event(Event({

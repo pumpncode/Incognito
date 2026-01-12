@@ -1,6 +1,16 @@
 return {
     descriptions = {
-        Back={},
+        Back={
+            b_nic_plants = {
+                name = "Plants Deck",
+                text = {
+                    "Start run with",
+                    "{C:nic_plants,T:j_nic_crazydave}Crazy Dave{} joker",
+                    "and {C:attention}2{} copies of",
+                    "{C:nic_plants,T:c_nic_mysteryvase}Mystery Vase{} Card"
+                }
+            }
+        },
         Blind={
             bl_nic_monarch = {
                 name = "The Monarch",
@@ -810,20 +820,33 @@ return {
                     "{C:inactive,s:0.8,E:1}Song By: darkbluecat",
                 }
             },
+            j_nic_pearbasket = {
+                name = "Pear Basket",
+                text = {
+                    "This Joker stores a {C:nic_teto}Pear{} for",
+                    "each {C:nic_teto}Pear{} card {C:attention}sold{}, level up",
+                    "played {C:attention}Pair{} for each {C:nic_teto}Pear{} stored",
+                    "{C:inactive}(Currently {C:nic_teto}#1#{C:inactive} Pears)",
+                }
+            },
+            j_nic_keychainteto = {
+                name = "Keychain Teto",
+                text = {
+                    "{C:attention}End of round{}, create",
+                    "a free {C:nic_teto}#1#{} and",
+                    "Joker gets destroyed",
+                }
+            },
 
             -- Plants
 
             j_nic_crazydave = {
                 name = "Crazy Dave",
                 text = {
-                    {"Greetings, neighbor!",
-                    "The name's {C:attention}Crazy Dave{}.",
-                    "But you can just call",
-                    "me {C:attention}Crazy Joker{}."},
-                    {"Creates an {C:nic_plants}Area",
+                    "Creates an {C:nic_plants}Area",
                     "for the {C:nic_plants}Plants",
                     "{C:nic_plants,s:0.8}Zen Garden {C:inactive,s:0.8}Tools appear",
-                    "{C:inactive,s:0.8}more frequently in the shop"},
+                    "{C:inactive,s:0.8}more frequently in the shop",
                 }
             },
             j_nic_peashooter = {
@@ -994,7 +1017,8 @@ return {
                 text = {
                     "Creates a random",
                     "{C:nic_plants}???{} card",
-                    "{C:inactive}(Must have room)",
+                    "{C:inactive}(Must have room",
+                    "{C:inactive}and Crazy Dave)",
                 }
             },
             c_nic_plantsvase = {
@@ -1002,7 +1026,8 @@ return {
                 text = {
                     "Creates a random",
                     "{C:nic_plants}Plants{} card",
-                    "{C:inactive}(Must have room)",
+                    "{C:inactive}(Must have room",
+                    "{C:inactive}and Crazy Dave)",
                 }
             },
             c_nic_shovel = {
@@ -1132,7 +1157,22 @@ return {
             },
         },
         Stake={},
-        Tag={},
+        Tag={
+            tag_nic_teto = {
+                name = "Teto Tag",
+                text = {
+                    "Shop has a free",
+                    "{C:nic_teto}Teto Joker",
+                }
+            },
+            tag_nic_twindrill = {
+                name = "Twindrill Tag",
+                text = {
+                    "Gives a free",
+                    "{C:nic_teto}Teto Pack",
+                }
+            },
+        },
         Tarot = {
             c_nic_tetotarot = {
                 name = "Tetarot",

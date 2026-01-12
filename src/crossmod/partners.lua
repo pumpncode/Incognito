@@ -1,3 +1,10 @@
+SMODS.Atlas{ -- Partners
+    key = "nicpartners",
+    path = "crossmod/nicpartners.png",
+    px = 46,
+    py = 58,
+}
+
 Partner_API.Partner{
     key = "incognito",
     unlocked = true,
