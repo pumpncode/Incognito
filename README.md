@@ -33,6 +33,8 @@ O0p$? @l- HAHAHA!\
 THE FUTURE WILL BE PAVED WITH METAL!
 
 ## Crossovers
+[Revos-Vault](https://github.com/Cdrvo/Revos-Vault---Balatro-Mod)\
+[MoreFluff](https://github.com/notmario/MoreFluff)\
 [Hyperfixation (Only DEV)](https://github.com/tomatoseandcrying/hyperfixation/tree/main)\
 [GARBSHIT](https://github.com/Gainumki/GARBSHIT)\
 [JokerDisplay](https://github.com/nh6574/JokerDisplay/tree/32404069a39f6f9389bb97de006ad8e00de4f913)\
