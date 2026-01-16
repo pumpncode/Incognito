@@ -6,7 +6,7 @@ SMODS.Atlas{ -- Plant Consumables
 }
 
 SMODS.ConsumableType {
-    key = 'nic_zengarden',
+    key = 'ZenGarden',
     default = 'c_nic_mysteryvase',
     primary_colour = HEX("33cc00"),
     secondary_colour = HEX("33cc00"),
@@ -30,7 +30,7 @@ SMODS.ConsumableType {
 
 SMODS.Consumable { -- Mystery Vase
     key = 'mysteryvase',
-    set = 'nic_zengarden',
+    set = 'ZenGarden',
     cost = 4,
     atlas = 'nicpvzconsumables',
     pos = {x = 0, y = 1 },
@@ -93,7 +93,7 @@ SMODS.Consumable { -- Mystery Vase
 
 SMODS.Consumable { -- Plants Vase
     key = 'plantsvase',
-    set = 'nic_zengarden',
+    set = 'ZenGarden',
     cost = 4,
     atlas = 'nicpvzconsumables',
     pos = {x = 1, y = 1 },
@@ -131,7 +131,7 @@ SMODS.Consumable { -- Plants Vase
 
 SMODS.Consumable { -- Shovel
     key = 'shovel',
-    set = 'nic_zengarden',
+    set = 'ZenGarden',
     cost = 4,
     atlas = 'nicpvzconsumables',
     pos = {x = 2, y = 1 },

@@ -14,6 +14,7 @@ SMODS.Consumable {
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { key = "nic_tetosticker", set = "Other" }
+        info_queue[#info_queue+1] = G.P_CENTERS["j_nic_pear"]
         return { vars = { } }
     end, 
 

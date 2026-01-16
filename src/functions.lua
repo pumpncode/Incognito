@@ -131,6 +131,36 @@ function love.keypressed(key)
             SMODS.calculate_context({ key_press_f1 = true })
         end
     end
+    if key == "1" then
+        if G and G.jokers and G.jokers.cards and not G.SETTINGS.paused then
+            SMODS.calculate_context({ key_press_1 = true })
+        end
+    end
+    if key == "2" then
+        if G and G.jokers and G.jokers.cards and not G.SETTINGS.paused then
+            SMODS.calculate_context({ key_press_2 = true })
+        end
+    end
+    if key == "3" then
+        if G and G.jokers and G.jokers.cards and not G.SETTINGS.paused then
+            SMODS.calculate_context({ key_press_3 = true })
+        end
+    end
+    if key == "4" then
+        if G and G.jokers and G.jokers.cards and not G.SETTINGS.paused then
+            SMODS.calculate_context({ key_press_4 = true })
+        end
+    end
+    if key == "5" then
+        if G and G.jokers and G.jokers.cards and not G.SETTINGS.paused then
+            SMODS.calculate_context({ key_press_5 = true })
+        end
+    end
+    if key == "6" then
+        if G and G.jokers and G.jokers.cards and not G.SETTINGS.paused then
+            SMODS.calculate_context({ key_press_6 = true })
+        end
+    end
     return (nicmodpress(key))
 end
 

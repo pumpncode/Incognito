@@ -356,7 +356,337 @@ return {
                 }
             },
 
-            -- Ijiraq
+            -- Teto
+
+            j_nic_kasanejokto = {
+                name = "Kasane Jokto",
+                text = {
+                    "{C:attention}Retrigger{} played {C:attention}4s",
+                    "an additional {C:attention}two{} times",
+                    "{C:inactive,s:0.8,E:1}Inspired By: Neato Jokers",
+                }
+            },
+            j_nic_ambassadorteto = {
+                name = "Ambassador Teto",
+                text = {
+                    "All cards held in hand",
+                    "change {C:attention}suits{} in this order",
+                    "{C:clubs}Clubs{} > {C:diamonds}Diamonds{} >",
+                    "{C:spades}Spades{} > {C:hearts}Hearts{}",
+                    "{C:inactive}(Stops at {C:hearts}Hearts{C:inactive})",
+                    "{C:inactive,s:0.8,E:1} Song By: dada",
+                }
+            },
+            j_nic_pear = {
+                name = "Pear",
+                text = {
+                    "Level up the next {C:attention}#3#{C:inactive} [#2#]",
+                    "played {C:attention}Pair{} by {C:attention}#1#{} and",
+                    "then {C:red,E:2}self destructs",
+                }
+            }, 
+            j_nic_pearto = {
+                name = "Pearto",
+                text = {
+                    "Level up played {C:attention}Pair{} by {C:attention}#3#",
+                    "{C:green}#1# in #2#{} chance this card",
+                    "is destroyed at end of round",
+                }
+            },
+            j_nic_doctorkidori = {
+                name = "Doctor Kidori",
+                text = {
+                    "If this {C:attention}Joker{} is in",
+                    "leftmost slot, all played",
+                    "{C:attention}4s{} changes {C:dark_edition}Edition",
+                    "{C:inactive,s:0.8,E:1}Song By: {C:inactive,f:5,s:0.8,E:1}原口沙輔",
+                    "{C:inactive,s:0.8,E:1} Hako, Sasuke Haraguchi",
+                }
+            },
+            j_nic_birdbrainteto = { 
+                name = "Birdbrain Teto",
+                text = {
+                    "This Joker gains {C:mult}+#2#{} Mult",
+                    "per {C:attention}consecutive Pair",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
+                    "{C:inactive,s:0.8,E:1}Song By: Jamie Paige",
+
+                }
+            }, 
+            j_nic_tenebrerossosangueteto = { 
+                name = "Tenebre Rosso Sangue Teto",
+                text = {
+                    "This Joker gains {C:money}$#1#{} for",
+                    "each {C:hearts}Heart{} card destroyed",
+                    "{C:inactive,s:0.8,E:1}Song By: Sandwich",
+                }
+            },
+            j_nic_spokenforteto = { 
+                name = "Spoken For Teto",
+                text = {
+                    "Each {C:nic_teto}Teto{} themed",
+                    "{C:attention}Joker{} gives {X:red,C:white} X#1# {} Mult ",
+                    "{C:inactive,s:0.8,E:1}Song By: FLAVOR FOLEY",
+                }
+            },
+            j_nic_tetowordoftheday = { 
+                name = "Teto Word Of The Day",
+                text = {
+                    "After {C:attention}#2# Blinds{}, sell",
+                    "this card to {C:attention}Create",
+                    "a random {C:nic_teto}Teto{} Joker",
+                    "{C:inactive,s:0.8}(Must have room)",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)",
+                }
+            },
+            j_nic_mesmerizerteto = { 
+                name = "Mesmerizer Teto",
+                text = {
+                    "Copies the ability",
+                    "of leftmost {C:nic_teto}Teto",
+                    "Joker {C:attention}2{} times",
+                    "{C:inactive,s:0.8,E:1}Song By: 32ki",
+                }
+            },
+            j_nic_spamteto = {
+                name = "[Spamteto]",
+                text = {
+                    "Earn {X:money,C:white}[ $#1#% ]{} of current",
+                    "cash at end of round",
+                    "{C:inactive}(Cash out {C:money}$#2#{C:inactive})",
+                    "{C:inactive,s:0.8} [Press F1 For] HELP",
+                }
+            },
+            j_nic_tetoris = {
+                name = "Tetoris",
+                text = {
+                    "Create a {C:tarot}Sun Tarot{} card",
+                    "for every {C:attention}#2#{C:inactive} [#1#] {C:attention}hands{}",
+                    "that contains {C:hearts}Hearts",
+                    "{C:inactive}(Must have room)",
+                    "{C:inactive,s:0.8,E:1}Song By: Hiiragi Magnetit",
+                }
+            },
+            j_nic_minimumrageteto = {
+                name = "Minimum Rage Teto",
+                text = {
+                    "Recent bought {C:attention}card cost",
+                    "adds into current {C:mult}Mult{},",
+                    "resets when any {C:attention}card{} is {C:attention}sold",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
+                    "{C:inactive,s:0.8,E:1}Song By: MonochroMenace",
+                }
+            },
+            j_nic_tetoterritory = {
+                name = "Teto Territory",
+                text = {
+                    "When {C:attention}Boss Blind{} is selected,",
+                    "a random non {C:nic_teto}Teto{} Joker", 
+                    "turns into a {C:nic_teto}Teto{} Joker",
+                    "{C:inactive,s:0.8} Food Jokers turn into Pears",
+                    "{C:inactive,s:0.8,E:1}Song By: Oxi",
+                }
+            },
+            j_nic_contradictionsteto = {
+                name = "Contradictions Teto",
+                text = {
+                    "If this {C:attention}Joker{} is in",
+                    "leftmost slot, all {C:attention}Enhanced",
+                    "{C:hearts}Heart{} cards in your {C:attention}full",
+                    "{C:attention} deck{} changes {C:attention}Enhancment",
+                    "after scoring",
+                    "{C:inactive,s:0.8,E:1}Song By: darkbluecat",
+                }
+            },
+            j_nic_pearbasket = {
+                name = "Pear Basket",
+                text = {
+                    "This Joker stores a {C:nic_teto}Pear{} for",
+                    "each {C:nic_teto}Pear{} card {C:attention}sold{}, level up",
+                    "played {C:attention}Pair{} for each {C:nic_teto}Pear{} stored",
+                    "{C:inactive}(Currently {C:nic_teto}#1#{C:inactive} Pears)",
+                }
+            },
+            j_nic_keychainteto = {
+                name = "Keychain Teto",
+                text = {
+                    "{C:attention}End of round{}, create",
+                    "a free {C:nic_teto}#1#{} and",
+                    "Joker gets destroyed",
+                }
+            },
+
+            -- Plants
+
+            j_nic_crazydave = {
+                name = "Crazy Dave",
+                text = {
+                    "Creates an {C:nic_plants}Area",
+                    "for the {C:nic_plants}Plants",
+                    "{C:nic_plants,s:0.8}Zen Garden {C:inactive,s:0.8}Tools appear",
+                    "{C:inactive,s:0.8}more frequently in the shop",
+                }
+            },
+            j_nic_peashooter = {
+                name = "Peashooter",
+                text = {
+                    "{C:chips}+#1#{} Chips",
+                }
+            },
+            j_nic_sunflower = {
+                name = "Sunflower",
+                text = {
+                    "Earn {C:money}$#1#{} for",
+                    "each played card",
+                }
+            },
+            j_nic_cherrybomb = {
+                name = "Cherry Bomb",
+                text = {
+                    "Destroys up to",
+                    "{C:attention}#1#{} selected cards",
+                    "{C:red,E:2}self destructs",
+                }
+            },
+            j_nic_wallnut = {
+                name = "Wall-nut",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "gain {C:blue}+#1#{} Hand or {C:red}+#2#{} Discard"
+                }
+            },
+            j_nic_potatomine = {
+                name = "Potato Mine",
+                text = {
+                    "After {C:attention}#3#{C:inactive} [#2#]{} hands,",
+                    "destroys up to",
+                    "{C:attention}#1#{} selected cards",
+                    "{C:red,E:2}self destructs",
+                }
+            },
+            j_nic_snowpea = {
+                name = "Snow Pea",
+                text = {
+                    "{C:chips}+#1#{} Chips",
+                    "{C:blue}+#2#{} Hand",
+                }
+            },
+            j_nic_chomper = {
+                name = "Chomper",
+                text = {
+                    "Destroy {C:attention}#1#{} selected",
+                    "card and gain {C:mult}+#5#{} Mult",
+                    "every {C:attention}#3#{C:inactive} [#2#]{} hands",
+                    "{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)",
+                }
+            },
+            j_nic_repeater = {
+                name = "Repeater",
+                text = {
+                    "{C:chips}+#1#{} Chips",
+                    "{C:attention}twice",
+                }
+            },
+            j_nic_puffshroom = {
+                name = "Puff-shroom",
+                text = {
+                    "{C:chips}+#1#{} Chips on {C:attention}final",
+                    "{C:attention}played hand{} of round"
+                }
+            },
+            j_nic_sunshroom = {
+                name = "Sun-shroom",
+                text = {
+                    "Earn {C:money}$#3#{} for",
+                    "each played hand,",
+                    "every {C:attention}#2#{C:inactive} [#1#]{} hands,",
+                    "double the {C:money}cash{} earn",
+                }
+            },
+            j_nic_fumeshroom = {
+                name = "Fume-shroom",
+                text = {
+                    "{C:attention}First played hand{} decreases",
+                    "Blind Requirement by {X:attention,C:white}#2#%{}",
+                    "{C:chips}+#1#{} Chips for {C:attention}other hands",
+                }
+            },
+            j_nic_gravebuster = {
+                name = "Grave Buster",
+                text = {
+                    "Destroys up to {C:attention}#1#{} selected",
+                    "{C:attention}Stone{} cards, each card",
+                    "adds {C:attention}#2#{} random {C:attention}Enhanced",
+                    "{C:attention}cards{} to your hand",
+                    "{C:red,E:2}self destructs",
+                }
+            },
+            j_nic_hypnoshroom = {
+                name = "Hypno-shroom",
+                text = {
+                    "Create {C:attention}#2#{} random {C:attention}Enhanced",
+                    "copies of up to {C:attention}#1#{} selected",
+                    "cards in your hand",
+                    "{C:inactive,s:0.8}doesn't work on stones",
+                    "{C:red,E:2}self destructs",
+                }
+            },
+            j_nic_scaredyshroom = {
+                name = "Scaredy-shroom",
+                text = {
+                    "{C:chips}+#1#{} Chips",
+                    "However on {C:attention}final played",
+                    "{C:attention}hand{} gain {C:blue}+#2#{} Hand",
+                    "{C:inactive,s:0.8}only once",
+                }
+            },
+            j_nic_iceshroom = {
+                name = "Ice-shroom",
+                text = {
+                    "Enhances up to {C:attention}#1#",
+                    "selected cards",
+                    "into {C:attention}Glass Cards",
+                    "{C:blue}+#2#{} Hand",
+                    "{C:red,E:2}self destructs",
+                }
+            },
+            j_nic_doomshroom = {
+                name = "Doom-shroom",
+                text = {
+                    "Instantly win {C:attention}Blind{},",
+                    "Destroy {C:attention}all cards",
+                    "held in hand",
+                    "{C:red,E:2}self destructs",
+                }
+            },
+
+            -- Crossmod
+
+            -- Alloy
+            j_nic_tetorobo = {
+                name = "{C:nic_teto}Teto{}Robo",
+                text = {
+                    {"Click to Pet",
+                    "{C:inactive,s:0.8}Pats Overall: #1#",
+                    "{C:inactive,s:0.8}Pats this Ante: #2#"},
+                    {"Min: #5#",
+                    "Max: #6#",
+                    "Medium: #3#",
+                    "Given Happiness: #8#"}
+                }
+            },
+
+            -- MoreFluff
+            j_nic_triteto = {
+                name = "Tri{C:nic_teto}Teto",
+                text = {
+                    "{C:attention}Retrigger{} played {C:attention}4s",
+                    "if played hand is",
+                    "a {C:attention}Three of a Kind",
+                }
+            },
+
+            -- Hyperfixation
 
             j_nic_faketechnoblade = {
                 name = "Technoblade",
@@ -679,309 +1009,6 @@ return {
                 }
             },
 
-            -- Teto
-
-            j_nic_kasanejokto = {
-                name = "Kasane Jokto",
-                text = {
-                    "{C:attention}Retrigger{} played {C:attention}4s",
-                    "an additional {C:attention}two{} times",
-                    "{C:inactive,s:0.8,E:1}Inspired By: Neato Jokers",
-                }
-            },
-            j_nic_ambassadorteto = {
-                name = "Ambassador Teto",
-                text = {
-                    "All cards held in hand",
-                    "change {C:attention}suits{} in this order",
-                    "{C:clubs}Clubs{} > {C:diamonds}Diamonds{} >",
-                    "{C:spades}Spades{} > {C:hearts}Hearts{}",
-                    "{C:inactive}(Stops at {C:hearts}Hearts{C:inactive})",
-                    "{C:inactive,s:0.8,E:1} Song By: dada",
-                }
-            },
-            j_nic_pear = {
-                name = "Pear",
-                text = {
-                    "Level up the next {C:attention}#3#{C:inactive} [#2#]{} played",
-                    "{C:attention}Pair{} by {C:attention}#1#{} and then {C:red,E:2}self destructs",
-                }
-            }, 
-            j_nic_pearto = {
-                name = "Pearto",
-                text = {
-                    "Level up played {C:attention}Pair{} by {C:attention}#3#",
-                    "{C:green}#1# in #2#{} chance this card",
-                    "is destroyed at end of round",
-                }
-            },
-            j_nic_doctorkidori = {
-                name = "Doctor Kidori",
-                text = {
-                    "If this {C:attention}Joker{} is in",
-                    "leftmost slot, all played",
-                    "{C:attention}4s{} changes {C:dark_edition}Edition",
-                    "{C:inactive,s:0.8,E:1}Song By: {C:inactive,f:5,s:0.8,E:1}原口沙輔",
-                    "{C:inactive,s:0.8,E:1} Hako, Sasuke Haraguchi",
-                }
-            },
-            j_nic_birdbrainteto = { 
-                name = "Birdbrain Teto",
-                text = {
-                    "This Joker gains {C:mult}+#2#{} Mult",
-                    "per {C:attention}consecutive Pair",
-                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
-                    "{C:inactive,s:0.8,E:1}Song By: Jamie Paige",
-
-                }
-            }, 
-            j_nic_tenebrerossosangueteto = { 
-                name = "Tenebre Rosso Sangue Teto",
-                text = {
-                    "This Joker gains {C:money}$#1#{} for",
-                    "each {C:hearts}Heart{} card destroyed",
-                    "{C:inactive,s:0.8,E:1}Song By: Sandwich",
-                }
-            },
-            j_nic_spokenforteto = { 
-                name = "Spoken For Teto",
-                text = {
-                    "Each {C:nic_teto}Teto{} themed",
-                    "{C:attention}Joker{} gives {X:red,C:white} X#1# {} Mult ",
-                    "{C:inactive,s:0.8,E:1}Song By: FLAVOR FOLEY",
-                }
-            },
-            j_nic_tetowordoftheday = { 
-                name = "Teto Word Of The Day",
-                text = {
-                    "After {C:attention}#2# Blinds{}, sell",
-                    "this card to {C:attention}Create",
-                    "a random {C:nic_teto}Teto{} Joker",
-                    "{C:inactive,s:0.8}(Must have room)",
-                    "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)",
-                }
-            },
-            j_nic_mesmerizerteto = { 
-                name = "Mesmerizer Teto",
-                text = {
-                    "Copies the ability",
-                    "of leftmost {C:nic_teto}Teto",
-                    "Joker {C:attention}2{} times",
-                    "{C:inactive,s:0.8,E:1}Song By: 32ki",
-                }
-            },
-            j_nic_spamteto = {
-                name = "[Spamteto]",
-                text = {
-                    "Earn {X:money,C:white}[ $#1#% ]{} of current",
-                    "cash at end of round",
-                    "{C:inactive}(Cash out {C:money}$#2#{C:inactive})",
-                    "{C:inactive,s:0.8} [Press F1 For] HELP",
-                }
-            },
-            j_nic_tetoris = {
-                name = "Tetoris",
-                text = {
-                    "Create a {C:tarot}Sun Tarot{} card",
-                    "for every {C:attention}#2#{C:inactive} [#1#] {C:attention}hands{}",
-                    "that contains {C:hearts}Hearts",
-                    "{C:inactive}(Must have room)",
-                    "{C:inactive,s:0.8,E:1}Song By: Hiiragi Magnetit",
-                }
-            },
-            j_nic_minimumrageteto = {
-                name = "Minimum Rage Teto",
-                text = {
-                    "Recent bought {C:attention}card cost",
-                    "adds into current {C:mult}Mult{},",
-                    "resets when any {C:attention}card{} is {C:attention}sold",
-                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
-                    "{C:inactive,s:0.8,E:1}Song By: MonochroMenace",
-                }
-            },
-            j_nic_tetoterritory = {
-                name = "Teto Territory",
-                text = {
-                    "When {C:attention}Boss Blind{} is selected,",
-                    "a random non {C:nic_teto}Teto{} Joker", 
-                    "turns into a {C:nic_teto}Teto{} Joker",
-                    "{C:inactive,s:0.8} Food Jokers turn into Pears",
-                    "{C:inactive,s:0.8,E:1}Song By: Oxi",
-                }
-            },
-            j_nic_contradictionsteto = {
-                name = "Contradictions Teto",
-                text = {
-                    "If this {C:attention}Joker{} is in",
-                    "leftmost slot, all {C:attention}Enhanced",
-                    "{C:hearts}Heart{} cards in your {C:attention}full",
-                    "{C:attention} deck{} changes {C:attention}Enhancment",
-                    "after scoring",
-                    "{C:inactive,s:0.8,E:1}Song By: darkbluecat",
-                }
-            },
-            j_nic_pearbasket = {
-                name = "Pear Basket",
-                text = {
-                    "This Joker stores a {C:nic_teto}Pear{} for",
-                    "each {C:nic_teto}Pear{} card {C:attention}sold{}, level up",
-                    "played {C:attention}Pair{} for each {C:nic_teto}Pear{} stored",
-                    "{C:inactive}(Currently {C:nic_teto}#1#{C:inactive} Pears)",
-                }
-            },
-            j_nic_keychainteto = {
-                name = "Keychain Teto",
-                text = {
-                    "{C:attention}End of round{}, create",
-                    "a free {C:nic_teto}#1#{} and",
-                    "Joker gets destroyed",
-                }
-            },
-
-            -- Plants
-
-            j_nic_crazydave = {
-                name = "Crazy Dave",
-                text = {
-                    "Creates an {C:nic_plants}Area",
-                    "for the {C:nic_plants}Plants",
-                    "{C:nic_plants,s:0.8}Zen Garden {C:inactive,s:0.8}Tools appear",
-                    "{C:inactive,s:0.8}more frequently in the shop",
-                }
-            },
-            j_nic_peashooter = {
-                name = "Peashooter",
-                text = {
-                    "{C:chips}+#1#{} Chips",
-                }
-            },
-            j_nic_sunflower = {
-                name = "Sunflower",
-                text = {
-                    "Earn {C:money}$#1#{} for",
-                    "each played card",
-                }
-            },
-            j_nic_cherrybomb = {
-                name = "Cherry Bomb",
-                text = {
-                    "Destroys up to",
-                    "{C:attention}#1#{} selected cards",
-                    "{C:red,E:2}self destructs",
-                }
-            },
-            j_nic_wallnut = {
-                name = "Wall-nut",
-                text = {
-                    "When {C:attention}Blind{} is selected,",
-                    "gain {C:blue}+#1#{} Hand or {C:red}+#2#{} Discard"
-                }
-            },
-            j_nic_potatomine = {
-                name = "Potato Mine",
-                text = {
-                    "After {C:attention}#3#{C:inactive} [#2#]{} hands,",
-                    "destroys up to",
-                    "{C:attention}#1#{} selected cards",
-                    "{C:red,E:2}self destructs",
-                }
-            },
-            j_nic_snowpea = {
-                name = "Snow Pea",
-                text = {
-                    "{C:chips}+#1#{} Chips",
-                    "{C:blue}+#2#{} Hand",
-                }
-            },
-            j_nic_chomper = {
-                name = "Chomper",
-                text = {
-                    "Destroy {C:attention}#1#{} selected",
-                    "card and gain {C:mult}+#5#{} Mult",
-                    "every {C:attention}#3#{C:inactive} [#2#]{} hands",
-                    "{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)",
-                }
-            },
-            j_nic_repeater = {
-                name = "Repeater",
-                text = {
-                    "{C:chips}+#1#{} Chips",
-                    "{C:attention}twice",
-                }
-            },
-            j_nic_puffshroom = {
-                name = "Puff-shroom",
-                text = {
-                    "{C:chips}+#1#{} Chips on {C:attention}final",
-                    "{C:attention}played hand{} of round"
-                }
-            },
-            j_nic_sunshroom = {
-                name = "Sun-shroom",
-                text = {
-                    "Earn {C:money}$#3#{} for",
-                    "each played hand,",
-                    "every {C:attention}#2#{C:inactive} [#1#]{} hands,",
-                    "double the {C:money}cash{} earn",
-                }
-            },
-            j_nic_fumeshroom = {
-                name = "Fume-shroom",
-                text = {
-                    "{C:attention}First played hand{} decreases",
-                    "Blind Requirement by {X:attention,C:white}#2#%{}",
-                    "{C:chips}+#1#{} Chips for {C:attention}other hands",
-                }
-            },
-            j_nic_gravebuster = {
-                name = "Grave Buster",
-                text = {
-                    "Destroys up to {C:attention}#1#{} selected",
-                    "{C:attention}Stone{} cards, each card",
-                    "adds {C:attention}#2#{} random {C:attention}Enhanced",
-                    "{C:attention}cards{} to your hand",
-                    "{C:red,E:2}self destructs",
-                }
-            },
-            j_nic_hypnoshroom = {
-                name = "Hypno-shroom",
-                text = {
-                    "Create {C:attention}#2#{} random {C:attention}Enhanced",
-                    "copies of up to {C:attention}#1#{} selected",
-                    "cards in your hand",
-                    "{C:inactive,s:0.8}doesn't work on stones",
-                    "{C:red,E:2}self destructs",
-                }
-            },
-            j_nic_scaredyshroom = {
-                name = "Scaredy-shroom",
-                text = {
-                    "{C:chips}+#1#{} Chips",
-                    "However on {C:attention}final played",
-                    "{C:attention}hand{} gain {C:blue}+#2#{} Hand",
-                    "{C:inactive,s:0.8}only once",
-                }
-            },
-            j_nic_iceshroom = {
-                name = "Ice-shroom",
-                text = {
-                    "Enhances up to {C:attention}#1#",
-                    "selected cards",
-                    "into {C:attention}Glass Cards",
-                    "{C:blue}+#2#{} Hand",
-                    "{C:red,E:2}self destructs",
-                }
-            },
-            j_nic_doomshroom = {
-                name = "Doom-shroom",
-                text = {
-                    "Instantly win {C:attention}Blind{},",
-                    "Destroy {C:attention}all cards",
-                    "held in hand",
-                    "{C:red,E:2}self destructs",
-                }
-            },
-
             -- Scrapped
 
             j_nic_overflow = {
@@ -1011,7 +1038,7 @@ return {
                 }
             },
         },
-        nic_zengarden = {
+        ZenGarden = {
             c_nic_mysteryvase = {
                 name = "Mystery Vase",
                 text = {
@@ -1039,6 +1066,30 @@ return {
                 }
             },
         },
+
+        -- MoreFluff
+        Colour = {
+            c_nic_teto = {
+                name = "Teto",
+                text = {
+                    "Create a {C:dark_edition}Negative {C:nic_teto}Pear{}",
+                    "for every {C:attention}#4#{} rounds",
+                    "this has been held",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive}, {}[{C:attention}#2#{C:inactive}#3#{}]{C:inactive})"
+                }
+            }
+        },
+        Rotarot = {
+            c_nic_rot_teto = {
+                name = "Tetarot!",
+                text = {
+                    "Turns selected Joker",
+                    "into a {C:nic_teto}Teto{} Joker",
+                    "{C:inactive,s:0.8} Food Jokers turn into Pears",
+                }
+            }
+        },
+
         Partner = {
             pnr_nic_incognito = {
                 name = "Incognito",

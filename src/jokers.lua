@@ -139,7 +139,7 @@ SMODS.Joker{ -- Button
                 return { play_sound("nic_explosion"), message = "BOOM!", colour = G.C.RED }
             else
                 card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
-                card:juice_up(0.5, 0.5)
+                card:juice_up()
                 return { play_sound("nic_click") }
             end
         end
@@ -1380,10 +1380,10 @@ SMODS.Joker { -- Mending
                 func = function()
                     if #context.removed == 1 then
                         play_sound("nic_xporb", 0.96 + math.random() * 0.08)
-                        card:juice_up(0.5, 0.5)
+                        card:juice_up()
                     else
                         play_sound("nic_xplevelup", 0.96 + math.random() * 0.08)
-                        card:juice_up(0.5, 0.5)
+                        card:juice_up()
                     end
                     return true
                 end
@@ -1508,7 +1508,7 @@ SMODS.Joker { -- Clover Pit
         if (context.key_press_space or (context.cry_press and card.states.hover.is == true)) and (G.GAME.dollars > (card.ability.extra.dollars_loss - 1)) then
             ease_dollars(-card.ability.extra.dollars_loss, true)
             card.ability.extra.mult = pseudorandom('j_nic_cloverpit', card.ability.extra.min, card.ability.extra.max)
-            card:juice_up(0.5, 0.5)
+            card:juice_up()
             return {
                 message = "LETS GO GAMBLING!",
                 colour = G.C.RED
@@ -2039,12 +2039,12 @@ SMODS.Joker{ -- Solar Eclipse
     calculate = function(self, card, context)
         if context.using_consumeable and not context.blueprint then
             if context.consumeable.config.center.key == 'c_sun' then
-                card:juice_up(0.5, 0.5)
+                card:juice_up()
                 card.ability.extra.sun = card.ability.extra.sun + 1
                 card.ability.extra.mult = (card.ability.extra.sun * card.ability.extra.mult_gain)
             end
             if context.consumeable.config.center.key == 'c_moon' then
-                card:juice_up(0.5, 0.5)
+                card:juice_up()
                 card.ability.extra.moon = card.ability.extra.moon + 1
                 card.ability.extra.chips = (card.ability.extra.moon * card.ability.extra.chips_gain)
             end

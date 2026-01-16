@@ -25,7 +25,7 @@ SMODS.Joker{ -- Crazy Dave
     add_to_deck = function (self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.GAME.nic_zengarden_rate = (G.GAME.nic_zengarden_rate) + 3
+                G.GAME.ZenGarden_rate = (G.GAME.ZenGarden_rate) + 3
                 G.GAME.zengarden = #SMODS.find_card("j_nic_crazydave")
                 return true
             end
@@ -35,7 +35,7 @@ SMODS.Joker{ -- Crazy Dave
     remove_from_deck = function (self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.GAME.nic_zengarden_rate = (G.GAME.nic_zengarden_rate) - 3
+                G.GAME.ZenGarden_rate = (G.GAME.ZenGarden_rate) - 3
                 G.GAME.zengarden = #SMODS.find_card("j_nic_crazydave")
                 G.zengarden.states.visible = false
                 if G.GAME.zengarden < 1 then
@@ -54,7 +54,7 @@ SMODS.Joker{ -- Crazy Dave
     end,
     
     calculate = function(self, card, context)
-        if context.using_consumeable and not context.blueprint and context.consumeable.ability.set == 'nic_zengarden' then
+        if context.using_consumeable and not context.blueprint and context.consumeable.ability.set == 'ZenGarden' then
             card:juice_up(0.5, 0.5)
             G.E_MANAGER:add_event(Event({
                 func = function()

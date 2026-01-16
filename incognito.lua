@@ -45,9 +45,15 @@ if Incognito.config.roaring_inc then
 	SMODS.load_file("src/music.lua")()
 end
 
+-- MoreFluff
+
+if MoreFluff then
+    SMODS.load_file("src/crossmod/morefluff.lua")()
+end
+
 -- Ijiraq
 
-if next(SMODS.find_mod('hyperfixation_mod')) then
+if Hyperfixation then
     SMODS.load_file("src/crossmod/hyperfixation.lua")()
 end
 
@@ -55,12 +61,6 @@ end
 
 if JokerDisplay then
     SMODS.load_file("src/crossmod/jokerdisplay.lua")()
-end
-
--- MoreFluff
-
-if MoreFluff then
-    SMODS.load_file("src/crossmod/morefluff.lua")()
 end
 
 -- Partner
