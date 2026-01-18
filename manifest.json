@@ -6,7 +6,7 @@
   "description": "I am trying my best, and that is all in the west",
   "prefix": "nic",
   "main_file": "incognito.lua",
-  "version": "1.3.0",
+  "version": "1.3.2",
   "priority": 71,
   "badge_colour": "000000",
   "badge_text_colour": "d0d0d0",
