@@ -23,8 +23,8 @@ There is also a scrapped content button, just a bunch of stuff I didn't fully fl
 Tetarot
 
 ## 3 Tags:
-Teto Tag
-Twindrill Tag
+Teto Tag\
+Twindrill Tag\
 Vase Tag
 
 ## 1 Deck:
