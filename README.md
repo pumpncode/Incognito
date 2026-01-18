@@ -11,12 +11,12 @@ There is also a scrapped content button, just a bunch of stuff I didn't fully fl
 
 # Contents
 
-## 64 Jokers:
+## 66 Jokers:
 1 Common Joker\
 19 Uncommon Jokers\
 11 Rare Jokers\
 2 Legendary Jokers\
-15 Teto Jokers\
+17 Teto Jokers\
 16 Plants Jokers
 
 ## 1 Tarot:
