@@ -22,11 +22,17 @@ There is also a scrapped content button, just a bunch of stuff I didn't fully fl
 ## 1 Tarot:
 Tetarot
 
+## 3 Tags:
+Teto Tag\
+Twindrill Tag\
+Vase Tag
+
 ## 1 Deck:
 Plants Deck
 
 ## 1 Custom Consumable:
 Zen Garden
+- Mystery Vase
 - Plants Vase
 - Shovel
 
