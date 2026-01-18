@@ -19,13 +19,13 @@ SMODS.Joker{ -- Crazy Dave
     config = { extra = { mult = 12 } },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = {  } }
+        info_queue[#info_queue + 1] = { key = 'tag_nic_vase', set = 'Tag' }
+        return { vars = { localize { type = 'name_text', set = 'Tag', key = 'tag_nic_vase' } } }
     end,
 
     add_to_deck = function (self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.GAME.ZenGarden_rate = (G.GAME.ZenGarden_rate) + 3
                 G.GAME.zengarden = #SMODS.find_card("j_nic_crazydave")
                 return true
             end
@@ -35,7 +35,6 @@ SMODS.Joker{ -- Crazy Dave
     remove_from_deck = function (self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.GAME.ZenGarden_rate = (G.GAME.ZenGarden_rate) - 3
                 G.GAME.zengarden = #SMODS.find_card("j_nic_crazydave")
                 G.zengarden.states.visible = false
                 if G.GAME.zengarden < 1 then
@@ -54,6 +53,18 @@ SMODS.Joker{ -- Crazy Dave
     end,
     
     calculate = function(self, card, context)
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint_compat then
+            G.E_MANAGER:add_event(Event({
+                func = (function()
+                    card:juice_up()
+                    add_tag(Tag('tag_nic_vase'))
+                    play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
+                    play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
+                    return true
+                end)
+            }))
+        end
+
         if context.using_consumeable and not context.blueprint and context.consumeable.ability.set == 'ZenGarden' then
             card:juice_up(0.5, 0.5)
             G.E_MANAGER:add_event(Event({

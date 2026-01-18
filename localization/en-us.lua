@@ -523,8 +523,8 @@ return {
                 text = {
                     "Creates an {C:nic_plants}Area",
                     "for the {C:nic_plants}Plants",
-                    "{C:nic_plants,s:0.8}Zen Garden {C:inactive,s:0.8}Tools appear",
-                    "{C:inactive,s:0.8}more frequently in the shop",
+                    "{C:inactive,s:0.8}End of every round",
+                    "{C:inactive,s:0.8}create a free {C:nic_plants,s:0.8}#1#",
                 }
             },
             j_nic_peashooter = {
@@ -666,13 +666,16 @@ return {
             j_nic_tetorobo = {
                 name = "{C:nic_teto}Teto{}Robo",
                 text = {
+                    {"Lose {C:attention}#3# {C:hearts}Happiness{} when",
+                    "{C:attention}Blind{} is selected"},
+                    {"{C:attention}End of round{} for every",
+                    "{C:attention}10{} Pats given this round,",
+                    "increases her {C:hearts}Happiness",
+                    "{C:inactive,s:0.8}She'll get overstim if",
+                    "{C:inactive,s:0.8}given more than 100"},
                     {"Click to Pet",
-                    "{C:inactive,s:0.8}Pats Overall: #1#",
-                    "{C:inactive,s:0.8}Pats this Ante: #2#"},
-                    {"Min: #5#",
-                    "Max: #6#",
-                    "Medium: #3#",
-                    "Given Happiness: #8#"}
+                    "{C:inactive,s:0.8}Pets Overall: #1#",
+                    "{C:inactive,s:0.8}Pets this Round: #2#"},
                 }
             },
 
@@ -1146,7 +1149,30 @@ return {
                     "{C:spades}Spades{} can't", 
                     "be debuffed",
                 }
-            }
+            },
+            nic_tetorobo_moodmeter = {
+                name = "Mood Meter",
+                text = {
+                    " {V:1}#1#{V:2}#1#{V:3}#1#{V:4}#1#{V:5}#1#{V:6}#1#{V:7}#1#{V:8}#1#{V:9}#1#{V:10}#1#{} #2#/100 ",
+                    "{s:0.8}XMult and Shield Bonus",
+                    "{s:0.8}is based on her mood",
+                }
+            },
+            nic_tetorobo_shieldbonus = {
+                name = "Shield Bonus",
+                text = {
+                    "If {C:attention}first hand{} wins",
+                    "round, gain {X:chips,C:white}Shield`````Bonus",
+                    "{C:inactive}(Currently {X:chips,C:white}`#1#`{C:inactive} Shield Bonus)",
+                }
+            },
+            nic_tetorobo_xmult = {
+                name = "XMult",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult if played",
+                    "hand is a {C:attention}Pair",
+                }
+            },
         },
         Planet={},
         Spectral = {
@@ -1221,6 +1247,13 @@ return {
                 text = {
                     "Gives a free",
                     "{C:nic_teto}Teto Pack",
+                }
+            },
+            tag_nic_vase = {
+                name = "Vase Tag",
+                text = {
+                    "Gives a free",
+                    "{C:nic_plants}Vase Pack",
                 }
             },
         },

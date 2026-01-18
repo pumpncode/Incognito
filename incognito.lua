@@ -45,6 +45,12 @@ if Incognito.config.roaring_inc then
 	SMODS.load_file("src/music.lua")()
 end
 
+-- Alloy
+
+if ALLOY then
+    SMODS.load_file("src/crossmod/alloy.lua")()
+end
+
 -- MoreFluff
 
 if MoreFluff then
