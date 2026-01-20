@@ -523,7 +523,7 @@ return {
                 text = {
                     "Creates an {C:nic_plants}Area",
                     "for the {C:nic_plants}Plants",
-                    "{C:inactive,s:0.8}End of every round",
+                    "{C:inactive,s:0.8}End of every boss round",
                     "{C:inactive,s:0.8}create a free {C:nic_plants,s:0.8}#1#",
                 }
             },
@@ -662,6 +662,16 @@ return {
 
             -- Crossmod
 
+            -- MoreFluff
+            j_nic_triteto = {
+                name = "Tri{C:nic_teto}Teto",
+                text = {
+                    "{C:attention}Retrigger{} played {C:attention}4s",
+                    "if played hand is",
+                    "a {C:attention}Three of a Kind",
+                }
+            },
+
             -- Alloy
             j_nic_tetorobo = {
                 name = "{C:nic_teto}Teto{}Robo",
@@ -679,18 +689,19 @@ return {
                 }
             },
 
-            -- MoreFluff
-            j_nic_triteto = {
-                name = "Tri{C:nic_teto}Teto",
+            -- LobotomyCorp
+            j_nic_mysteto = {
+                name = "Mys{C:nic_teto}Teto{}",
                 text = {
-                    "{C:attention}Retrigger{} played {C:attention}4s",
-                    "if played hand is",
-                    "a {C:attention}Three of a Kind",
+                    {"1Discovered"},
+                    {"2Discovered"},
+                    {"If this Abnormality is {C:attention}sold{},",
+                    "immediately {C:attention}lose{} the game",
+                    "{C:inactive,s:0.8}chirp chirp?"},
                 }
             },
 
             -- Hyperfixation
-
             j_nic_faketechnoblade = {
                 name = "Technoblade",
                 text = {
@@ -1150,6 +1161,8 @@ return {
                     "be debuffed",
                 }
             },
+
+            -- Alloy
             nic_tetorobo_moodmeter = {
                 name = "Mood Meter",
                 text = {
@@ -1171,6 +1184,24 @@ return {
                 text = {
                     "{X:mult,C:white}X#1#{} Mult if played",
                     "hand is a {C:attention}Pair",
+                }
+            },
+
+            -- LobotomyCorp
+            und_j_nic_mysteto = {
+                name = "M-04-01",
+                text = {
+                    "So can we, Wander for a",
+                    "spell, And live in parallel,",
+                    "I want it to be true,",
+                    "To be like you, My heart,",
+                    "Sings a chorus out of tune",
+                }
+            },
+            nic_obs = {
+                text = {
+                    "{C:inactive}- Observation Level #3# -",
+                    "{C:attention}#1#/#2#"
                 }
             },
         },

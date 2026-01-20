@@ -9,7 +9,7 @@ function Card:set_sprites(_center, _front)
     self.children.plant_select.states.click.can = false
 end
 
-SMODS.DrawStep({
+SMODS.DrawStep({ -- (ThunderEdge)
     key = "plant_select",
     order = 201,
     func = function(card, layer)
@@ -44,7 +44,7 @@ function Card:set_cost()
     self.sell_cost_label = self.facing == 'back' and '?' or self.sell_cost
 end
 
--- Card Area
+-- Card Area (Aiko)
 
 local igo = Game.init_game_object
 function Game:init_game_object()
@@ -71,7 +71,7 @@ function CardArea:emplace(card, location, stay_flipped)
     zengarden_emplace(self, card, location, stay_flipped)
 end
 
--- Button Stuff
+-- Button Stuff (Revo)
 
 local card_highlighted_ref = Card.highlight
 function Card:highlight(is_highlighted)

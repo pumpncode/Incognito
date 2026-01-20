@@ -7,7 +7,7 @@ SMODS.Atlas{ -- Alloy Jokers
 
 SMODS.Joker{ -- Corobo Teto
     key = "tetorobo",
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
     discovered = false,
@@ -141,7 +141,7 @@ SMODS.Joker{ -- Corobo Teto
             card.ability.extra.click = 0
         end
 
-        --[[if context.key_press_1 and card.states.hover.is == true then
+        if context.key_press_1 and card.states.hover.is == true then
             card.ability.extra.mood = 10
         end
         if context.key_press_2 and card.states.hover.is == true then
@@ -158,7 +158,7 @@ SMODS.Joker{ -- Corobo Teto
         end
         if context.key_press_6 and card.states.hover.is == true then
             card.ability.extra.mood = 100
-        end]]
+        end
 
         -- Clicking
         if context.cry_press and card.states.hover.is == true and not context.blueprint_compat then

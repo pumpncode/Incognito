@@ -45,16 +45,22 @@ if Incognito.config.roaring_inc then
 	SMODS.load_file("src/music.lua")()
 end
 
+-- MoreFluff
+
+if MoreFluff then
+    SMODS.load_file("src/crossmod/morefluff.lua")()
+end
+
 -- Alloy
 
 if ALLOY then
     SMODS.load_file("src/crossmod/alloy.lua")()
 end
 
--- MoreFluff
+-- LobotomyCorp
 
-if MoreFluff then
-    SMODS.load_file("src/crossmod/morefluff.lua")()
+if next(SMODS.find_mod("LobotomyCorp")) then
+    SMODS.load_file("src/crossmod/lobotomycorp.lua")()
 end
 
 -- Ijiraq

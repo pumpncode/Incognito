@@ -2025,14 +2025,16 @@ SMODS.Joker{ -- Solar Eclipse
     end,
 
     update = function(self, card)
-        if card.ability.extra.sun == card.ability.extra.moon then
-            card.children.center:set_sprite_pos({x = 3, y = 3})
-        end
-        if card.ability.extra.sun > card.ability.extra.moon then
-            card.children.center:set_sprite_pos({x = 4, y = 3})
-        end
-        if card.ability.extra.sun < card.ability.extra.moon then
-            card.children.center:set_sprite_pos({x = 5, y = 3})
+        if self.discovered then
+            if card.ability.extra.sun == card.ability.extra.moon then
+                card.children.center:set_sprite_pos({x = 3, y = 3})
+            end
+            if card.ability.extra.sun > card.ability.extra.moon then
+                card.children.center:set_sprite_pos({x = 4, y = 3})
+            end
+            if card.ability.extra.sun < card.ability.extra.moon then
+                card.children.center:set_sprite_pos({x = 5, y = 3})
+            end
         end
     end,
 
@@ -2131,7 +2133,8 @@ SMODS.Joker{ -- Death
                 trigger = 'after',
                 delay = 1.5,
                 func = function()
-                    love.audio.stop()
+                    G.GAME.death_text = "death"
+                    G.GAME.death_texture = "nicjokers"
                     G.STATE = G.STATES.GAME_OVER
                     G.FILE_HANDLER.force = true
                     G.STATE_COMPLETE = false

@@ -87,7 +87,7 @@ SMODS.Consumable { -- Mystery Vase
     end,
 
     can_use = function(self, card)
-        return card.area == G.consumeables and next(SMODS.find_card("j_nic_crazydave"))
+        return next(SMODS.find_card("j_nic_crazydave"))
     end,
 }
 

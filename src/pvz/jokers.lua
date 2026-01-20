@@ -53,7 +53,7 @@ SMODS.Joker{ -- Crazy Dave
     end,
     
     calculate = function(self, card, context)
-        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint_compat then
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint_compat and G.GAME.blind.boss then
             G.E_MANAGER:add_event(Event({
                 func = (function()
                     card:juice_up()

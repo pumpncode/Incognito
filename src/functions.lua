@@ -35,7 +35,16 @@ to_number = to_number or function(num)
     return num
 end
 
--- Cards are Considered Rank
+-- Death Text (Lobcorp)
+
+local new_roundref = new_round 
+function new_round()
+    new_roundref()
+    G.GAME.death_text = nil
+    G.GAME.death_texture = nil
+end
+
+-- Cards are Considered Rank (TGOI)
 
 --[[local getiduse = false
 local getidref = Card.get_id
@@ -102,7 +111,7 @@ function Card:redeem()
     return buyingcard.hooks.Card_redeem(self)
 end
 
--- Cryptid
+-- Press Card (Cryptid)
 
 local lcpref = Controller.L_cursor_press
 function Controller:L_cursor_press(x, y)
@@ -112,7 +121,7 @@ function Controller:L_cursor_press(x, y)
     end
 end
 
--- Keypress
+-- Keypress (YAHIMOD)
 
 local nicmodpress = love.keypressed
 function love.keypressed(key)
@@ -182,7 +191,7 @@ SMODS.current_mod.optional_features = { cardareas = {}, retrigger_joker = true, 
     },
 }]]
 
--- Text Colours
+-- Text Colours (Hyperfixation)
 
 loc_colour('red')
 G.ARGS.LOC_COLOURS['nic_teto'] = HEX('e15d73')
