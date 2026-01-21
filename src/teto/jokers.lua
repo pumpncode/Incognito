@@ -53,25 +53,27 @@ SMODS.Joker{ -- Ambassador Teto
     end,
 
     calculate = function(self, card, context)        
-        if context.individual and context.cardarea == G.hand and not context.end_of_round and not context.blueprint then
+        if context.individual and context.cardarea == G.hand and not context.end_of_round then
             local other_card = context.other_card
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    if not other_card:is_suit("Hearts") then
-                        other_card:juice_up()
-                        play_sound('tarot2', 1.1, 0.6)
-                    end
-                    if other_card:is_suit("Clubs") then
-                        other_card:change_suit('Diamonds')
-                    elseif other_card:is_suit("Diamonds") then
-                        other_card:change_suit('Spades')
-                    elseif other_card:is_suit("Spades") then
-                        other_card:change_suit('Hearts')    
-                    end
-                    return true
-                end
-            }))
             if not context.other_card:is_suit("Hearts") then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.5,
+                    func = function()
+                        if not other_card:is_suit("Hearts") then
+                            other_card:juice_up()
+                            play_sound('tarot2', 1.1, 0.6)
+                        end
+                        if other_card:is_suit("Clubs") then
+                            other_card:change_suit('Diamonds')
+                        elseif other_card:is_suit("Diamonds") then
+                            other_card:change_suit('Spades')
+                        elseif other_card:is_suit("Spades") then
+                            other_card:change_suit('Hearts')    
+                        end
+                        return true
+                    end
+                }))
                 return { message = "BLOOD!", colour = G.C.RED }
             end
         end
