@@ -693,8 +693,11 @@ return {
             j_nic_mysteto = {
                 name = "Mys{C:nic_teto}Teto{}",
                 text = {
-                    {"1Discovered"},
-                    {"2Discovered"},
+                    {"{C:attention}Played hand{} containing a {C:attention}Pair",
+                    "upgrades level of played {C:attention}poker hand{}"},
+                    {"{C:attention}Played hand{} containing a {C:attention}Pair",
+                    "has a {C:green}#1# in #2#{} chance to",
+                    "destroy all {C:attention}scored cards"},
                     {"If this Abnormality is {C:attention}sold{},",
                     "immediately {C:attention}lose{} the game",
                     "{C:inactive,s:0.8}chirp chirp?"},
@@ -954,7 +957,7 @@ return {
             j_nic_fakeinvisiblewoman_alt = {
                 name = "Invisible Woman{C:hpfx_IjiGray}...?{}",
                 text = {
-                    "If {C:attention}first played{} hand is a",
+                    "If {C:attention}first played hand{} is a",
                     "{C:attention}#1# of a Kind{} with exactly {C:attention}#2#",
                     "cards, turn all cards into glass{C:hpfx_IjiGray}#3#{}",
                 }
@@ -966,7 +969,7 @@ return {
                     {"When round begins, add",
                     "{C:attention}#1# Stone{} cards with a",
                     "random {C:attention}seal{} to your deck"},
-                    {"If {C:attention}first played{} hand is a",
+                    {"If {C:attention}first played hand{} is a",
                     "{C:attention}#3# of a Kind{} with exactly {C:attention}#4#",
                     "cards, increase the amount",
                     "of {C:attention}Stone{} cards by {C:attention}#2#{C:hpfx_IjiGray}#5#{}"},
@@ -978,7 +981,7 @@ return {
                     {"When round begins, add",
                     "{C:attention}#1# Stone{} cards with a",
                     "random {C:attention}seal{} to your deck"},
-                    {"If {C:attention}first played{} hand is a",
+                    {"If {C:attention}first played hand{} is a",
                     "{C:attention}#3# of a Kind{} with exactly {C:attention}#4#",
                     "cards, increase the amount",
                     "of {C:attention}Stone{} cards by {C:attention}#2#{C:hpfx_IjiGray}#5#{}"},

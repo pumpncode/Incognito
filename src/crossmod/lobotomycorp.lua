@@ -32,15 +32,34 @@ SMODS.Joker{ -- Myst Teto
                 nil, nil, nil, card.children.center, scale_mod, rotate_mod)
         end
     },
-    config = { extra = { } },
+    config = { extra = { odds = 4 } },
     pools = { ["Teto"] = true },
     dependencies = { 'LobotomyCorp' },
 
     abno = true,
-    risk = "she",
+    risk = "teth",
     discover_rounds = {1, 4, 7},
 
-    calculate = function(self, card, context)
+    loc_vars = function(self, info_queue, card)
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds) 
+        return { vars = { new_numerator, new_denominator } }
+    end,
+
+    set_badges = function(self, card, badges)
+        badges[#badges + 1] = create_badge('TETH', HEX("13A2FF"), nil)
+    end,
+
+    calculate = function(self, card, context)        
+        if context.before and not context.blueprint and next(context.poker_hands['Pair']) then
+            if SMODS.pseudorandom_probability(card, ('j_nic_mysteto'), 1, card.ability.extra.odds) then
+                SMODS.destroy_cards(context.scoring_hand)
+            end
+            return {
+                level_up = true,
+                message = localize('k_level_up_ex')
+            }
+        end
+
         if context.selling_self then
             G.E_MANAGER:add_event(Event({
                 func = function()
