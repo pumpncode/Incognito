@@ -17,7 +17,13 @@ return {
                 text = {
                     "Fuck Your Kings",
                 }
-            }
+            },
+            bl_nic_silentshadow = {
+                name = "Silent Shadow",
+                text = {
+                    "Soaring Night"
+                }
+            },
         },
         Edition={},
         Enhanced={},
@@ -513,6 +519,12 @@ return {
                     "{C:attention}End of round{}, create",
                     "a free {C:nic_teto}#1#{} and",
                     "Joker gets destroyed",
+                }
+            },
+            j_nic_logoffteto = {
+                name = "Log Off Teto",
+                text = {
+                    "Logoff"
                 }
             },
 

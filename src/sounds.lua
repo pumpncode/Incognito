@@ -53,6 +53,11 @@ SMODS.Sound{ -- Spamtonf1
     path = "spamtonf1.ogg",
 }
 
+SMODS.Sound{ -- Swoon
+    key = "swoon",
+    path = "swoon.ogg",
+}
+
 SMODS.Sound{ -- Technoblade Never Dies
     key = "technoblade",
     path = "technoblade.ogg",

@@ -2,7 +2,8 @@ SMODS.Sound{ -- Black Knife
     key = "music_black_knife",
     path = "music/black_knife.ogg",
     select_music_track = function (self)
-        return next(SMODS.find_card("j_nic_incognito")) or next(SMODS.find_card("j_nic_fakeincognito")) and 1e10 or nil
+        if not Incognito.config.roaring_inc then return false end
+        return (G.GAME and G.GAME.blind and G.GAME.blind.config.blind.key == "bl_nic_silentshadow") or next(SMODS.find_card("j_nic_incognito")) or next(SMODS.find_card("j_nic_fakeincognito")) and 1e10 or nil
     end,
     pitch = 1,
 }

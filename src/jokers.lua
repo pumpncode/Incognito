@@ -1146,11 +1146,11 @@ SMODS.Joker{ -- Cyan
     calculate = function(self, card, context)
         if context.first_hand_drawn then
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                G.GAME.blind.chips = math.floor(to_number(G.GAME.blind.chips) * card.ability.extra.blind)
-                G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({
                     func = function()
+                        G.GAME.blind.chips = math.floor(to_number(G.GAME.blind.chips) * card.ability.extra.blind)
+                        G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
                         play_sound('nic_neigh')
                         SMODS.add_card({ set = 'Spectral', key = "c_black_hole" })
                         G.GAME.consumeable_buffer = 0
@@ -1542,7 +1542,7 @@ SMODS.Joker { -- Cuphead
     rarity = 2,
     cost = 5,
     pos = {x = 9, y = 2},
-    pixel_size = { h = 95 / 1.2 },
+    pixel_size = { h = 80 },
     config = { extra = { parry = 0, mult = 10, mult_gain = 1 } },
 
     loc_vars = function(self, info_queue, card)

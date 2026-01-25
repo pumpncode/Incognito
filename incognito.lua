@@ -18,6 +18,7 @@ assert(SMODS.load_file("src/boosters.lua"))()
 assert(SMODS.load_file("src/challenges.lua"))()
 assert(SMODS.load_file("src/draw.lua"))()
 assert(SMODS.load_file("src/functions.lua"))()
+assert(SMODS.load_file("src/music.lua"))()
 assert(SMODS.load_file("src/quips.lua"))()
 assert(SMODS.load_file("src/rarity.lua"))()
 assert(SMODS.load_file("src/sounds.lua"))()
@@ -39,10 +40,6 @@ assert(SMODS.load_file("src/pvz/zengarden.lua"))()
 
 if Incognito.config.scrapped_things then
 	SMODS.load_file("src/scrapped/scrapped.lua")()
-end
-
-if Incognito.config.roaring_inc then
-	SMODS.load_file("src/music.lua")()
 end
 
 -- MoreFluff

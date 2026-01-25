@@ -766,3 +766,25 @@ SMODS.Joker{ -- Keychain Teto
         end
     end
 }
+
+SMODS.Joker{ -- Log Off Teto
+    key = "logoffteto",
+    blueprint_compat = false,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nictetojokers',
+    rarity = "nic_teto",
+    cost = 5,
+    pos = {x = 7, y = 1},
+    pixel_size = { h = 71 },
+    config = { extra = {} },
+    pools = { ["Teto"] = true },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { }, }
+    end,
+
+    calculate = function(self, card, context)
+    end
+}
