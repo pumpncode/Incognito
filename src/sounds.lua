@@ -28,6 +28,11 @@ SMODS.Sound{ -- Gambling
     path = "gambling.ogg",
 }
 
+SMODS.Sound{ -- Glitch
+    key = "glitch",
+    path = "glitch.ogg",
+}
+
 SMODS.Sound{ -- Machinedramon
     key = "machinedramon",
     path = "machinedramon.ogg",

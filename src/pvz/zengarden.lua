@@ -45,7 +45,13 @@ SMODS.Consumable { -- Mystery Vase
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             func = function()
-                local random = pseudorandom('c_nic_mysteryvase', 1, 4)
+                local crazy = 1
+                if next(SMODS.find_card("j_nic_crazydave")) then
+                    crazy = 0
+                else
+                    crazy = 1
+                end
+                local random = pseudorandom('c_nic_mysteryvase', 1 + crazy, 4)
                 play_sound('nic_vasebreak')
 
                 if random == 1 then
@@ -87,7 +93,7 @@ SMODS.Consumable { -- Mystery Vase
     end,
 
     can_use = function(self, card)
-        return next(SMODS.find_card("j_nic_crazydave"))
+        return true
     end,
 }
 

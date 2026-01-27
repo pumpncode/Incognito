@@ -137,7 +137,7 @@ SMODS.Joker{ -- Fake Technoblade
                 card.ability.extra.prevent, card.ability.extra.prevent_needed, card.ability.extra.score,
                 card.area and card.area == G.jokers and "Decrease" or "Increase",
                 card.area and card.area == G.jokers and "...?" or "",
-            } 
+            }
         }
     end,
 

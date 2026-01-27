@@ -70,31 +70,7 @@ SMODS.Joker{ -- Crazy Dave
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local random = pseudorandom('j_nic_crazydave', 1, 12)
-                    if random == 1 then
-                        play_sound("nic_crazydave1")
-                    elseif random == 2 then
-                        play_sound("nic_crazydave2")
-                    elseif random == 3 then
-                        play_sound("nic_crazydave3")
-                    elseif random == 4 then
-                        play_sound("nic_crazydave4")
-                    elseif random == 5 then
-                        play_sound("nic_crazydave5")
-                    elseif random == 6 then
-                        play_sound("nic_crazydave6")
-                    elseif random == 7 then
-                        play_sound("nic_crazydave7")
-                    elseif random == 8 then
-                        play_sound("nic_crazydave8")
-                    elseif random == 9 then
-                        play_sound("nic_crazydave9")
-                    elseif random == 10 then
-                        play_sound("nic_crazydave10")
-                    elseif random == 11 then
-                        play_sound("nic_crazydave11")
-                    elseif random == 12 then
-                        play_sound("nic_crazydave12")
-                    end
+                    play_sound("nic_crazydave" .. random)
                     return true
                 end
             }))
@@ -103,31 +79,7 @@ SMODS.Joker{ -- Crazy Dave
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local random = pseudorandom('j_nic_crazydave', 1, 12)
-                    if random == 1 then
-                        play_sound("nic_crazydave1")
-                    elseif random == 2 then
-                        play_sound("nic_crazydave2")
-                    elseif random == 3 then
-                        play_sound("nic_crazydave3")
-                    elseif random == 4 then
-                        play_sound("nic_crazydave4")
-                    elseif random == 5 then
-                        play_sound("nic_crazydave5")
-                    elseif random == 6 then
-                        play_sound("nic_crazydave6")
-                    elseif random == 7 then
-                        play_sound("nic_crazydave7")
-                    elseif random == 8 then
-                        play_sound("nic_crazydave8")
-                    elseif random == 9 then
-                        play_sound("nic_crazydave9")
-                    elseif random == 10 then
-                        play_sound("nic_crazydave10")
-                    elseif random == 11 then
-                        play_sound("nic_crazydave11")
-                    elseif random == 12 then
-                        play_sound("nic_crazydave12")
-                    end
+                    play_sound("nic_crazydave" .. random)
                     return true
                 end
             }))

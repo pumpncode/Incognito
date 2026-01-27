@@ -61,7 +61,7 @@ return {
                     "{C:attention}Pressed{}, gain {X:mult,C:white}X#4#{} Mult and",
                     "has a {C:green}#1# in #2#{} chance that",
                     "this card is destroyed",
-                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult}",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 }
             },
             j_nic_slycooper = {
@@ -174,11 +174,12 @@ return {
             j_nic_incognito = {
                 name = "Incognito",
                 text = {
-                    {"This Joker gains {X:mult,C:white} X#3# {} Mult when a",
-                    "non {C:spades}Spade{} card is destroyed"},
+                    {"This Joker gains {X:mult,C:white}X#3#{} Mult when a",
+                    "non {C:spades}Spade{} card is destroyed",
+                    "{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive} Mult)"},
                     {"Each non {C:spades}Spade{} card held in hand",
                     "has a {C:green}#1# in #2#{} chance to be destroyed",
-                    "{C:spades}Spade{} cards held in hand gives {X:mult,C:white} X#4#{} Mult"},
+                    "{C:spades}Spade{} cards held in hand gives Mult"},
                 }
             },
             j_nic_crazytaxi = {
@@ -333,10 +334,10 @@ return {
                 text = {
                     {"This Joker increases hand size when a",
                     "{C:dark_edition}Negative {C:spades}Spade{} card is destroyed",
-                    "{C:inactive}(Currently {C:attention}+#3#{C:inactive} Handsize)",},
+                    "{C:inactive}(Currently {C:attention}+#3#{C:inactive} Hand size)",},
                     {"Each {C:spades}Spade{} card held in hand",
                     "has a {C:green}#1# in #2#{} chance to be {C:dark_edition}Negative",
-                    "{C:spades}Spade{} cards get destroyed when played"},
+                    "{C:spades}Spade{} cards played get destroyed"},
                 }
             },
             j_nic_solareclipse = {
@@ -359,6 +360,18 @@ return {
                     "Each played {C:attention}9{} gets",
                     "destroyed and creates",
                     "a {C:dark_edition}Negative {C:tarot}Death",
+                }
+            },
+
+            j_nic_identity = {
+                name = "Identity",
+                text = {
+                    {"This Joker #1# {B:1,C:white}#2#{}#3#when a",
+                    "{V:2}#4#{}#5#{C:spades}Spade{} card is destroyed",
+                    "{C:inactive}(Currently {B:3,V:4}#6#{C:inactive} #7#)"},
+                    {"Each #8#{C:spades}Spade{} card held in hand",
+                    "has a {C:green}#14# in #15#{} chance to be {V:5}#9#",
+                    "{V:6}#10#{}#11#{C:spades}Spade{} cards #12# #13#"},
                 }
             },
 
@@ -526,7 +539,7 @@ return {
                 text = {
                     "Loses {X:mult,C:white} X#2# {} Mult per",
                     "non {C:hearts}Heart{} card scored",
-                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult}",
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
                     "{C:inactive,s:0.8,E:1}Song By: Staircatte",
                 }
             },
@@ -781,7 +794,7 @@ return {
                     "{C:attention}Pressed{}, gain {X:mult,C:white}X#4#{} Mult and",
                     "has a {C:green}#1# in #2#{} chance that",
                     "this card is destroyed{C:hpfx_IjiGray}#5#{}",
-                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult}",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 }
             },
             j_nic_fakebutton_alt = {
@@ -791,7 +804,7 @@ return {
                     "{C:attention}Pressed{}, gain {X:mult,C:white}X#4#{} Mult and",
                     "has a {C:green}#1# in #2#{} chance that",
                     "this card is destroyed{C:hpfx_IjiGray}#5#{}",
-                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult}",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 }
             },
 
@@ -1023,21 +1036,23 @@ return {
             j_nic_fakeincognito = {
                 name = "Incognito",
                 text = {
-                    {"This Joker gains {X:mult,C:white} X#3# {} Mult when a",
-                    "#5# {C:spades}#6#{} card is destroyed{C:hpfx_IjiGray}#7#{}"},
+                    {"This Joker gains {X:mult,C:white}X#3#{} Mult when a",
+                    "#5# {C:spades}#6#{} card is destroyed",
+                    "{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive} Mult){C:hpfx_IjiGray}#7#{}"},
                     {"Each #5# {C:spades}#6#{} card held in hand",
                     "has a {C:green}#1# in #2#{} chance to be destroyed",
-                    "{C:spades}#6#{} cards held in hand gives {X:mult,C:white} X#4#{} Mult{C:hpfx_IjiGray}#7#{}"},
+                    "{C:spades}#6#{} cards held in hand gives Mult{C:hpfx_IjiGray}#7#{}"},
                 }
             },
             j_nic_fakeincognito_alt = {
                 name = "Incognito{C:hpfx_IjiGray}...?{}",
                 text = {
-                    {"This Joker gains {X:mult,C:white} X#3# {} Mult when a",
-                    "#5# {C:spades}#6#{} card is destroyed{C:hpfx_IjiGray}#7#{}"},
+                    {"This Joker gains {X:mult,C:white}X#3#{} Mult when a",
+                    "#5# {C:spades}#6#{} card is destroyed",
+                    "{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive} Mult){C:hpfx_IjiGray}#7#{}"},
                     {"Each #5# {C:spades}#6#{} card held in hand",
                     "has a {C:green}#1# in #2#{} chance to be destroyed",
-                    "{C:spades}#6#{} cards held in hand gives {X:mult,C:white} X#4#{} Mult{C:hpfx_IjiGray}#7#{}"},
+                    "{C:spades}#6#{} cards held in hand gives Mult{C:hpfx_IjiGray}#7#{}"},
                 }
             },
 
@@ -1076,8 +1091,7 @@ return {
                 text = {
                     "Creates a random",
                     "{C:nic_plants}???{} card",
-                    "{C:inactive}(Must have room",
-                    "{C:inactive}and Crazy Dave)",
+                    "{C:inactive}(Must have room)",
                 }
             },
             c_nic_plantsvase = {
@@ -1137,7 +1151,7 @@ return {
                     "Each played hand, has",
                     "a {C:green}#1# in #2#{} chance to",
                     "increase handsize by {C:attention}#4#",
-                    "{C:inactive}(Currently {C:attention}+#3#{C:inactive} Handsize)",
+                    "{C:inactive}(Currently {C:attention}+#3#{C:inactive} Hand size)",
                 }
             },
             pnr_nic_pear = {
