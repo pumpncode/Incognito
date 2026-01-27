@@ -339,7 +339,7 @@ SMODS.Joker{ -- Dalgona Circle
     end,
 
     calculate = function(self, card, context)
-        if context.before and context.main_eval and not context.blueprint and not context.retrigger_joker then
+        if context.before and not context.blueprint and not context.retrigger_joker then
             if context.scoring_name == "High Card" or context.scoring_name == "Pair" or context.scoring_name == "Two Pair" then
                 card.ability.extra.success = 1
             end
@@ -399,7 +399,7 @@ SMODS.Joker{ -- Dalgona Triangle
     end,
 
     calculate = function(self, card, context)
-        if context.before and context.main_eval and not context.blueprint and not context.retrigger_joker then
+        if context.before and not context.blueprint and not context.retrigger_joker then
             if context.scoring_name == "Three of a Kind" or context.scoring_name == "Straight" or context.scoring_name == "Flush" then
                 card.ability.extra.success = 1
             end
@@ -459,7 +459,7 @@ SMODS.Joker{ -- Dalgona Star
     end,
 
     calculate = function(self, card, context)
-        if context.before and context.main_eval and not context.blueprint and not context.retrigger_joker then
+        if context.before and not context.blueprint and not context.retrigger_joker then
             if context.scoring_name == "Full House" or context.scoring_name == "Four of a Kind" or context.scoring_name == "Straight Flush" then
                 card.ability.extra.success = 1
             end
@@ -519,7 +519,7 @@ SMODS.Joker{ -- Dalgona Umbrella
     end,
 
     calculate = function(self, card, context)
-        if context.before and context.main_eval and not context.blueprint and not context.retrigger_joker then
+        if context.before and not context.blueprint and not context.retrigger_joker then
             if context.scoring_name == "Five of a Kind" or context.scoring_name == "Flush House" or context.scoring_name == "Flush Five" then
                 card.ability.extra.success = 1
             end
@@ -591,7 +591,7 @@ SMODS.Joker{ -- Human Torch
             end
         end
 
-        if context.before and context.main_eval then
+        if context.before then
             if context.scoring_name == "Four of a Kind" and G.GAME.current_round.hands_played == 0 and #context.full_hand == 4 then
                 card.ability.extra.levels = card.ability.extra.levels + card.ability.extra.levels_gain
                 return {
@@ -633,7 +633,7 @@ SMODS.Joker{ --  Invisible Woman
 			}
         end]]
 
-        if context.before and context.main_eval and not context.blueprint then
+        if context.before and not context.blueprint then
             if context.scoring_name == "Four of a Kind" and #context.full_hand == 4 and #context.full_hand == 4 then
                 if G.GAME.current_round.hands_played == 0 then 
                     for _, other_card in ipairs(context.scoring_hand) do
@@ -734,7 +734,7 @@ SMODS.Joker{ -- Mister Fantastic
                 }
             end
         end
-        if context.before and context.main_eval and context.scoring_name == "Four of a Kind" and #context.full_hand == 4 and not context.blueprint then
+        if context.before and context.scoring_name == "Four of a Kind" and #context.full_hand == 4 and not context.blueprint then
             return {
                 message = "FANTASTIC",
                 colour = G.C.BLUE
@@ -760,6 +760,10 @@ SMODS.Joker{ -- Incognito
         --info_queue[#info_queue + 1] = { key = "nic_spades_no_debuff", set = "Other" }
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds) 
         return {vars = {new_numerator, new_denominator, card.ability.extra.xmult_gain, card.ability.extra.xmult}}
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        love.audio.stop()
     end,
 
     --[[update = function(self, card)
@@ -797,6 +801,12 @@ SMODS.Joker{ -- Incognito
             if not (context.other_card.base.suit == "Spades") then
                 if SMODS.pseudorandom_probability(card, ('j_nic_incognito'), 1, card.ability.extra.odds) then
                     context.other_card.should_destroy = true
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            play_sound('nic_swoon')
+                            return true
+                        end
+                    }))
                     return { message = "SWOON!", colour = G.C.SUITS.Spades }
                 else
                     return { message = "NOPE!", colour = G.C.SUITS.Spades }
@@ -1951,6 +1961,10 @@ SMODS.Joker{ -- Invert
         return {vars = {new_numerator, new_denominator, card.ability.extra.handsize, card.ability.extra.xmult}}
     end,
 
+    add_to_deck = function(self, card, from_debuff)
+        love.audio.stop()
+    end,
+
     remove_from_deck = function(self, card, from_debuff)
         G.hand:change_size(-card.ability.extra.handsize)
     end,
@@ -2143,4 +2157,25 @@ SMODS.Joker{ -- Death
             }))
         end
     end
+}
+
+SMODS.Atlas{ -- Phases
+    key = "identity",
+    path = "scrapped/identity.png",
+    px = 71,
+    py = 95,
+}
+
+SMODS.Joker{ -- Invert
+    key = "identity",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'identity',
+    rarity = 4,
+    cost = 20,
+    pos = {x = 0, y = 0},
+    soul_pos = {x = 1, y = 0},
+    config = { extra = { } },
 }

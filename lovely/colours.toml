@@ -24,6 +24,7 @@ pattern = """  return G.ARGS.LOC_COLOURS[_c] or _default or G.C.UI.TEXT_DARK"""
 position = "before"
 payload = """
 G.ARGS.LOC_COLOURS['nic_incognito'] = G.C.NIC_INCOGNITO
+G.ARGS.LOC_COLOURS['nic_teto'] = G.C.NIC_TETO
 """
 overwrite = true
 match_indent = true

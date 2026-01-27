@@ -27,7 +27,7 @@ SMODS.Joker{ -- Kasane Jokto
             if context.other_card:get_id() == 4 then
                 return {
                     message = localize('k_again_ex'),
-                    colour = HEX("e15d73"),
+                    colour = G.C.NIC_TETO,
                     repetitions = card.ability.extra.repetitions
                 }
             end
@@ -98,24 +98,24 @@ SMODS.Joker{ -- Pear
     end,
 
     calculate = function(self, card, context)
-        if context.after and context.main_eval and not context.blueprint and context.scoring_name == "Pair" then
+        if context.after and not context.blueprint and context.scoring_name == "Pair" then
             if card.ability.extra.pear - card.ability.extra.pear_loss <= 0 then
                 SMODS.destroy_cards(card, nil, nil, true)
                 G.GAME.pool_flags.nic_pear = true
                 return {
                     message = "NOM :(",
-                    colour = HEX("e15d73")
+                    colour = G.C.NIC_TETO
                 }
             else
                 card.ability.extra.pear = card.ability.extra.pear - card.ability.extra.pear_loss
             end
         end
 
-        if context.before and context.main_eval and context.scoring_name == "Pair" then
+        if context.before and context.scoring_name == "Pair" then
             return {
                 level_up = card.ability.extra.levels, level_up_hand = "Pair", 
                 message = "TETO PEAR!", 
-                colour = HEX("e15d73")
+                colour = G.C.NIC_TETO
             }
         end
     end
@@ -149,21 +149,21 @@ SMODS.Joker{ -- Pearto
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = "NOM :(",
-                    colour = HEX("e15d73")
+                    colour = G.C.NIC_TETO
                 }
             else
                 return {
                     message = "SAFE :)",
-                    colour = HEX("e15d73")
+                    colour = G.C.NIC_TETO
                 }
             end
         end
 
-        if context.before and context.main_eval and context.scoring_name == "Pair" then
+        if context.before and context.scoring_name == "Pair" then
             return {
                 level_up = card.ability.extra.levels, level_up_hand = "Pair", 
                 message = "TETO PEAR!", 
-                colour = HEX("e15d73")
+                colour = G.C.NIC_TETO
             }
         end
     end
@@ -218,14 +218,14 @@ SMODS.Joker{ -- Birdbrain Teto
     end,
 
     calculate = function(self, card, context)
-        if context.before and context.main_eval and not context.blueprint and not context.retrigger_joker then
+        if context.before and not context.blueprint and not context.retrigger_joker then
             if context.scoring_name == "Pair" then
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
             else
                 card.ability.extra.mult = 0
                 return {
                     message = "MY PENIS!",
-                    colour = HEX("e15d73")
+                    colour = G.C.NIC_TETO
                 }
             end
         end
@@ -265,7 +265,7 @@ SMODS.Joker{ -- Tenebre Rosso Sangue Teto
             if heart_cards > 0 then
                 return {
                     message = "BLOOD RED RAIN!",
-                    colour = HEX("e15d73"),
+                    colour = G.C.NIC_TETO,
                     dollars = card.ability.extra.dollars * heart_cards
                 }
             end
@@ -294,7 +294,7 @@ SMODS.Joker{ -- Spoken For Teto
         if (context.other_joker and (context.other_joker.config.center.rarity == "nic_teto" or context.other_joker.ability.nic_tetosticker)) then
             return {
                 xmult = card.ability.extra.xmult,
-                colour = HEX("e15d73")
+                colour = G.C.NIC_TETO
             }
         end
     end,
@@ -329,12 +329,12 @@ SMODS.Joker{ -- Teto Word Of The Day
                 }))
                 return { 
                     message = "TETO :D",
-                    colour = HEX("e15d73") 
+                    colour = G.C.NIC_TETO 
                 }
             else
                 return { 
                     message = "NO ROOM!",
-                    colour = HEX("e15d73") 
+                    colour = G.C.NIC_TETO 
                 }
             end
         end
@@ -348,12 +348,12 @@ SMODS.Joker{ -- Teto Word Of The Day
                 end
                 return {
                     message = (card.ability.extra.teto < card.ability.extra.teto_rounds) and (card.ability.extra.teto .. '/' .. card.ability.extra.teto_rounds) or "TETO WORD OF THE DAY",
-                    colour = HEX("e15d73") 
+                    colour = G.C.NIC_TETO 
                 }
             else
                 return {
                     message = "ACTIVE!",
-                    colour = HEX("e15d73") 
+                    colour = G.C.NIC_TETO 
                 }
             end
         end
@@ -409,7 +409,7 @@ SMODS.Joker{ -- Mesmerizer Teto
                 { ret2 or {} }
             )
             if ret3 then
-                ret3.colour = HEX("e15d73")
+                ret3.colour = G.C.NIC_TETO
             end
             return ret3
         end
@@ -458,7 +458,7 @@ SMODS.Joker{ -- Spamteto
                 }))
                 return {
                     message = "[[BIG SHOT]]",
-                    colour = HEX("e15d73")
+                    colour = G.C.NIC_TETO
                 }
             else
                 if card.ability.extra.uses == 1 or context.retrigger_joker then
@@ -473,7 +473,7 @@ SMODS.Joker{ -- Spamteto
                     }))
                     return {
                         message = "[[BIG SHOT]]",
-                        colour = HEX("e15d73")
+                        colour = G.C.NIC_TETO
                     }
                 end
             end
@@ -523,14 +523,14 @@ SMODS.Joker{ -- Tetoris
                                     return true
                                 end
                             }))
-                            return { message = ('TETORIS'), colour = HEX("e15d73") }
+                            return { message = ('TETORIS'), colour = G.C.NIC_TETO }
                         else
-                            return { message = ('No Room :('), colour = HEX("e15d73") }
+                            return { message = ('No Room :('), colour = G.C.NIC_TETO }
                         end
                     else
                         if not context.blueprint then
                             card.ability.extra.hearts = card.ability.extra.hearts - card.ability.extra.hearts_loss
-                            return { message = "TETO", colour = HEX("e15d73") }
+                            return { message = "TETO", colour = G.C.NIC_TETO }
                         end
                     end
                 end
@@ -559,12 +559,12 @@ SMODS.Joker{ -- Minimum Rage Teto
     calculate = function(self, card, context)
         if (context.buying_card or context.nic_buying_booster) and not context.blueprint and context.card.cost > 0 then
             card.ability.extra.mult = card.ability.extra.mult + context.card.cost
-            return { message = ("SMILE +" .. context.card.cost), colour = HEX("e15d73") }
+            return { message = ("SMILE +" .. context.card.cost), colour = G.C.NIC_TETO }
         end
 
         if context.selling_card and not context.blueprint and not context.retrigger_joker then
             card.ability.extra.mult = 0
-            return { message = "FUCK THE COOPERATION", colour = HEX("e15d73") }
+            return { message = "FUCK THE COOPERATION", colour = G.C.NIC_TETO }
         end
 
         if context.joker_main then
@@ -622,7 +622,7 @@ SMODS.Joker{ -- Teto Territory
                         end
                     }))
                 end
-                return { message = "TERRITORY", colour = HEX("e15d73") }
+                return { message = "TERRITORY", colour = G.C.NIC_TETO }
             end
         end
     end
@@ -664,7 +664,7 @@ SMODS.Joker{ -- Contradictions Teto
                 end
                 return {
                     message = "CONTRADICTIONS",
-                    colour = HEX("e15d73")
+                    colour = G.C.NIC_TETO
                 }
             end
         end
@@ -706,16 +706,16 @@ SMODS.Joker{ -- Pear Basket
             card.ability.extra.levels = card.ability.extra.levels + card.ability.extra.levels_gain
             return {
                 message = "+1 PEARS!",
-                colour = HEX("e15d73"),
+                colour = G.C.NIC_TETO,
             }
         end
 
-        if context.before and context.main_eval and context.scoring_name == "Pair" then
+        if context.before and context.scoring_name == "Pair" then
             if card.ability.extra.levels > 0 then
                 return {
                     level_up = card.ability.extra.levels, level_up_hand = "Pair", 
                     message = "PEAR BASKET!", 
-                    colour = HEX("e15d73"),
+                    colour = G.C.NIC_TETO,
                 }
             end
         end
@@ -761,7 +761,7 @@ SMODS.Joker{ -- Keychain Teto
             }))
             return {
                 message = "YAY!", 
-                colour = HEX("e15d73"),
+                colour = G.C.NIC_TETO,
             }
         end
     end
@@ -769,22 +769,48 @@ SMODS.Joker{ -- Keychain Teto
 
 SMODS.Joker{ -- Log Off Teto
     key = "logoffteto",
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
     discovered = false,
     atlas = 'nictetojokers',
     rarity = "nic_teto",
-    cost = 5,
+    cost = 6,
     pos = {x = 7, y = 1},
     pixel_size = { h = 71 },
-    config = { extra = {} },
+    config = { extra = { xmult = 3, xmult_loss = 0.01 } },
     pools = { ["Teto"] = true },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { }, }
+        return { vars = { card.ability.extra.xmult, card.ability.extra.xmult_loss }, }
     end,
 
     calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not context.blueprint and not context.other_card:is_suit("Hearts") then
+            if card.ability.extra.xmult - card.ability.extra.xmult_loss < 1 then
+            else
+                card.ability.extra.xmult = card.ability.extra.xmult - card.ability.extra.xmult_loss
+                return {
+                    message = "-X" .. card.ability.extra.xmult_loss .. " Mult",
+                    colour = G.C.NIC_TETO,
+                }
+            end
+        end
+
+        if context.after and not context.blueprint then
+            if card.ability.extra.xmult - card.ability.extra.xmult_loss <= 1 then
+                SMODS.destroy_cards(card, nil, nil, true)
+                return {
+                    message = "LOGGING OFF",
+                    colour = G.C.NIC_TETO
+                }
+            end
+        end
+
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
     end
 }

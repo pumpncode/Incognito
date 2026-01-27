@@ -33,7 +33,16 @@ SMODS.Blind {
     end,
 
     calculate = function(self, blind, context)
-        if context.before and not context.blueprint then
+        if context.end_of_round and context.game_over == false and context.main_eval then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    SMODS.add_card({ set = 'Joker', key = "j_nic_incognito" })
+                    return true
+                end
+            }))
+        end
+
+        if context.before then
             local hasspades = false
             for i, v in ipairs(context.scoring_hand) do
                 if v:is_suit("Spades") then
@@ -59,7 +68,7 @@ SMODS.Blind {
             end
         end
 
-        if context.after and not context.blueprint then
+        if context.after then
             local hasspades = false
             for i, v in ipairs(G.hand.cards) do
                 if v:is_suit("Spades") then

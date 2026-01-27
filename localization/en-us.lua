@@ -524,7 +524,10 @@ return {
             j_nic_logoffteto = {
                 name = "Log Off Teto",
                 text = {
-                    "Logoff"
+                    "Loses {X:mult,C:white} X#2# {} Mult per",
+                    "non {C:hearts}Heart{} card scored",
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult}",
+                    "{C:inactive,s:0.8,E:1}Song By: Staircatte",
                 }
             },
 
