@@ -12,7 +12,7 @@ SMODS.Atlas{ -- Phases
     py = 95,
 }
 
-MODS.Atlas{ -- Phases
+MODS.Atlas{ -- Identity
     key = "identity",
     path = "scrapped/identity.png",
     px = 71,
