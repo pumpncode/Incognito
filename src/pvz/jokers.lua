@@ -7,7 +7,7 @@ SMODS.Atlas{ -- Plant Jokers
 
 SMODS.Joker{ -- Crazy Dave
     key = "crazydave",
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
     discovered = false,

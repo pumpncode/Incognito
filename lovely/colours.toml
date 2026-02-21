@@ -13,6 +13,7 @@ NIC_INCOGNITO = HEX("d0d0d0"),
 NIC_INVERT = HEX("2f2f2f"),
 NIC_TETO = HEX("e15d73"),
 NIC_PLANTS = HEX("33cc00"),
+NIC_PHASES = HEX("5e9794"),
 """
 overwrite = true
 match_indent = true
@@ -25,6 +26,8 @@ position = "before"
 payload = """
 G.ARGS.LOC_COLOURS['nic_incognito'] = G.C.NIC_INCOGNITO
 G.ARGS.LOC_COLOURS['nic_teto'] = G.C.NIC_TETO
+G.ARGS.LOC_COLOURS['nic_plants'] = G.C.NIC_PLANTS
+G.ARGS.LOC_COLOURS['nic_phases'] = G.C.NIC_PHASES
 """
 overwrite = true
 match_indent = true

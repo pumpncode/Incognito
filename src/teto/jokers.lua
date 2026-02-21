@@ -447,12 +447,13 @@ SMODS.Joker{ -- Spamteto
         end
 
         if context.key_press_f1 then
-            if context.blueprint and card.ability.extra.uses == 1 then 
+            if card.ability.extra.uses == 1 then 
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         play_sound("nic_spamtonf1")
                         ease_discard(pseudorandom("discard", 0, 1))
                         ease_hands_played(1)
+                        card.ability.extra.uses = 0
                         return true
                     end
                 }))
@@ -460,22 +461,6 @@ SMODS.Joker{ -- Spamteto
                     message = "[[BIG SHOT]]",
                     colour = G.C.NIC_TETO
                 }
-            else
-                if card.ability.extra.uses == 1 or context.retrigger_joker then
-                    card.ability.extra.uses = 0
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            play_sound("nic_spamtonf1")
-                            ease_discard(pseudorandom("discard", 0, 1))
-                            ease_hands_played(1)
-                            return true
-                        end
-                    }))
-                    return {
-                        message = "[[BIG SHOT]]",
-                        colour = G.C.NIC_TETO
-                    }
-                end
             end
         end
 
@@ -646,27 +631,23 @@ SMODS.Joker{ -- Contradictions Teto
     end, 
 
     calculate = function(self, card, context)
-        if context.after then
-            if G.jokers.cards[1] == card then
-                for i = 1, #G.playing_cards do
-                    local other_card = G.playing_cards[i]
-                    if next(SMODS.get_enhancements(other_card)) and (other_card:is_suit("Hearts") or other_card.base.suit == "Hearts") then
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                other_card:juice_up()
-                                play_sound('tarot1')
-                                other_card:set_ability(SMODS.poll_enhancement { guaranteed = true }, nil, true)
-                                return true
-                            end
-                        }))
-                        delay(0.1)
-                    end
+        if context.setting_blind then
+            for i = 1, #G.playing_cards do
+                local other_card = G.playing_cards[i]
+                if (other_card:is_suit("Hearts") or other_card.base.suit == "Hearts") then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            local rank = pseudorandom_element(SMODS.Ranks, 'ranks').key
+                            assert(SMODS.change_base(other_card, nil, rank))
+                            return true
+                        end
+                    }))
                 end
-                return {
-                    message = "CONTRADICTIONS",
-                    colour = G.C.NIC_TETO
-                }
             end
+            return {
+                message = "CONTRADICTIONS",
+                colour = G.C.NIC_TETO
+            }
         end
     end
 }
@@ -724,7 +705,7 @@ SMODS.Joker{ -- Pear Basket
 
 SMODS.Joker{ -- Keychain Teto
     key = "keychainteto",
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
     discovered = false,
@@ -741,7 +722,7 @@ SMODS.Joker{ -- Keychain Teto
     end,
 
     calculate = function(self, card, context)
-        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+        if context.end_of_round and context.game_over == false and context.main_eval then
             G.E_MANAGER:add_event(Event({
                 func = (function()
                     card:juice_up()
@@ -810,6 +791,35 @@ SMODS.Joker{ -- Log Off Teto
         if context.joker_main then
             return {
                 xmult = card.ability.extra.xmult
+            }
+        end
+    end
+}
+
+SMODS.Joker{ -- TetOS 4.1
+    key = "tetoos",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nictetojokers',
+    rarity = "nic_teto",
+    cost = 6,
+    pos = {x = 8, y = 1},
+    pixel_size = { h = 71 },
+    config = { extra = { levels = 1 } },
+    pools = { ["Teto"] = true },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { }, }
+    end,
+
+    calculate = function(self, card, context)
+        if context.pseudorandom_result and context.identifier == "wheel_of_fortune" and not context.result then
+            return {
+                level_up = card.ability.extra.levels, level_up_hand = "Pair", 
+                message = "Level Up!",
+                colour = G.C.NIC_TETO
             }
         end
     end

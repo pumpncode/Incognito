@@ -299,21 +299,6 @@ return {
                     "{C:inactive,s:0.8}and current Mult resets",
                 }
             },
-            j_nic_cuphead = {
-                name = "Cuphead",
-                text = {
-                    {" Each played {C:hearts}Heart{} cards ",
-                    "increases {C:attention}Super Meter",
-                    "{C:inactive}Super Meter: {V:1}#1# {V:2}#2# {V:3}#3# {V:4}#4# {V:5}#5#"},
-                    {"Played hand that doesn't",
-                    "contain {C:hearts}Heart{} cards",
-                    "uses the {C:attention}Super Meter"},
-                    {"{C:hearts}Extra Parry{} increase",
-                    "Mult by {C:mult}+#8#{} Mult",
-                    "{C:inactive}Each EX does {C:mult}+#6#{C:inactive} Mult",
-                    "{C:inactive}SUPER EX does {C:mult}+#7#{C:inactive} Mult"},
-                }
-            },
             j_nic_jokrle = {
                 name = "Jokrle",
                 text = {
@@ -327,17 +312,6 @@ return {
                     "{V:21}[#21#]{} {V:22}[#22#]{} {V:23}[#23#]{} {V:24}[#24#]{} {V:25}[#25#]",
                     "{V:26}[#26#]{} {V:27}[#27#]{} {V:28}[#28#]{} {V:29}[#29#]{} {V:30}[#30#]",
                     "{C:inactive,s:0.8}Answer: {V:31,s:0.8}#33#"},
-                }
-            },
-            j_nic_invert = {
-                name = "Invert",
-                text = {
-                    {"This Joker increases hand size when a",
-                    "{C:dark_edition}Negative {C:spades}Spade{} card is destroyed",
-                    "{C:inactive}(Currently {C:attention}+#3#{C:inactive} Hand size)",},
-                    {"Each {C:spades}Spade{} card held in hand",
-                    "has a {C:green}#1# in #2#{} chance to be {C:dark_edition}Negative",
-                    "{C:spades}Spade{} cards played get destroyed"},
                 }
             },
             j_nic_solareclipse = {
@@ -354,12 +328,53 @@ return {
                     "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"},
                 }
             },
+            j_nic_invert = {
+                name = "Invert",
+                text = {
+                    {"This Joker increases hand size when a",
+                    "{C:dark_edition}Negative {C:spades}Spade{} card is destroyed",
+                    "{C:inactive}(Currently {C:attention}+#3#{C:inactive} Hand size)",},
+                    {"Each {C:spades}Spade{} card held in hand",
+                    "has a {C:green}#1# in #2#{} chance to be {C:dark_edition}Negative",
+                    "{C:spades}Spade{} cards played get destroyed"},
+                }
+            },
             j_nic_death = {
                 name = "Death",
                 text = {
                     "Each played {C:attention}9{} gets",
                     "destroyed and creates",
                     "a {C:dark_edition}Negative {C:tarot}Death",
+                }
+            },
+            j_nic_cuphead = {
+                name = "Cuphead",
+                text = {
+                    {" Each played {C:hearts}Heart{} cards ",
+                    "increases {C:attention}Super Meter",
+                    "{C:inactive}Super Meter: {V:1}#1# {V:2}#2# {V:3}#3# {V:4}#4# {V:5}#5#"},
+                    {"Played hand that doesn't",
+                    "contain {C:hearts}Heart{} cards",
+                    "uses the {C:attention}Super Meter"},
+                    {"{C:hearts}Extra Parry{} increase",
+                    "Mult by {C:mult}+#8#{} Mult",
+                    "{C:inactive}Each EX does {C:mult}+#6#{C:inactive} Mult",
+                    "{C:inactive}SUPER EX does {C:mult}+#7#{C:inactive} Mult"},
+                }
+            },
+            j_nic_mugman = {
+                name = "Mugman",
+                text = {
+                    {" Each played {C:clubs}Club{} cards ",
+                    "increases {C:attention}Super Meter",
+                    "{C:inactive}Super Meter: {V:1}#1# {V:2}#2# {V:3}#3# {V:4}#4# {V:5}#5#"},
+                    {"Played hand that doesn't",
+                    "contain {C:clubs}Club{} cards",
+                    "uses the {C:attention}Super Meter"},
+                    {"{C:clubs}Extra Parry{} increase",
+                    "Chips by {C:chips}+#8#{} Chips",
+                    "{C:inactive}Each EX does {C:chips}+#6#{C:inactive} Chips",
+                    "{C:inactive}SUPER EX does {C:chips}+#7#{C:inactive} Chips"},
                 }
             },
 
@@ -461,9 +476,9 @@ return {
             j_nic_mesmerizerteto = { 
                 name = "Mesmerizer Teto",
                 text = {
-                    "Copies the ability",
-                    "of leftmost {C:nic_teto}Teto",
-                    "Joker {C:attention}2{} times",
+                    "If leftmost {C:attention}Joker",
+                    "is a {C:nic_teto}Teto{}, copy the",
+                    "ability {C:attention}2{} times",
                     "{C:inactive,s:0.8,E:1}Song By: 32ki",
                 }
             },
@@ -509,11 +524,9 @@ return {
             j_nic_contradictionsteto = {
                 name = "Contradictions Teto",
                 text = {
-                    "If this {C:attention}Joker{} is in",
-                    "leftmost slot, all {C:attention}Enhanced",
-                    "{C:hearts}Heart{} cards in your {C:attention}full",
-                    "{C:attention} deck{} changes {C:attention}Enhancment",
-                    "after scoring",
+                    "When {C:attention}Blind{} is selected,",
+                    "all {C:hearts}Heart{} cards in your",
+                    "deck changes {C:attention}Ranks",
                     "{C:inactive,s:0.8,E:1}Song By: darkbluecat",
                 }
             },
@@ -530,8 +543,8 @@ return {
                 name = "Keychain Teto",
                 text = {
                     "{C:attention}End of round{}, create",
-                    "a free {C:nic_teto}#1#{} and",
-                    "Joker gets destroyed",
+                    "a free {C:nic_teto}#1#{}",
+                    "{C:red,E:2}self destructs",
                 }
             },
             j_nic_logoffteto = {
@@ -541,6 +554,15 @@ return {
                     "non {C:hearts}Heart{} card scored",
                     "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
                     "{C:inactive,s:0.8,E:1}Song By: Staircatte",
+                }
+            },
+            j_nic_tetoos = {
+                name = "TetOS 4.1",
+                text = {
+                    "Level up {C:attention}Pair{} every time",
+                    "{C:tarot}The Wheel of Fortune",
+                    "{C:red}unsuccessfully{} triggers"
+
                 }
             },
 
@@ -565,7 +587,7 @@ return {
                 name = "Sunflower",
                 text = {
                     "Earn {C:money}$#1#{} for",
-                    "each played card",
+                    "each scored card",
                 }
             },
             j_nic_cherrybomb = {
@@ -729,6 +751,14 @@ return {
                     {"If this Abnormality is {C:attention}sold{},",
                     "immediately {C:attention}lose{} the game",
                     "{C:inactive,s:0.8}chirp chirp?"},
+                }
+            },
+
+            -- Bad Director
+            j_nic_tetoxko = {
+                name = "{C:nic_teto}Teto{}Xko",
+                text = {
+                    "Freak"
                 }
             },
 
@@ -1112,6 +1142,74 @@ return {
                 }
             },
         },
+        Phases = {
+            c_nic_newmoon = {
+                name = "New Moon",
+                text = {
+                    "",
+                }
+            },
+            c_nic_waxingcrescent = {
+                name = "Waxing Crescent",
+                text = {
+                    "",
+                }
+            },
+            c_nic_firstquarter = {
+                name = "First Quarter",
+                text = {
+                    "",
+                }
+            },
+            c_nic_waxinggibbous = {
+                name = "Waxing Gibbous",
+                text = {
+                    "",
+                }
+            },
+            c_nic_fullmoon = {
+                name = "Full Moon",
+                text = {
+                    "",
+                }
+            },
+            c_nic_waninggibbous = {
+                name = "Waning Gibbous",
+                text = {
+                    "",
+                }
+            },
+            c_nic_thirdquarter = {
+                name = "Third Quarter",
+                text = {
+                    "",
+                }
+            },
+            c_nic_waningscrescent = {
+                name = "Waning Crescent",
+                text = {
+                    "",
+                }
+            },
+            c_nic_bluemoon = {
+                name = "Blue Moon",
+                text = {
+                    "",
+                }
+            },
+            c_nic_bloodmoon = {
+                name = "Blood Moon",
+                text = {
+                    "",
+                }
+            },
+            c_nic_altereclipse = {
+                name = "Alter Eclipse",
+                text = {
+                    "",
+                }
+            },
+        },
 
         -- MoreFluff
         Colour = {
@@ -1178,12 +1276,11 @@ return {
                     "considered a {C:nic_teto}Teto",
                 }
             },
-            nic_moonphases = {
-                name = "Moon Phases",
+            nic_changingphases = {
+                name = "Changing Phases",
                 text = {
-                    "When in pack, {C:spectral}Moon{} goes into", 
-                    "{C:attention}Consumeables slot{} when {C:attention}used",
-                    "{C:inactive}(Must have room)",
+                    "Changes {C:nic_phases}Phases",
+                    "{C:attention} End of Round",
                 }
             },
             nic_spades_no_debuff = {
@@ -1238,64 +1335,7 @@ return {
             },
         },
         Planet={},
-        Spectral = {
-            c_nic_newmoon = {
-                name = "New Moon",
-                text = {
-                    "Changes {C:spectral}Phases{} after every {C:attention}Play",
-                    "Can only {C:attention}use{} in {C:attention}Shop",
-                }
-            },
-            c_nic_waxingcrescent = {
-                name = "Waxing Crescent",
-                text = {
-                    "Changes {C:spectral}Phases{} after every {C:attention}Play",
-                    "Can only {C:attention}use{} in {C:attention}Shop",
-                }
-            },
-            c_nic_firstquarter = {
-                name = "First Quarter",
-                text = {
-                    "Changes {C:spectral}Phases{} after every {C:attention}Play",
-                    "Can only {C:attention}use{} in {C:attention}Shop",
-                }
-            },
-            c_nic_waxinggibbous = {
-                name = "Waxing Gibbous",
-                text = {
-                    "Changes {C:spectral}Phases{} after every {C:attention}Play",
-                    "Can only {C:attention}use{} in {C:attention}Shop",
-                }
-            },
-            c_nic_fullmoon = {
-                name = "Full Moon",
-                text = {
-                    "Changes {C:spectral}Phases{} after every {C:attention}Play",
-                    "Can only {C:attention}use{} in {C:attention}Shop",
-                }
-            },
-            c_nic_waninggibbous = {
-                name = "Waning Gibbous",
-                text = {
-                    "Changes {C:spectral}Phases{} after every {C:attention}Play",
-                    "Can only {C:attention}use{} in {C:attention}Shop",
-                }
-            },
-            c_nic_thirdquarter = {
-                name = "Third Quarter",
-                text = {
-                    "Changes {C:spectral}Phases{} after every {C:attention}Play",
-                    "Can only {C:attention}use{} in {C:attention}Shop",
-                }
-            },
-            c_nic_waningscrescent = {
-                name = "Waning Crescent",
-                text = {
-                    "Changes {C:spectral}Phases{} after every {C:attention}Play",
-                    "Can only {C:attention}use{} in {C:attention}Shop",
-                }
-            },
-        },
+        Spectral = {},
         Stake={},
         Tag={
             tag_nic_teto = {

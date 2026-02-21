@@ -1,4 +1,4 @@
 return {
-    scrapped_things = false,
+    not_finished = false,
     roaring_inc = false,
 }

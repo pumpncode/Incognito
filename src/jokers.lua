@@ -1542,91 +1542,6 @@ SMODS.Joker { -- Clover Pit
     end
 }
 
-SMODS.Joker { -- Cuphead
-    key = "cuphead",
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = false,
-    atlas = 'nicjokers',
-    rarity = 2,
-    cost = 5,
-    pos = {x = 9, y = 2},
-    pixel_size = { h = 80 },
-    config = { extra = { parry = 0, mult = 10, mult_gain = 1 } },
-
-    loc_vars = function(self, info_queue, card)
-        local card1 = "*"
-        local card2 = "*"
-        local card3 = "*"
-        local card4 = "*"
-        local card5 = "*"
-        local colour1 = G.C.UI.TEXT_INACTIVE
-        local colour2 = G.C.UI.TEXT_INACTIVE
-        local colour3 = G.C.UI.TEXT_INACTIVE
-        local colour4 = G.C.UI.TEXT_INACTIVE
-        local colour5 = G.C.UI.TEXT_INACTIVE
-        if card.ability.extra.parry > 0 then card1 = "[]" colour1 = G.C.SUITS.Hearts else card1 = "*" colour1 = G.C.UI.TEXT_INACTIVE end
-        if card.ability.extra.parry > 1 then card2 = "[]" colour2 = G.C.SUITS.Hearts else card2 = "*" colour2 = G.C.UI.TEXT_INACTIVE end
-        if card.ability.extra.parry > 2 then card3 = "[]" colour3 = G.C.SUITS.Hearts else card3 = "*" colour3 = G.C.UI.TEXT_INACTIVE end
-        if card.ability.extra.parry > 3 then card4 = "[]" colour4 = G.C.SUITS.Hearts else card4 = "*" colour4 = G.C.UI.TEXT_INACTIVE end
-        if card.ability.extra.parry > 4 then card5 = "[]" colour5 = G.C.SUITS.Hearts else card5 = "*" colour5 = G.C.UI.TEXT_INACTIVE end
-        return { vars = { colours = { colour1, colour2, colour3, colour4, colour5 }, card1, card2, card3, card4, card5, card.ability.extra.mult, card.ability.extra.mult * 5, card.ability.extra.mult_gain } }
-    end,
-
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not context.blueprint and context.other_card:is_suit("Hearts") then
-            local parry = false
-            for i = 1, #context.scoring_hand do
-                if context.scoring_hand[i]:is_suit("Hearts") then
-                    parry = true
-                end
-            end
-            if parry then
-                if card.ability.extra.parry < 5 then
-                    card.ability.extra.parry = card.ability.extra.parry + 1
-                    return {
-                        message = "PARRY!",
-                        colour = G.C.SUITS.Hearts
-                    }
-                elseif card.ability.extra.parry == 5 then
-                    card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
-                    return {
-                        message = "EXTRA PARRY!",
-                        colour = G.C.SUITS.Hearts
-                    }
-                end
-            end
-        end
-        if context.joker_main then
-            local parry = false
-            for i = 1, #context.scoring_hand do
-                if context.scoring_hand[i]:is_suit("Hearts") then
-                    parry = true
-                end
-            end
-            if parry then
-            else
-                if card.ability.extra.parry == 5 then
-                    card.ability.extra.parry = 0
-                    return {
-                        message = "SUPER EX!",
-                        colour = G.C.SUITS.Hearts,
-                        mult = card.ability.extra.mult * 5
-                    }
-                elseif card.ability.extra.parry > 0 then
-                    card.ability.extra.parry = card.ability.extra.parry - 1
-                    return {
-                        message = "EX!",
-                        colour = G.C.SUITS.Hearts,
-                        mult = card.ability.extra.mult
-                    }
-                end
-            end
-        end
-    end
-}
-
 SMODS.Joker { -- Jokrle
     key = "jokrle",
     blueprint_compat = true,
@@ -1636,7 +1551,7 @@ SMODS.Joker { -- Jokrle
     atlas = 'nicjokers',
     rarity = 2,
     cost = 3,
-    pos = {x = 0, y = 3},
+    pos = {x = 9, y = 2},
     config = { extra = {
         tries = 0, completed = false, 
         answer = "[#] [#] [#] [#] [#]", answercolour = G.C.UI.TEXT_INACTIVE,
@@ -1943,6 +1858,73 @@ SMODS.Joker { -- Jokrle
     end
 }
 
+SMODS.Joker{ -- Solar Eclipse
+    key = "solareclipse",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nicjokers',
+    rarity = 2,
+    cost = 7,
+    pos = {x = 0, y = 3},
+    config = { extra = { sun = 0, moon = 0, mult = 0, chips = 0, mult_gain = 2, chips_gain = 10 } },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.c_sun
+        info_queue[#info_queue + 1] = G.P_CENTERS.c_moon
+        return { vars = { card.ability.extra.mult, card.ability.extra.chips, card.ability.extra.mult_gain, card.ability.extra.chips_gain } }
+    end,
+
+    update = function(self, card)
+        if self.discovered then
+            if card.ability.extra.sun == card.ability.extra.moon then
+                card.children.center:set_sprite_pos({x = 0, y = 3})
+            end
+            if card.ability.extra.sun > card.ability.extra.moon then
+                card.children.center:set_sprite_pos({x = 1, y = 3})
+            end
+            if card.ability.extra.sun < card.ability.extra.moon then
+                card.children.center:set_sprite_pos({x = 2, y = 3})
+            end
+        end
+    end,
+
+    calculate = function(self, card, context)
+        if context.using_consumeable and not context.blueprint then
+            if context.consumeable.config.center.key == 'c_sun' then
+                card:juice_up()
+                card.ability.extra.sun = card.ability.extra.sun + 1
+                card.ability.extra.mult = (card.ability.extra.sun * card.ability.extra.mult_gain)
+            end
+            if context.consumeable.config.center.key == 'c_moon' then
+                card:juice_up()
+                card.ability.extra.moon = card.ability.extra.moon + 1
+                card.ability.extra.chips = (card.ability.extra.moon * card.ability.extra.chips_gain)
+            end
+        end
+
+        if context.joker_main then
+            if card.ability.extra.sun == card.ability.extra.moon then
+                return { 
+                    mult = card.ability.extra.mult,
+                    chips = card.ability.extra.chips,
+                }
+            end
+            if card.ability.extra.sun > card.ability.extra.moon then
+                return { 
+                    mult = card.ability.extra.mult,
+                }
+            end
+            if card.ability.extra.sun < card.ability.extra.moon then
+                return { 
+                    chips = card.ability.extra.chips,
+                }
+            end
+        end
+    end
+}
+
 SMODS.Joker{ -- Invert 
     key = "invert",
     blueprint_compat = true,
@@ -1952,8 +1934,8 @@ SMODS.Joker{ -- Invert
     atlas = 'nicjokers',
     rarity = 4,
     cost = 20,
-    pos = {x = 1, y = 3},
-    soul_pos = {x = 2, y = 3},
+    pos = {x = 3, y = 3},
+    soul_pos = {x = 4, y = 3},
     config = { extra = { handsize = 0 , odds = 7 } },
 
     loc_vars = function(self, info_queue, card)
@@ -2020,73 +2002,6 @@ SMODS.Joker{ -- Invert
     end
 }
 
-SMODS.Joker{ -- Solar Eclipse
-    key = "solareclipse",
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = false,
-    atlas = 'nicjokers',
-    rarity = 2,
-    cost = 7,
-    pos = {x = 3, y = 3},
-    config = { extra = { sun = 0, moon = 0, mult = 0, chips = 0, mult_gain = 2, chips_gain = 10 } },
-
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.c_sun
-        info_queue[#info_queue + 1] = G.P_CENTERS.c_moon
-        return { vars = { card.ability.extra.mult, card.ability.extra.chips, card.ability.extra.mult_gain, card.ability.extra.chips_gain } }
-    end,
-
-    update = function(self, card)
-        if self.discovered then
-            if card.ability.extra.sun == card.ability.extra.moon then
-                card.children.center:set_sprite_pos({x = 3, y = 3})
-            end
-            if card.ability.extra.sun > card.ability.extra.moon then
-                card.children.center:set_sprite_pos({x = 4, y = 3})
-            end
-            if card.ability.extra.sun < card.ability.extra.moon then
-                card.children.center:set_sprite_pos({x = 5, y = 3})
-            end
-        end
-    end,
-
-    calculate = function(self, card, context)
-        if context.using_consumeable and not context.blueprint then
-            if context.consumeable.config.center.key == 'c_sun' then
-                card:juice_up()
-                card.ability.extra.sun = card.ability.extra.sun + 1
-                card.ability.extra.mult = (card.ability.extra.sun * card.ability.extra.mult_gain)
-            end
-            if context.consumeable.config.center.key == 'c_moon' then
-                card:juice_up()
-                card.ability.extra.moon = card.ability.extra.moon + 1
-                card.ability.extra.chips = (card.ability.extra.moon * card.ability.extra.chips_gain)
-            end
-        end
-
-        if context.joker_main then
-            if card.ability.extra.sun == card.ability.extra.moon then
-                return { 
-                    mult = card.ability.extra.mult,
-                    chips = card.ability.extra.chips,
-                }
-            end
-            if card.ability.extra.sun > card.ability.extra.moon then
-                return { 
-                    mult = card.ability.extra.mult,
-                }
-            end
-            if card.ability.extra.sun < card.ability.extra.moon then
-                return { 
-                    chips = card.ability.extra.chips,
-                }
-            end
-        end
-    end
-}
-
 SMODS.Joker{ -- Death
     key = "death",
     blueprint_compat = true,
@@ -2096,7 +2011,7 @@ SMODS.Joker{ -- Death
     atlas = 'nicjokers',
     rarity = 3,
     cost = 7,
-    pos = {x = 6, y = 3},
+    pos = {x = 5, y = 3},
     config = { extra = { fear = false } },
 
     loc_vars = function(self, info_queue, card)
@@ -2155,6 +2070,176 @@ SMODS.Joker{ -- Death
                     return true
                 end
             }))
+        end
+    end
+}
+
+SMODS.Joker { -- Cuphead
+    key = "cuphead",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nicjokers',
+    rarity = 2,
+    cost = 5,
+    pos = {x = 6, y = 3},
+    pixel_size = { h = 80 },
+    config = { extra = { parry = 0, mult = 4, mult_gain = 4 } },
+
+    loc_vars = function(self, info_queue, card)
+        local card1 = "*"
+        local card2 = "*"
+        local card3 = "*"
+        local card4 = "*"
+        local card5 = "*"
+        local colour1 = G.C.UI.TEXT_INACTIVE
+        local colour2 = G.C.UI.TEXT_INACTIVE
+        local colour3 = G.C.UI.TEXT_INACTIVE
+        local colour4 = G.C.UI.TEXT_INACTIVE
+        local colour5 = G.C.UI.TEXT_INACTIVE
+        if card.ability.extra.parry > 0 then card1 = "[]" colour1 = G.C.SUITS.Hearts else card1 = "*" colour1 = G.C.UI.TEXT_INACTIVE end
+        if card.ability.extra.parry > 1 then card2 = "[]" colour2 = G.C.SUITS.Hearts else card2 = "*" colour2 = G.C.UI.TEXT_INACTIVE end
+        if card.ability.extra.parry > 2 then card3 = "[]" colour3 = G.C.SUITS.Hearts else card3 = "*" colour3 = G.C.UI.TEXT_INACTIVE end
+        if card.ability.extra.parry > 3 then card4 = "[]" colour4 = G.C.SUITS.Hearts else card4 = "*" colour4 = G.C.UI.TEXT_INACTIVE end
+        if card.ability.extra.parry > 4 then card5 = "[]" colour5 = G.C.SUITS.Hearts else card5 = "*" colour5 = G.C.UI.TEXT_INACTIVE end
+        return { vars = { colours = { colour1, colour2, colour3, colour4, colour5 }, card1, card2, card3, card4, card5, card.ability.extra.mult, card.ability.extra.mult * 5, card.ability.extra.mult_gain } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not context.blueprint and context.other_card:is_suit("Hearts") then
+            local parry = false
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i]:is_suit("Hearts") then
+                    parry = true
+                end
+            end
+            if parry then
+                if card.ability.extra.parry < 5 then
+                    card.ability.extra.parry = card.ability.extra.parry + 1
+                    return {
+                        message = "PARRY!",
+                        colour = G.C.SUITS.Hearts
+                    }
+                elseif card.ability.extra.parry == 5 then
+                    card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+                    return {
+                        message = "EXTRA PARRY!",
+                        colour = G.C.SUITS.Hearts
+                    }
+                end
+            end
+        end
+        if context.joker_main then
+            local parry = false
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i]:is_suit("Hearts") then
+                    parry = true
+                end
+            end
+            if parry then
+            else
+                if card.ability.extra.parry == 5 then
+                    card.ability.extra.parry = 0
+                    return {
+                        message = "SUPER EX!",
+                        colour = G.C.SUITS.Hearts,
+                        mult = card.ability.extra.mult * 5
+                    }
+                elseif card.ability.extra.parry > 0 then
+                    card.ability.extra.parry = card.ability.extra.parry - 1
+                    return {
+                        message = "EX!",
+                        colour = G.C.SUITS.Hearts,
+                        mult = card.ability.extra.mult
+                    }
+                end
+            end
+        end
+    end
+}
+
+SMODS.Joker { -- Mugman
+    key = "mugman",
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = false,
+    atlas = 'nicjokers',
+    rarity = 2,
+    cost = 5,
+    pos = {x = 7, y = 3},
+    pixel_size = { h = 80 },
+    config = { extra = { parry = 0, chips = 31, chips_gain = 31 } },
+
+    loc_vars = function(self, info_queue, card)
+        local card1 = "*"
+        local card2 = "*"
+        local card3 = "*"
+        local card4 = "*"
+        local card5 = "*"
+        local colour1 = G.C.UI.TEXT_INACTIVE
+        local colour2 = G.C.UI.TEXT_INACTIVE
+        local colour3 = G.C.UI.TEXT_INACTIVE
+        local colour4 = G.C.UI.TEXT_INACTIVE
+        local colour5 = G.C.UI.TEXT_INACTIVE
+        if card.ability.extra.parry > 0 then card1 = "[]" colour1 = G.C.SUITS.Clubs else card1 = "*" colour1 = G.C.UI.TEXT_INACTIVE end
+        if card.ability.extra.parry > 1 then card2 = "[]" colour2 = G.C.SUITS.Clubs else card2 = "*" colour2 = G.C.UI.TEXT_INACTIVE end
+        if card.ability.extra.parry > 2 then card3 = "[]" colour3 = G.C.SUITS.Clubs else card3 = "*" colour3 = G.C.UI.TEXT_INACTIVE end
+        if card.ability.extra.parry > 3 then card4 = "[]" colour4 = G.C.SUITS.Clubs else card4 = "*" colour4 = G.C.UI.TEXT_INACTIVE end
+        if card.ability.extra.parry > 4 then card5 = "[]" colour5 = G.C.SUITS.Clubs else card5 = "*" colour5 = G.C.UI.TEXT_INACTIVE end
+        return { vars = { colours = { colour1, colour2, colour3, colour4, colour5 }, card1, card2, card3, card4, card5, card.ability.extra.chips, card.ability.extra.chips * 5, card.ability.extra.chips_gain } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not context.blueprint and context.other_card:is_suit("Clubs") then
+            local parry = false
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i]:is_suit("Clubs") then
+                    parry = true
+                end
+            end
+            if parry then
+                if card.ability.extra.parry < 5 then
+                    card.ability.extra.parry = card.ability.extra.parry + 1
+                    return {
+                        message = "PARRY!",
+                        colour = G.C.SUITS.Clubs
+                    }
+                elseif card.ability.extra.parry == 5 then
+                    card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
+                    return {
+                        message = "EXTRA PARRY!",
+                        colour = G.C.SUITS.Clubs
+                    }
+                end
+            end
+        end
+        if context.joker_main then
+            local parry = false
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i]:is_suit("Clubs") then
+                    parry = true
+                end
+            end
+            if parry then
+            else
+                if card.ability.extra.parry == 5 then
+                    card.ability.extra.parry = 0
+                    return {
+                        message = "SUPER EX!",
+                        colour = G.C.SUITS.Clubs,
+                        chips = card.ability.extra.chips * 5
+                    }
+                elseif card.ability.extra.parry > 0 then
+                    card.ability.extra.parry = card.ability.extra.parry - 1
+                    return {
+                        message = "EX!",
+                        colour = G.C.SUITS.Clubs,
+                        chips = card.ability.extra.chips
+                    }
+                end
+            end
         end
     end
 }

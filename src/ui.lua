@@ -81,9 +81,9 @@ Incognito.config_tab = function()
                         n = G.UIT.C,
                         nodes = {
                             create_toggle({
-                                label = "Scrapped Concepts [Mid]",
+                                label = "Not Finished Concepts [Mid]",
                                 ref_table = Incognito.config,
-                                ref_value = "scrapped_things",
+                                ref_value = "not_finished",
                                 callback = should_restart,
                             }),
                         },

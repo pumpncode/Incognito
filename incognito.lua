@@ -38,7 +38,7 @@ assert(SMODS.load_file("src/pvz/zengarden.lua"))()
 
 -- Poopoo
 
-if Incognito.config.scrapped_things then
+if Incognito.config.not_finished then
 	SMODS.load_file("src/scrapped/scrapped.lua")()
 end
 
@@ -58,6 +58,12 @@ end
 
 if next(SMODS.find_mod("LobotomyCorp")) then
     SMODS.load_file("src/crossmod/lobotomycorp.lua")()
+end
+
+-- Bad Director
+
+if next(SMODS.find_mod("baddirector")) then
+    SMODS.load_file("src/crossmod/baddirector.lua")()
 end
 
 -- Ijiraq

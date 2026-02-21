@@ -8,8 +8,8 @@ SMODS.Atlas{ -- Plant Consumables
 SMODS.ConsumableType {
     key = 'ZenGarden',
     default = 'c_nic_mysteryvase',
-    primary_colour = HEX("33cc00"),
-    secondary_colour = HEX("33cc00"),
+    primary_colour = G.C.NIC_PLANTS,
+    secondary_colour = G.C.NIC_PLANTS,
     collection_rows = { 6, 6 },
     shop_rate = 0,
     loc_txt = {
@@ -51,11 +51,11 @@ SMODS.Consumable { -- Mystery Vase
                 else
                     crazy = 1
                 end
-                local random = pseudorandom('c_nic_mysteryvase', 1 + crazy, 4)
+                local random = pseudorandom('c_nic_mysteryvase', 3 + crazy, 4)
                 play_sound('nic_vasebreak')
 
                 if random == 1 then
-                    SMODS.calculate_effect({message = "Plants", colour = HEX("33cc00") }, card)
+                    SMODS.calculate_effect({message = "Plants", colour = G.C.NIC_PLANTS }, card)
                     if #G.zengarden.cards < G.zengarden.config.card_limit then
                         SMODS.add_card({ area = G.zengarden, set = 'Joker', rarity = 'nic_plants', no_edition = true })
                     end
@@ -82,7 +82,9 @@ SMODS.Consumable { -- Mystery Vase
                     table.insert(G.playing_cards, _card)
                     
                     _card:start_materialize()
-                    G.deck:emplace(_card)
+                    G.play:emplace(_card)
+                    delay(1)
+                    draw_card(G.play, G.deck, 90, 'up')
                 end
 
                 card:juice_up(0.3, 0.5)
@@ -120,7 +122,7 @@ SMODS.Consumable { -- Plants Vase
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             func = function()
-                SMODS.calculate_effect({message = "Plants", colour = HEX("33cc00") }, card)
+                SMODS.calculate_effect({message = "Plants", colour = G.C.NIC_PLANTS }, card)
                 play_sound('nic_vasebreak')
                 SMODS.add_card({ area = G.zengarden, set = 'Joker', rarity = 'nic_plants', no_edition = true })
                 card:juice_up(0.3, 0.5)
