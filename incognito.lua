@@ -36,6 +36,11 @@ assert(SMODS.load_file("src/pvz/functions.lua"))()
 assert(SMODS.load_file("src/pvz/jokers.lua"))()
 assert(SMODS.load_file("src/pvz/zengarden.lua"))()
 
+-- Phases
+
+assert(SMODS.load_file("src/phases/basephases.lua"))()
+assert(SMODS.load_file("src/phases/specialphases.lua"))()
+
 -- Poopoo
 
 if Incognito.config.not_finished then
