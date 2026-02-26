@@ -35,4 +35,51 @@ SMODS.Joker{ -- Niko Teto
     config = { extra = { } },
     pools = { ["Teto"] = true },
     dependencies = { 'baddirector' },
+
+    loc_vars = function(self, info_queue, card)
+        local tetoamount = 0
+        if card.area and card.area == G.jokers then
+            for _, c in pairs(G.jokers.cards) do
+                if c:is_rarity('nic_teto') or c.ability.nic_tetosticker then
+                    tetoamount = tetoamount + 1
+                end
+            end
+        end
+        return { vars = { tetoamount } }
+    end,
+
+    calculate = function(self, card, context)
+        local tetoamount = 0
+        for _, c in pairs(G.jokers.cards) do
+            if c:is_rarity('nic_teto') or c.ability.nic_tetosticker then
+                tetoamount = tetoamount + 1
+            end
+        end
+
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            local pool = {}
+            for i = 1, #G.jokers.cards do
+                if not G.jokers.cards[i].edition then
+                    pool[#pool + 1] = G.jokers.cards[i]
+                end
+            end
+            for i = 1, #G.hand.cards do
+                if not G.hand.cards[i].edition then
+                    pool[#pool + 1] = G.hand.cards[i]
+                end
+            end
+
+            for i = 1, tetoamount do
+                local target = pseudorandom_element(pool, 'bruh')
+                if target then
+                    target:set_edition('e_bd_misprinted', nil, true)
+                    target:juice_up(0.3, 0.4)
+                end
+            end
+            play_sound('bd_inapmit')
+            card:juice_up(0.3, 0.5)
+            check_for_unlock({ type = 'have_edition' })
+            delay(1)
+        end
+    end,
 }

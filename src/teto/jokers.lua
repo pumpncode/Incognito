@@ -19,7 +19,7 @@ SMODS.Joker{ -- Kasane Jokto
     pools = { ["Teto"] = true },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = {} }
+        return { vars = { card.ability.extra.repetitions } }
     end,
 
     calculate = function(self, card, context)

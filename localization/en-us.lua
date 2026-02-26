@@ -396,7 +396,7 @@ return {
                 name = "Kasane Jokto",
                 text = {
                     "{C:attention}Retrigger{} played {C:attention}4s",
-                    "an additional {C:attention}two{} times",
+                    "an additional {C:attention}#1#{} times",
                     "{C:inactive,s:0.8,E:1}Inspired By: Neato Jokers",
                 }
             },
@@ -758,7 +758,10 @@ return {
             j_nic_tetoxko = {
                 name = "{C:nic_teto}Teto{}Xko",
                 text = {
-                    "Freak"
+                    "{C:dark_edition}Misprint{} one random {C:attention}Joker",
+                    "or card {C:attention}held in hand",
+                    "for each {C:nic_teto}Teto{} Joker {C:inactive}(#1#)",
+                    "at the end of round",
                 }
             },
 
@@ -1387,6 +1390,7 @@ return {
             k_nic_teto = "Teto",
             k_nic_plants = "Plants",
             k_nic_scrapped = "Scrapped",
+            k_nic_plus_phases = "+1 Phases",
             ph_nic_technoblade = "TECHNOBLADE NEVER DIES!",
         },
         high_scores={},

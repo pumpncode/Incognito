@@ -1201,7 +1201,7 @@ SMODS.Joker { -- Astromancer
                 end
             }))
             return {
-                message = "+1 Planet",
+                message = localize('k_plus_planet'),
                 colour = G.C.SECONDARY_SET.Planet
             }
         end
